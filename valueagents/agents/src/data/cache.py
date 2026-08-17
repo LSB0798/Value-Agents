@@ -1,0 +1,368 @@
+import json
+import os
+import pandas as pd
+from valueagents.default_config import DEFAULT_CONFIG
+
+class Cache:
+    """In-memory cache for API responses with optional disk persistence for quarterly data."""
+
+    def __init__(self):
+        self._prices_cache: dict[str, list[dict[str, any]]] = {}
+        self._financial_metrics_cache: dict[str, list[dict[str, any]]] = {}
+        self._line_items_cache: dict[str, list[dict[str, any]]] = {}
+        self._insider_trades_cache: dict[str, list[dict[str, any]]] = {}
+        self._company_news_cache: dict[str, list[dict[str, any]]] = {}
+
+        # 季度数据缓存目录（基于 DEFAULT_CONFIG）
+        self._quarter_cache_dir = os.path.join(
+            DEFAULT_CONFIG["data_cache_dir"],
+            "fundamentals",
+            "quarterly"
+        )
+        os.makedirs(self._quarter_cache_dir, exist_ok=True)
+
+        self._annual_cache_dir = os.path.join(
+            DEFAULT_CONFIG["data_cache_dir"],
+            "fundamentals", "annual"
+        )
+        os.makedirs(self._annual_cache_dir, exist_ok=True)
+
+        self._edgar_cache_dir = os.path.join(
+            DEFAULT_CONFIG["data_cache_dir"],
+            "fundamentals", "edgar"
+        )
+        os.makedirs(self._edgar_cache_dir, exist_ok=True)
+
+        self._prices_cache_dir = os.path.join(
+            DEFAULT_CONFIG["data_cache_dir"],
+            "prices", "daily"
+        )
+        os.makedirs(self._prices_cache_dir, exist_ok=True)
+
+        self._line_items_cache_dir = os.path.join(
+            DEFAULT_CONFIG["data_cache_dir"], 
+            "line_items")
+        os.makedirs(self._line_items_cache_dir, exist_ok=True)
+
+        self._insider_cache_dir = os.path.join(
+            DEFAULT_CONFIG["data_cache_dir"],
+            "insider"
+        )
+        os.makedirs(self._insider_cache_dir, exist_ok=True)
+
+        self._news_cache_dir = os.path.join(
+            DEFAULT_CONFIG["data_cache_dir"],
+            "news"
+        )
+        os.makedirs(self._news_cache_dir, exist_ok=True)
+
+    def _merge_data(self, existing: list[dict] | None, new_data: list[dict], key_field: str) -> list[dict]:
+        """Merge existing and new data, avoiding duplicates based on a key field."""
+        if not existing:
+            return new_data
+        existing_keys = {item[key_field] for item in existing}
+        merged = existing.copy()
+        merged.extend([item for item in new_data if item[key_field] not in existing_keys])
+        return merged
+
+    # ---------- 原有的内存缓存方法 ----------
+    def get_prices(self, key: str) -> list[dict[str, any]] | None:
+        return self._prices_cache.get(key)
+
+    def set_prices(self, key: str, data: list[dict[str, any]]):
+        self._prices_cache[key] = self._merge_data(self._prices_cache.get(key), data, key_field="time")
+
+    def get_financial_metrics(self, key: str) -> list[dict[str, any]] | None:
+        return self._financial_metrics_cache.get(key)
+
+    def set_financial_metrics(self, key: str, data: list[dict[str, any]]):
+        self._financial_metrics_cache[key] = self._merge_data(self._financial_metrics_cache.get(key), data, key_field="report_period")
+
+    def get_line_items(self, key: str) -> list[dict[str, any]] | None:
+        return self._line_items_cache.get(key)
+
+    def set_line_items(self, key: str, data: list[dict[str, any]]):
+        self._line_items_cache[key] = self._merge_data(self._line_items_cache.get(key), data, key_field="report_period")
+
+    def get_insider_trades(self, key: str) -> list[dict[str, any]] | None:
+        return self._insider_trades_cache.get(key)
+
+    def set_insider_trades(self, key: str, data: list[dict[str, any]]):
+        self._insider_trades_cache[key] = self._merge_data(self._insider_trades_cache.get(key), data, key_field="filing_date")
+
+    def get_company_news(self, key: str) -> list[dict[str, any]] | None:
+        return self._company_news_cache.get(key)
+
+    def set_company_news(self, key: str, data: list[dict[str, any]]):
+        self._company_news_cache[key] = self._merge_data(self._company_news_cache.get(key), data, key_field="date")
+
+    # ---------- 年度数据持久化 ----------
+    def get_annual_data(self, ticker: str) -> dict:
+        """从磁盘读取该 ticker 的年度数据（含 financials, balance, cashflow）。"""
+        file_path = os.path.join(self._annual_cache_dir, f"{ticker}_annual.json")
+        if os.path.exists(file_path):
+            try:
+                with open(file_path, 'r') as f:
+                    data = json.load(f)
+                    if isinstance(data, dict) and all(k in data for k in ('financials','balance','cashflow')):
+                        return data
+            except Exception as e:
+                print(f"[Cache] Error reading annual data for {ticker}: {e}")
+        return {'financials': [], 'balance': [], 'cashflow': []}
+
+    def set_annual_data(self, ticker: str, data: dict) -> None:
+        """将年度数据字典写入磁盘（覆盖）。"""
+        if not isinstance(data, dict) or not all(k in data for k in ('financials','balance','cashflow')):
+            raise ValueError("data must be a dict with keys 'financials', 'balance', 'cashflow'")
+        file_path = os.path.join(self._annual_cache_dir, f"{ticker}_annual.json")
+        try:
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            with open(file_path, 'w') as f:
+                json.dump(data, f, indent=2, default=str)
+        except Exception as e:
+            print(f"[Cache] Error writing annual data for {ticker}: {e}")
+
+    # ---------- 新增：季度数据持久化 ----------
+    def _get_quarter_file_path(self, ticker: str) -> str:
+        """返回季度缓存文件的完整路径。"""
+        # 清理 ticker，防止非法字符（但一般只有字母数字和点）
+        safe_ticker = ticker.replace('/', '_')  # 如果有斜杠
+        return os.path.join(self._quarter_cache_dir, f"{safe_ticker}_quarters.json")
+
+    def get_quarters(self, ticker: str) -> list[dict]:
+        """
+        从磁盘读取该 ticker 的所有季度数据。
+        如果文件不存在，返回空列表。
+        """
+        file_path = self._get_quarter_file_path(ticker)
+        if os.path.exists(file_path):
+            try:
+                with open(file_path, 'r') as f:
+                    data = json.load(f)
+                    if isinstance(data, list):
+                        return data
+                    else:
+                        # 如果格式不对，返回空并记录日志（这里简单打印）
+                        print(f"[Cache] Warning: {file_path} does not contain a list, returning empty.")
+                        return []
+            except Exception as e:
+                print(f"[Cache] Error reading quarter file for {ticker}: {e}")
+                return []
+        return []
+
+    def set_quarters(self, ticker: str, data: list[dict]):
+        """
+        将季度数据列表写入磁盘（覆盖写入）。
+        调用者负责确保 data 是一个列表，且已去重合并。
+        """
+        if not isinstance(data, list):
+            raise ValueError("data must be a list of dictionaries")
+        file_path = self._get_quarter_file_path(ticker)
+        try:
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            with open(file_path, 'w') as f:
+                json.dump(data, f, indent=2, default=str)  # default=str 处理日期等非序列化类型
+        except Exception as e:
+            print(f"[Cache] Error writing quarter file for {ticker}: {e}")
+
+    def get_quarterly_data(self, ticker: str) -> dict:
+        """从磁盘读取该 ticker 的季度数据字典（含 income, balance, cashflow, ratios）。"""
+        file_path = self._get_quarter_file_path(ticker)
+        if os.path.exists(file_path):
+            try:
+                with open(file_path, 'r') as f:
+                    data = json.load(f)
+                    if isinstance(data, dict) and all(k in data for k in ('income','balance','cashflow','ratios')):
+                        return data
+            except Exception as e:
+                print(f"[Cache] Error reading quarterly data for {ticker}: {e}")
+        return {'income': [], 'balance': [], 'cashflow': [], 'ratios': []}
+
+    def set_quarterly_data(self, ticker: str, data: dict) -> None:
+        """将季度数据字典写入磁盘（覆盖）。"""
+        if not isinstance(data, dict) or not all(k in data for k in ('income','balance','cashflow','ratios')):
+            raise ValueError("data must be a dict with keys 'income', 'balance', 'cashflow', 'ratios'")
+        file_path = self._get_quarter_file_path(ticker)
+        try:
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            with open(file_path, 'w') as f:
+                json.dump(data, f, indent=2, default=str)
+        except Exception as e:
+            print(f"[Cache] Error writing quarterly data for {ticker}: {e}")
+
+    def merge_quarters(self, ticker: str, new_quarters: list[dict], key_field: str = "date") -> list[dict]:
+        """
+        合并现有季度数据和新数据，去重（基于 key_field），并返回合并后的列表。
+        同时自动保存到磁盘。
+        """
+        existing = self.get_quarters(ticker)
+        merged = self._merge_data(existing, new_quarters, key_field)
+        self.set_quarters(ticker, merged)
+        return merged
+
+    # ---------- EDGAR 数据持久化 ----------
+    def get_edgar_data(self, ticker: str) -> dict | None:
+        file_path = os.path.join(self._edgar_cache_dir, f"{ticker}_edgar.json")
+        if os.path.exists(file_path):
+            try:
+                with open(file_path, 'r') as f:
+                    return json.load(f)
+            except Exception as e:
+                print(f"[Cache] Error reading EDGAR data for {ticker}: {e}")
+                return None
+        return None
+
+    def set_edgar_data(self, ticker: str, data: dict) -> None:
+        file_path = os.path.join(self._edgar_cache_dir, f"{ticker}_edgar.json")
+        try:
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            with open(file_path, 'w') as f:
+                json.dump(data, f, indent=2, default=str)
+        except Exception as e:
+            print(f"[Cache] Error writing EDGAR data for {ticker}: {e}")
+
+    @staticmethod
+    def _df_to_storable(df: pd.DataFrame) -> dict:
+        """将 DataFrame 转换为可存储的字典（包含 records 和 index_name）。"""
+        if df.empty:
+            return {'records': [], 'index_name': 'index'}
+        idx_name = df.index.name or 'index'
+        reset = df.reset_index()
+        records = reset.to_dict('records')
+        return {'records': records, 'index_name': idx_name}
+
+    @staticmethod
+    def _storable_to_df(stored: dict) -> pd.DataFrame:
+        """从存储的字典重建 DataFrame。"""
+        records = stored.get('records', [])
+        idx_name = stored.get('index_name', 'index')
+        if not records:
+            return pd.DataFrame()
+        df = pd.DataFrame(records)
+        if idx_name in df.columns:
+            df.set_index(idx_name, inplace=True)
+        return df
+
+    # ---------- 价格数据持久化 ----------
+    def get_prices_from_cache(self, ticker: str, start_date: str, end_date: str) -> list[dict] | None:
+        file_path = os.path.join(self._prices_cache_dir, f"{ticker}_prices.csv")
+        if not os.path.exists(file_path):
+            return None
+        try:
+            df = pd.read_csv(file_path)
+            # 确保 time 列存在
+            if 'time' not in df.columns:
+                # 如果列名为 Date，重命名为 time
+                if 'Date' in df.columns:
+                    df.rename(columns={'Date': 'time'}, inplace=True)
+                else:
+                    return None
+            # 转换为 datetime 以便过滤
+            df['time'] = pd.to_datetime(df['time'])
+            df = df[(df['time'] >= start_date) & (df['time'] <= end_date)]
+            # 转换回字符串格式
+            df['time'] = df['time'].dt.strftime('%Y-%m-%d')
+            if df.empty:
+                return None
+            return df.to_dict('records')
+        except Exception as e:
+            print(f"[Cache] Error reading prices for {ticker}: {e}")
+            return None
+
+    def set_prices_to_cache(self, ticker: str, prices: list[dict]) -> None:
+        if not prices:
+            return
+        # 读取现有缓存
+        existing = self.get_prices_from_cache(ticker, "1970-01-01", "2099-12-31")  # 或直接读取整个文件
+        # 合并去重（以 time 为键）
+        existing_dict = {p['time']: p for p in existing} if existing else {}
+        for p in prices:
+            time_key = p['time'] if 'time' in p else p['Date']   # 统一字段名
+            existing_dict[time_key] = p
+        merged = list(existing_dict.values())
+        # 按时间排序
+        merged.sort(key=lambda x: x.get('time') or x.get('Date'))
+        # 写入 CSV
+        file_path = os.path.join(self._prices_cache_dir, f"{ticker}_prices.csv")
+        df = pd.DataFrame(merged)
+        df.to_csv(file_path, index=False)
+
+    def get_line_items_cache(self, ticker: str, period: str) -> list[dict]:
+        file_path = os.path.join(self._line_items_cache_dir, f"{ticker}_{period}_line_items.json")
+        if os.path.exists(file_path):
+            try:
+                with open(file_path, 'r') as f:
+                    data = json.load(f)
+                    if isinstance(data, list):
+                        return data
+            except Exception as e:
+                print(f"[Cache] Error reading line items for {ticker} ({period}): {e}")
+        return []
+
+    def set_line_items_cache(self, ticker: str, period: str, records: list[dict]):
+        if not records:
+            return
+        existing = self.get_line_items_cache(ticker, period)
+        merged = self._merge_data(existing, records, key_field="report_period")
+        file_path = os.path.join(self._line_items_cache_dir, f"{ticker}_{period}_line_items.json")
+        try:
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            with open(file_path, 'w') as f:
+                json.dump(merged, f, indent=2, default=str)
+        except Exception as e:
+            print(f"[Cache] Error writing line items for {ticker} ({period}): {e}")
+
+    def get_insider_cache(self, ticker: str) -> list[dict]:
+        file_path = os.path.join(self._insider_cache_dir, f"{ticker}_insider.json")
+        if os.path.exists(file_path):
+            try:
+                with open(file_path, 'r') as f:
+                    data = json.load(f)
+                    if isinstance(data, list):
+                        return data
+            except Exception as e:
+                print(f"[Cache] Error reading insider for {ticker}: {e}")
+        return []
+
+    def set_insider_cache(self, ticker: str, records: list[dict]):
+        if not records:
+            return
+        existing = self.get_insider_cache(ticker)
+        merged = self._merge_data(existing, records, key_field="filing_date")
+        file_path = os.path.join(self._insider_cache_dir, f"{ticker}_insider.json")
+        try:
+            with open(file_path, 'w') as f:
+                json.dump(merged, f, indent=2, default=str)
+        except Exception as e:
+            print(f"[Cache] Error writing insider for {ticker}: {e}")
+
+    def get_news_cache(self, ticker: str) -> list[dict]:
+        """从磁盘读取该 ticker 的所有新闻记录。"""
+        file_path = os.path.join(self._news_cache_dir, f"{ticker}_news.json")
+        if os.path.exists(file_path):
+            try:
+                with open(file_path, 'r') as f:
+                    data = json.load(f)
+                    if isinstance(data, list):
+                        return data
+            except Exception as e:
+                print(f"[Cache] Error reading news for {ticker}: {e}")
+        return []
+
+    def set_news_cache(self, ticker: str, records: list[dict]) -> None:
+        """将新闻记录列表写入磁盘（合并去重后覆盖）。"""
+        if not records:
+            return
+        existing = self.get_news_cache(ticker)
+        merged = self._merge_data(existing, records, key_field="date")
+        file_path = os.path.join(self._news_cache_dir, f"{ticker}_news.json")
+        try:
+            with open(file_path, 'w') as f:
+                json.dump(merged, f, indent=2, default=str)
+        except Exception as e:
+            print(f"[Cache] Error writing news for {ticker}: {e}")
+
+_cache = Cache()
+
+def get_cache() -> Cache:
+    return _cache
