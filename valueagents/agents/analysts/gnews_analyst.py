@@ -8,7 +8,7 @@ from valueagents.agents.utils.agent_utils import (
 from valueagents.dataflows.config import get_config
 
 
-def create_gnews_analyst(llm):
+def create_gnews_analyst(llm, llm_compress=None):
     def gnews_analyst_node(state):
         current_date = state["trade_date"]
         instrument_context = build_instrument_context(state["company_of_interest"])

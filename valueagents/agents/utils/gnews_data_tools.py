@@ -4,9 +4,11 @@ from typing import Annotated
 import requests
 import os
 from datetime import datetime, timedelta
+from .compress_utils import compress_text, estimate_word_count
+
 
 # 从环境变量读取 GNews API Key（默认使用你测试过的 key）
-GNEWS_API_KEY = os.getenv("GNEWS_API_KEY", "45b40e4ff3978c4df4945e5828cba917")
+GNEWS_API_KEY = os.getenv("GNEWS_API_KEY", "")
 GNEWS_BASE_URL = "https://gnews.io/api/v4/search"
 
 def _format_gnews_articles(articles: list, ticker: str, start_date: str, end_date: str) -> str:
@@ -24,6 +26,22 @@ def _format_gnews_articles(articles: list, ticker: str, start_date: str, end_dat
             lines.append(description)
         if link:
             lines.append(f"Link: {link}")
+        lines.append("")
+    return "\n".join(lines)
+
+def _format_gnews_global_articles(articles: list, start_date: str, end_date: str) -> str:
+    """格式化全球新闻为原始文本（用于压缩）"""
+    if not articles:
+        return f"No global news found for {end_date}"
+    lines = []
+    for art in articles:
+        title = art.get('title', 'No title')
+        source = art.get('source', {}).get('name', 'Unknown')
+        description = art.get('description', '')
+        lines.append(f"Title: {title}")
+        lines.append(f"Source: {source}")
+        if description:
+            lines.append(f"Description: {description}")
         lines.append("")
     return "\n".join(lines)
 
@@ -52,23 +70,26 @@ def get_news_gnews(
         'max': 10,  # 免费版最多10条，付费可调高
     }
     try:
-        resp = requests.get(GNEWS_BASE_URL, params=params, timeout=10)
+        resp = requests.get(GNEWS_BASE_URL, params=params, timeout=60)
         resp.raise_for_status()
         data = resp.json()
         articles = data.get('articles', [])
+        raw_text = _format_gnews_articles(articles, ticker, start_date, end_date)
+        # print('[GNews] raw_text : {}'.format(raw_text))
 
-        # # ========== 添加打印 ==========
-        # print("="*30 + "GNEWS" + "="*30 +"\n")
-        # print(f"📰 [GNews] Raw news for {ticker} ({start_date} to {end_date}):")
-        # print(f"   Total articles fetched: {len(articles)}")
-        # if articles:
-        #     print("   First 3 article titles:")
-        #     for i, art in enumerate(articles[:3], 1):
-        #         print(f"      {i}. {art.get('title', 'No title')}")
-        # print("="*30 + "GNEWS" + "="*30 +"\n")
-        # # ==============================
+        word_count_raw_text = estimate_word_count(raw_text)
+        compressed = compress_text(raw_text, 
+                                   max_words=max(60, int(word_count_raw_text * 0.5)),
+                                   role=f"GNews news for {ticker}")
+        # print('def get_news_gnews raw_text length : {}'.format(len(raw_text)))
+        # print('def get_news_gnews raw_text : {}'.format(raw_text))
+        # print('def get_news_gnews compressed length : {}'.format(len(compressed)))
+        # print('def get_news_gnews compressed : {}'.format(compressed))
 
-        return _format_gnews_articles(articles, ticker, start_date, end_date)
+        # print('[GNews] compressed : {}'.format(compressed))
+        # print(f"   🔄 [GNews] Compressed: {len(raw_text)} chars → {len(compressed)} chars")
+        return compressed
+
     except Exception as e:
         return f"Error fetching news for {ticker} via GNews: {str(e)}"
 
@@ -107,7 +128,7 @@ def get_global_news_gnews(
             'max': min(limit, 10),
         }
         try:
-            resp = requests.get(GNEWS_BASE_URL, params=params, timeout=10)
+            resp = requests.get(GNEWS_BASE_URL, params=params, timeout=60)
             resp.raise_for_status()
             data = resp.json()
             articles = data.get('articles', [])
@@ -120,29 +141,21 @@ def get_global_news_gnews(
             continue
     all_articles = all_articles[:limit]
 
-    # # ========== 添加打印 ==========
-    # print("="*30 + "GNEWS" + "="*30 +"\n")
-    # print(f"🌍 [GNews] Global news from {start_date} to {curr_date}:")
-    # print(f"   Total articles fetched: {len(all_articles)}")
-    # if all_articles:
-    #     print("   First 3 article titles:")
-    #     for i, art in enumerate(all_articles[:3], 1):
-    #         print(f"      {i}. {art.get('title', 'No title')}")
-    # print("="*30 + "GNEWS" + "="*30 +"\n")
-    # # ==============================
-
     if not all_articles:
         return f"No global news found for {curr_date}"
-    lines = [f"## Global Market News, from {start_date} to {curr_date}:\n"]
-    for art in all_articles:
-        title = art.get('title', 'No title')
-        source = art.get('source', {}).get('name', 'Unknown')
-        description = art.get('description', '')
-        link = art.get('url', '')
-        lines.append(f"### {title} (source: {source})")
-        if description:
-            lines.append(description)
-        if link:
-            lines.append(f"Link: {link}")
-        lines.append("")
-    return "\n".join(lines)
+
+    raw_text = _format_gnews_global_articles(all_articles, start_date, curr_date)
+    # print('[GNews Global] raw_text : {}'.format(raw_text))
+
+    word_count_raw_text = estimate_word_count(raw_text)
+    compressed = compress_text(raw_text, 
+                               max_words=max(60, int(word_count_raw_text * 0.5)),
+                               role="GNews macroeconomic news")
+    # print('def get_global_news_gnews raw_text length : {}'.format(len(raw_text)))
+    # print('def get_global_news_gnews raw_text : {}'.format(raw_text))
+    # print('def get_global_news_gnews compressed length : {}'.format(len(compressed)))
+    # print('def get_global_news_gnews compressed : {}'.format(compressed))
+
+    # print('[GNews Global] compressed : {}'.format(compressed))
+    # print(f"   🔄 [GNews Global] Compressed: {len(raw_text)} chars → {len(compressed)} chars")
+    return compressed

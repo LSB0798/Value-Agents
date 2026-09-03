@@ -1,10 +1,10 @@
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from valueagents.agents.utils.agent_utils import (
     build_instrument_context,
-    get_balance_sheet,
-    get_cashflow,
-    get_fundamentals,
-    get_income_statement,
+    get_balance_sheet, #
+    get_cashflow, #
+    get_fundamentals, #
+    get_income_statement, #
     get_insider_transactions,
     get_language_instruction,
     retrieve_fundamentals_wisdom,
@@ -12,7 +12,7 @@ from valueagents.agents.utils.agent_utils import (
 from valueagents.dataflows.config import get_config
 
 
-def create_fundamentals_analyst(llm):
+def create_fundamentals_analyst(llm, llm_compress=None):
     def fundamentals_analyst_node(state):
         # ----- 入口打印 -----
         ticker = state["company_of_interest"]
@@ -99,4 +99,3 @@ def create_fundamentals_analyst(llm):
         }
 
     return fundamentals_analyst_node
-

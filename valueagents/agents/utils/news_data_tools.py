@@ -1,6 +1,7 @@
 from langchain_core.tools import tool
 from typing import Annotated
 from valueagents.dataflows.interface import route_to_vendor
+from .compress_utils import compress_text, estimate_word_count
 
 @tool
 def get_news(
@@ -18,23 +19,22 @@ def get_news(
     Returns:
         str: A formatted string containing news data
     """
-    # return route_to_vendor("get_news", ticker, start_date, end_date)
+    raw_result = route_to_vendor("get_news", ticker, start_date, end_date)
+    # print('[News] raw_result : {}'.format(raw_result))
+    # 压缩
+    word_count_raw_result = estimate_word_count(raw_result)
+    compressed = compress_text(raw_result, 
+                               max_words=max(60, int(word_count_raw_result * 0.5)), 
+                               role=f"news for {ticker}")
+    # print('def get_news raw_result length : {}'.format(len(raw_result)))
+    # print('def get_news raw_result : {}'.format(raw_result))
+    # print('def get_news compressed length : {}'.format(len(compressed)))
+    # print('def get_news compressed : {}'.format(compressed))
 
-    result = route_to_vendor("get_news", ticker, start_date, end_date)
+    # print('[News] compressed : {}'.format(compressed))
+    # print(f"   🔄 [News] Compressed: {len(raw_result)} chars → {len(compressed)} chars")
+    return compressed
 
-    # # ========== 添加打印 ==========
-    # print("="*30 + "NEWS (Alpha Vantage)" + "="*30)
-    # print(f"📰 [News] Raw news for {ticker} ({start_date} to {end_date}):")
-    # print(f"   Total characters: {len(result)}")
-    # preview = result[:200].replace('\n', ' ')
-    # print(f"   Preview: {preview}...")
-    # article_count = result.count("### ")
-    # if article_count:
-    #     print(f"   Total articles: {article_count}")
-    # print("="*30 + "NEWS END" + "="*30)
-    # # ==============================
-
-    return result
 
 @tool
 def get_global_news(
@@ -52,23 +52,22 @@ def get_global_news(
     Returns:
         str: A formatted string containing global news data
     """
-    # return route_to_vendor("get_global_news", curr_date, look_back_days, limit)
-    result = route_to_vendor("get_global_news", curr_date, look_back_days, limit)
+    raw_result = route_to_vendor("get_global_news", curr_date, look_back_days, limit)
+    # print('[Global News] raw_result : {}'.format(raw_result))
 
-    # # ========== 添加打印（修正版） ==========
-    # print("="*30 + "GLOBAL NEWS (Alpha Vantage)" + "="*30)
-    # print(f"🌍 [Global News] from {curr_date} (look_back {look_back_days}d, limit {limit}):")
-    # print(f"   Total characters: {len(result)}")
-    # preview = result[:200].replace('\n', ' ')
-    # print(f"   Preview: {preview}...")
-    # # 统计文章数（如果格式中有 "### "）
-    # article_count = result.count("### ")
-    # if article_count:
-    #     print(f"   Total articles: {article_count}")
-    # print("="*30 + "GLOBAL NEWS END" + "="*30)
-    # # ==============================
+    word_count_raw_result = estimate_word_count(raw_result)
+    compressed = compress_text(raw_result, 
+                               max_words=max(60, int(word_count_raw_result * 0.5)), 
+                               role="global macroeconomic news")
+    # print('def get_global_news raw_text length : {}'.format(len(raw_result)))
+    # print('def get_global_news raw_text : {}'.format(raw_result))
+    # print('def get_global_news compressed length : {}'.format(len(compressed)))
+    # print('def get_global_news compressed : {}'.format(compressed))
 
-    return result
+    # print('[Global News] compressed : {}'.format(compressed))
+    # print(f"   🔄 [Global News] Compressed: {len(raw_result)} chars → {len(compressed)} chars")
+    return compressed
+
 
 @tool
 def get_insider_transactions(

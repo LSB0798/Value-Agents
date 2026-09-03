@@ -3,13 +3,15 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from valueagents.agents.utils.agent_utils import (
     build_instrument_context,
     get_language_instruction,
-)
-from valueagents.agents.utils.finnhub_data_tools import (
     get_finnhub_news,
-    get_finnhub_global_news,
+    get_finnhub_global_news
 )
+# from valueagents.agents.utils.finnhub_data_tools import (
+#     get_finnhub_news,
+#     get_finnhub_global_news,
+# )
 
-def create_finnhub_news_analyst(llm):
+def create_finnhub_news_analyst(llm, llm_compress=None):
     def finnhub_news_analyst_node(state):
         current_date = state["trade_date"]
         instrument_context = build_instrument_context(state["company_of_interest"])
@@ -99,3 +101,4 @@ def create_finnhub_news_analyst(llm):
         }
 
     return finnhub_news_analyst_node
+

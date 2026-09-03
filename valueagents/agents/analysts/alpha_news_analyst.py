@@ -1,15 +1,21 @@
 # valueagents/agents/analysts/alpha_news_analyst.py
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.messages import HumanMessage
 from valueagents.agents.utils.agent_utils import (
     build_instrument_context,
     get_language_instruction,
-)
-from valueagents.agents.utils.alpha_news_data_tools import (
     get_alpha_news,
-    get_alpha_global_news,
+    get_alpha_global_news
 )
+# from valueagents.agents.utils.alpha_news_data_tools import (
+#     get_alpha_news,
+#     get_alpha_global_news,
+# )
+from datetime import datetime, timedelta
+from langchain_core.messages import SystemMessage, HumanMessage
 
-def create_alpha_news_analyst(llm):
+
+def create_alpha_news_analyst(llm, llm_compress=None):
     def alpha_news_analyst_node(state):
         current_date = state["trade_date"]
         instrument_context = build_instrument_context(state["company_of_interest"])
@@ -84,8 +90,8 @@ def create_alpha_news_analyst(llm):
         print(f"[ALPHA NEWS ANALYST] Done.\n")
 
         # ===== 添加报告摘要打印 =====
-        # print(f"   📄 Return (messages: {result})")
-        # print(f"   📄 Return (news_report: {report})")
+        print(f"   📄 Return (messages: {result})")
+        print(f"   📄 Return (news_report: {report})")
         # ===========================
 
         # ===========================
@@ -99,3 +105,4 @@ def create_alpha_news_analyst(llm):
         }
 
     return alpha_news_analyst_node
+

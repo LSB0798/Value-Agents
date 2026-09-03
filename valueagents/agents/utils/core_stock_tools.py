@@ -1,6 +1,7 @@
 from langchain_core.tools import tool
 from typing import Annotated
 from valueagents.dataflows.interface import route_to_vendor
+from .compress_utils import compress_text, estimate_word_count
 
 # ======================================================================= #
 import datetime
@@ -52,12 +53,6 @@ def get_stock_data(
         end_date (str): End date in yyyy-mm-dd format
     Returns:
         str: A formatted dataframe containing the stock price data for the specified ticker symbol in the specified date range.
-    
-        
-    在 LangChain 中，使用 @tool 装饰器将普通函数转换为可供 LLM 调用的工具。这个 get_stock_data 工具的作用是：
-        输入：股票代码（symbol）、起始日期（start_date）、结束日期（end_date）。
-        处理：调用 route_to_vendor("get_stock_data", ...)，该函数会根据 DEFAULT_CONFIG 中配置的 core_stock_apis 供应商（例如 Yahoo Finance、Alpha Vantage 等），路由到对应的数据获取实现。
-        输出：返回一个格式化的字符串（通常是 DataFrame 的文本表示），包含指定时间范围内的开盘、最高、最低、收盘、成交量（OHLCV）数据。
     """
     # RUN THIS WAY
 
@@ -69,13 +64,20 @@ def get_stock_data(
     })
     # ======================================
 
-    result = route_to_vendor("get_stock_data", symbol, start_date, end_date)
-    # return route_to_vendor("get_stock_data", symbol, start_date, end_date)
+    # 获取原始数据
+    raw_result = route_to_vendor("get_stock_data", symbol, start_date, end_date)
+    # print('[Stock Data] raw_result : {}'.format(raw_result))
+    
+    # 压缩（max_words=200）
+    word_count_raw_result = estimate_word_count(raw_result)
+    compressed = compress_text(raw_result, 
+                               max_words=max(60, int(word_count_raw_result * 0.5)),
+                               role=f"stock price data for {symbol}")
+    # print('def get_stock_data raw_result length : {}'.format(len(raw_result)))
+    # print('def get_stock_data raw_result : {}'.format(raw_result))
+    # print('def get_stock_data compressed length : {}'.format(len(compressed)))
+    # print('def get_stock_data compressed : {}'.format(compressed))
 
-    # ===== 记录返回结果 =====
-    log_print("TOOL RESULT", f"get_stock_data returned {len(result)} chars", {
-        "preview": result[:300] if len(result) > 300 else result
-    })
-    # ========================
-
-    return result
+    # print('[Stock Data] compressed : {}'.format(compressed))
+    # print(f"   🔄 [Stock Data] Compressed: {len(raw_result)} chars → {len(compressed)} chars")
+    return compressed

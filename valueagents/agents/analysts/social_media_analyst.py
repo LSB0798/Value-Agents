@@ -4,8 +4,7 @@ from valueagents.agents.utils.agent_utils import retrieve_sentiment_wisdom
 from valueagents.dataflows.config import get_config
 
 
-
-def create_social_media_analyst(llm):
+def create_social_media_analyst(llm, llm_compress=None):
     def social_media_analyst_node(state):
         # ----- 入口打印 -----
         ticker = state["company_of_interest"]
@@ -73,11 +72,6 @@ def create_social_media_analyst(llm):
 
         print(f"[SOCIAL ANALYST] Done.\n")
 
-        # ===== 添加报告摘要打印 =====
-        # print(f"   📄 Return (messages: {result})")
-        # print(f"   📄 Return (sentiment_report: {report})")
-        # ===========================
-
         print(f"📱 [SOCIAL ANALYST] Analyzed‌ {ticker} at {trade_date}")
         print(f"{'='*60}")
         
@@ -87,4 +81,3 @@ def create_social_media_analyst(llm):
         }
 
     return social_media_analyst_node
-

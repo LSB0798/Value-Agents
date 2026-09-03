@@ -9,7 +9,7 @@ from valueagents.agents.utils.agent_utils import (
 from valueagents.dataflows.config import get_config
 
 
-def create_news_analyst(llm):
+def create_news_analyst(llm, llm_compress=None):
     def news_analyst_node(state):
         # ----- 入口打印 -----
         ticker = state["company_of_interest"]
@@ -91,4 +91,3 @@ def create_news_analyst(llm):
         }
 
     return news_analyst_node
-

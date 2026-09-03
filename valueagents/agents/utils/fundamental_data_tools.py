@@ -1,6 +1,7 @@
 from langchain_core.tools import tool
 from typing import Annotated
 from valueagents.dataflows.interface import route_to_vendor
+from .compress_utils import compress_text, estimate_word_count
 
 
 @tool
@@ -19,15 +20,20 @@ def get_fundamentals(
     """
     # return route_to_vendor("get_fundamentals", ticker, curr_date)
     result = route_to_vendor("get_fundamentals", ticker, curr_date)
+    # print('[Fundamentals] result : {}'.format(result))
 
-    # print("="*30 + "FUNDAMENTALS DATA (Alpha Vantage)" + "="*30)
-    # print(f"📊 [Fundamentals] Raw data for {ticker} ({curr_date}):")
-    # print(f"   Total characters: {len(result)}")
-    # preview = result[:200].replace('\n', ' ')
-    # print(f"   Preview: {preview}...")
-    # print("="*30 + "FUNDAMENTALS DATA END" + "="*30)
+    word_count_result = estimate_word_count(result)
+    compressed = compress_text(result, 
+                               max_words=max(60, int(word_count_result * 0.5)),
+                               role=f"fundamental data for {ticker}")
+    # print('def get_fundamentals result length : {}'.format(len(result)))
+    # print('def get_fundamentals result : {}'.format(result))
+    # print('def get_fundamentals compressed length : {}'.format(len(compressed)))
+    # print('def get_fundamentals compressed : {}'.format(compressed))
 
-    return result
+    # print('[Fundamentals] compressed : {}'.format(compressed))
+    # print(f"   🔄 [Fundamentals] Compressed: {len(result)} chars → {len(compressed)} chars")
+    return compressed
 
 
 @tool
@@ -48,16 +54,20 @@ def get_balance_sheet(
     """
     # return route_to_vendor("get_balance_sheet", ticker, freq, curr_date)
     result = route_to_vendor("get_balance_sheet", ticker, freq, curr_date)
+    # print('[Balance Sheet] result : {}'.format(result))
 
-    # print("="*30 + "BALANCE SHEET DATA (Alpha Vantage)" + "="*30)
-    # print(f"📊 [Balance Sheet] Raw data for {ticker} ({curr_date if curr_date else 'latest'}):")
-    # print(f"   Frequency: {freq}")
-    # print(f"   Total characters: {len(result)}")
-    # preview = result[:200].replace('\n', ' ')
-    # print(f"   Preview: {preview}...")
-    # print("="*30 + "BALANCE SHEET DATA END" + "="*30)
+    word_count_result = estimate_word_count(result)
+    compressed = compress_text(result, 
+                               max_words=max(60, int(word_count_result * 0.5)),
+                               role=f"balance sheet for {ticker}")
+    # print('def get_balance_sheet result length : {}'.format(len(result)))
+    # print('def get_balance_sheet result : {}'.format(result))
+    # print('def get_balance_sheet compressed length : {}'.format(len(compressed)))
+    # print('def get_balance_sheet compressed : {}'.format(compressed))
 
-    return result
+    # print('[Balance Sheet] compressed : {}'.format(compressed))
+    # print(f"   🔄 [Balance Sheet] Compressed: {len(result)} chars → {len(compressed)} chars")
+    return compressed
 
 
 @tool
@@ -78,16 +88,20 @@ def get_cashflow(
     """
     # return route_to_vendor("get_cashflow", ticker, freq, curr_date)
     result = route_to_vendor("get_cashflow", ticker, freq, curr_date)
+    # print('[Cashflow] result : {}'.format(result))
 
-    # print("="*30 + "CASHFLOW DATA (Alpha Vantage)" + "="*30)
-    # print(f"📊 [Cashflow] Raw data for {ticker} ({curr_date if curr_date else 'latest'}):")
-    # print(f"   Frequency: {freq}")
-    # print(f"   Total characters: {len(result)}")
-    # preview = result[:200].replace('\n', ' ')
-    # print(f"   Preview: {preview}...")
-    # print("="*30 + "CASHFLOW DATA END" + "="*30)
+    word_count_result = estimate_word_count(result)
+    compressed = compress_text(result, 
+                               max_words=max(60, int(word_count_result * 0.5)),
+                               role=f"cash flow for {ticker}")
+    # print('def get_cashflow result length : {}'.format(len(result)))
+    # print('def get_cashflow result : {}'.format(result))
+    # print('def get_cashflow compressed length : {}'.format(len(compressed)))
+    # print('def get_cashflow compressed : {}'.format(compressed))
 
-    return result
+    # print('[Cashflow] compressed : {}'.format(compressed))
+    # print(f"   🔄 [Cashflow] Compressed: {len(result)} chars → {len(compressed)} chars")
+    return compressed
 
 
 @tool
@@ -108,13 +122,17 @@ def get_income_statement(
     """
     # return route_to_vendor("get_income_statement", ticker, freq, curr_date)
     result = route_to_vendor("get_income_statement", ticker, freq, curr_date)
+    # print('[Income Statement] result : {}'.format(result))
 
-    # print("="*30 + "INCOME STATEMENT DATA (Alpha Vantage)" + "="*30)
-    # print(f"📊 [Income Statement] Raw data for {ticker} ({curr_date if curr_date else 'latest'}):")
-    # print(f"   Frequency: {freq}")
-    # print(f"   Total characters: {len(result)}")
-    # preview = result[:200].replace('\n', ' ')
-    # print(f"   Preview: {preview}...")
-    # print("="*30 + "INCOME STATEMENT DATA END" + "="*30)
+    word_count_result = estimate_word_count(result)
+    compressed = compress_text(result, 
+                               max_words=max(60, int(word_count_result * 0.5)),
+                               role=f"income statement for {ticker}")
+    # print('def get_income_statement result length : {}'.format(len(result)))
+    # print('def get_income_statement result : {}'.format(result))
+    # print('def get_income_statement compressed length : {}'.format(len(compressed)))
+    # print('def get_income_statement compressed : {}'.format(compressed))
 
-    return result
+    # print('[Income Statement] compressed : {}'.format(compressed))
+    # print(f"   🔄 [Income Statement] Compressed: {len(result)} chars → {len(compressed)} chars")
+    return compressed

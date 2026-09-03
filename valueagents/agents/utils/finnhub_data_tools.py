@@ -4,8 +4,9 @@ import finnhub
 from datetime import datetime, timedelta
 from langchain_core.tools import tool
 from typing import Annotated
+from .compress_utils import compress_text, estimate_word_count
 
-FINNHUB_API_KEY = os.getenv("FINNHUB_API_KEY", "d8tr0gpr01qhcnk5oj3gd8tr0gpr01qhcnk5oj40")  # 替换为您的 key
+FINNHUB_API_KEY = os.getenv("FINNHUB_API_KEY", "")  # 替换为您的 key
 _client = None
 
 def get_finnhub_client():
@@ -37,6 +38,25 @@ def _format_finnhub_articles(articles: list, ticker: str, start_date: str, end_d
         lines.append("")
     return "\n".join(lines)
 
+def _format_finnhub_global_articles(articles: list, start_date: str, end_date: str) -> str:
+    """将 Finnhub 返回的全球新闻格式化为原始文本"""
+    if not articles:
+        return f"No global news found for {end_date}"
+    lines = [f"## Finnhub Global Market News (via SPY), from {start_date} to {end_date}:\n"]
+    for art in articles[:10]:
+        headline = art.get('headline', 'No headline')
+        source = art.get('source', 'Unknown')
+        summary = art.get('summary', '')
+        url = art.get('url', '')
+        dt = datetime.fromtimestamp(art.get('datetime', 0)).strftime('%Y-%m-%d %H:%M') if art.get('datetime') else 'Unknown'
+        lines.append(f"### {headline} (source: {source}, time: {dt})")
+        if summary:
+            lines.append(f"Summary: {summary[:300]}...")
+        if url:
+            lines.append(f"Link: {url}")
+        lines.append("")
+    return "\n".join(lines)
+
 @tool
 def get_finnhub_news(
     ticker: Annotated[str, "Ticker symbol"],
@@ -56,17 +76,21 @@ def get_finnhub_news(
     try:
         # 确保日期格式正确
         articles = client.company_news(ticker, _from=start_date, to=end_date)
+        raw_text = _format_finnhub_articles(articles, ticker, start_date, end_date)
+        # print('[Finnhub News] raw_text : {}'.format(raw_text))
+        # 压缩（max_words=200）
+        word_count_raw_text = estimate_word_count(raw_text)
+        compressed = compress_text(raw_text, 
+                                   max_words=max(60, int(word_count_raw_text * 0.5)),
+                                   role=f"Finnhub news for {ticker}")
+        # print('def get_finnhub_news raw_text length : {}'.format(len(raw_text)))
+        # print('def get_finnhub_news raw_text : {}'.format(raw_text))
+        # print('def get_finnhub_news compressed length : {}'.format(len(compressed)))
+        # print('def get_finnhub_news compressed : {}'.format(compressed))
 
-        # print("="*30 + "FINNHUB NEWS" + "="*30 + "\n")
-        # print(f"📰 [Finnhub] Raw news for {ticker} ({start_date} to {end_date}):")
-        # print(f"   Total articles fetched: {len(articles)}")
-        # if articles:
-        #     print("   First 3 article headlines:")
-        #     for i, art in enumerate(articles[:3], 1):
-        #         print(f"      {i}. {art.get('headline', 'No headline')}")
-        # print("="*30 + "FINNHUB NEWS" + "="*30 + "\n")
-
-        return _format_finnhub_articles(articles, ticker, start_date, end_date)
+        # print('[Finnhub News] compressed : {}'.format(compressed))
+        # print(f"   🔄 [Finnhub News] Compressed: {len(raw_text)} chars → {len(compressed)} chars")
+        return compressed
     except Exception as e:
         print(f"❌ [Finnhub] Error fetching news for {ticker}: {e}")
         return f"Error fetching Finnhub news for {ticker}: {str(e)}"
@@ -89,31 +113,21 @@ def get_finnhub_global_news(
         # 限制条数
         articles = articles[:limit]
 
-        # print("="*30 + "FINNHUB NEWS" + "="*30 + "\n")
-        # print(f"🌍 [Finnhub] Global market news from {start_date} to {curr_date} (via {ticker}):")
-        # print(f"   Total articles fetched: {len(articles)}")
-        # if articles:
-        #     print("   First 3 article headlines:")
-        #     for i, art in enumerate(articles[:3], 1):
-        #         print(f"      {i}. {art.get('headline', 'No headline')}")
-        # print("="*30 + "FINNHUB NEWS" + "="*30 + "\n")
+        raw_text = _format_finnhub_global_articles(articles, start_date, curr_date)
+        # print('[Finnhub Global News] raw_text : {}'.format(raw_text))
+        # 压缩（max_words=150）
+        word_count_raw_text = estimate_word_count(raw_text)
+        compressed = compress_text(raw_text, 
+                                   max_words=max(60, int(word_count_raw_text * 0.5)),
+                                   role="macroeconomic news (Finnhub)")
+        # print('def get_finnhub_global_news raw_text length : {}'.format(len(raw_text)))
+        # print('def get_finnhub_global_news raw_text : {}'.format(raw_text))
+        # print('def get_finnhub_global_news compressed length : {}'.format(len(compressed)))
+        # print('def get_finnhub_global_news compressed : {}'.format(compressed))
 
-        if not articles:
-            return f"No global news found for {curr_date}"
-        lines = [f"## Finnhub Global Market News (via SPY), from {start_date} to {curr_date}:\n"]
-        for art in articles[:limit]:
-            headline = art.get('headline', 'No headline')
-            source = art.get('source', 'Unknown')
-            summary = art.get('summary', '')
-            url = art.get('url', '')
-            dt = datetime.fromtimestamp(art.get('datetime', 0)).strftime('%Y-%m-%d %H:%M') if art.get('datetime') else 'Unknown'
-            lines.append(f"### {headline} (source: {source}, time: {dt})")
-            if summary:
-                lines.append(f"Summary: {summary[:300]}...")
-            if url:
-                lines.append(f"Link: {url}")
-            lines.append("")
-        return "\n".join(lines)
+        # print('[Finnhub Global News] compressed : {}'.format(compressed))
+        # print(f"   🔄 [Finnhub Global News] Compressed: {len(raw_text)} chars → {len(compressed)} chars")
+        return compressed
     except Exception as e:
         print(f"❌ [Finnhub] Error fetching global news: {e}")
         return f"Error fetching global news from Finnhub: {str(e)}"

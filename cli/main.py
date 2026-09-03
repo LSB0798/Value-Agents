@@ -32,7 +32,16 @@ from cli.announcements import fetch_announcements, display_announcements
 from cli.stats_handler import StatsCallbackHandler
 
 import os
-os.environ["FINANCIAL_DATASETS_API_KEY"] = "7822668c-eb7d-43b6-bee4-fb31a46e182a"
+os.environ["FINANCIAL_DATASETS_API_KEY"] = "7822668c-eb7d-43b6-bee4-"
+# os.environ["COMPRESS_API_URL"] = ""
+# os.environ["COMPRESS_MODEL"] = "qwen3_32B"
+# os.environ["COMPRESS_API_KEY"] = "EMPTY"
+# os.environ["COMPRESS_TIMEOUT"] = "600"
+
+os.environ["COMPRESS_API_URL"] = ""
+os.environ["COMPRESS_MODEL"] = "qwen3.6-27B"
+os.environ["COMPRESS_API_KEY"] = "EMPTY"
+os.environ["COMPRESS_TIMEOUT"] = "600"
 
 console = Console()
 
@@ -571,8 +580,14 @@ def get_user_selections():
             "Step 7: Thinking Agents", "Select your thinking agents for analysis"
         )
     )
-    selected_shallow_thinker = select_shallow_thinking_agent(selected_llm_provider)
-    selected_deep_thinker = select_deep_thinking_agent(selected_llm_provider)
+
+    """
+    inputs : selected_llm_provider     : openai
+    outputs : selected_shallow_thinker : qwen3.6-27B
+              selected_deep_thinker    : qwen3.6-27B
+    """
+    selected_shallow_thinker = select_shallow_thinking_agent(selected_llm_provider) # selected_llm_provider : openai
+    selected_deep_thinker = select_deep_thinking_agent(selected_llm_provider) # selected_shallow_thinker : qwen3.6-27B
 
     # Step 8: Provider-specific thinking configuration
     thinking_level = None
