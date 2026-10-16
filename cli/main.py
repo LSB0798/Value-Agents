@@ -1,3 +1,4 @@
+# valueagents/ValueAgents/cli/main.py
 from typing import Optional
 import datetime
 import typer
@@ -23,18 +24,30 @@ from rich import box
 from rich.align import Align
 from rich.rule import Rule
 
-from tradingagents.graph.trading_graph import TradingAgentsGraph
-from tradingagents.default_config import DEFAULT_CONFIG
+from valueagents.graph.trading_graph import TradingAgentsGraph
+from valueagents.default_config import DEFAULT_CONFIG
 from cli.models import AnalystType
 from cli.utils import *
 from cli.announcements import fetch_announcements, display_announcements
 from cli.stats_handler import StatsCallbackHandler
 
+import os
+os.environ["FINANCIAL_DATASETS_API_KEY"] = "7822668c-eb7d-43b6-bee4-fb31a46e182a"
+# os.environ["COMPRESS_API_URL"] = "http://10.20.223.83:61273/v1"
+# os.environ["COMPRESS_MODEL"] = "qwen3_32B"
+# os.environ["COMPRESS_API_KEY"] = "EMPTY"
+# os.environ["COMPRESS_TIMEOUT"] = "600"
+
+os.environ["COMPRESS_API_URL"] = "http://10.20.223.75:8001/v1"
+os.environ["COMPRESS_MODEL"] = "qwen3.6-27B"
+os.environ["COMPRESS_API_KEY"] = "EMPTY"
+os.environ["COMPRESS_TIMEOUT"] = "600"
+
 console = Console()
 
 app = typer.Typer(
-    name="TradingAgents",
-    help="TradingAgents CLI: Multi-Agents LLM Financial Trading Framework",
+    name="ValueAgents",
+    help="ValueAgents CLI: Multi-Agents LLM Financial Trading Framework",
     add_completion=True,  # Enable shell completion
 )
 
@@ -55,6 +68,7 @@ class MessageBuffer:
         "social": "Social Analyst",
         "news": "News Analyst",
         "fundamentals": "Fundamentals Analyst",
+        # "gnews": "GNews Analyst",
     }
 
     # Report section mapping: section -> (analyst_key for filtering, finalizing_agent)
@@ -256,9 +270,9 @@ def update_display(layout, spinner_text=None, stats_handler=None, start_time=Non
     # Header with welcome message
     layout["header"].update(
         Panel(
-            "[bold green]Welcome to TradingAgents CLI[/bold green]\n"
+            "[bold green]Welcome to ValueAgents CLI[/bold green]\n"
             "[dim]© [Tauric Research](https://github.com/TauricResearch)[/dim]",
-            title="Welcome to TradingAgents",
+            title="Welcome to ValueAgents",
             border_style="green",
             padding=(1, 2),
             expand=True,
@@ -467,7 +481,7 @@ def get_user_selections():
 
     # Create welcome box content
     welcome_content = f"{welcome_ascii}\n"
-    welcome_content += "[bold green]TradingAgents: Multi-Agents LLM Financial Trading Framework - CLI[/bold green]\n\n"
+    welcome_content += "[bold green]ValueInvestmentAgents: Multi-Agents LLM Financial Trading Framework - CLI[/bold green]\n\n"
     welcome_content += "[bold]Workflow Steps:[/bold]\n"
     welcome_content += "I. Analyst Team → II. Research Team → III. Trader → IV. Risk Management → V. Portfolio Management\n\n"
     welcome_content += (
@@ -479,16 +493,17 @@ def get_user_selections():
         welcome_content,
         border_style="green",
         padding=(1, 2),
-        title="Welcome to TradingAgents",
+        title="Welcome to ValueAgents",
         subtitle="Multi-Agents LLM Financial Trading Framework",
     )
+    # console 是通过 rich.console.Console 创建的一个实例，用于在终端中输出格式丰富的内容（如颜色、表格、面板、Markdown 等）
     console.print(Align.center(welcome_box))
     console.print()
     console.print()  # Add vertical space before announcements
 
     # Fetch and display announcements (silent on failure)
     announcements = fetch_announcements()
-    display_announcements(console, announcements)
+    display_announcements(console, announcements) # 声明
 
     # Create a boxed questionnaire for each step
     def create_question_box(title, prompt, default=None):
@@ -498,12 +513,12 @@ def get_user_selections():
             box_content += f"\n[dim]Default: {default}[/dim]"
         return Panel(box_content, border_style="blue", padding=(1, 2))
 
-    # Step 1: Ticker symbol
+    # Step 1: Ticker symbol，选取股票
     console.print(
         create_question_box(
             "Step 1: Ticker Symbol",
-            "Enter the exact ticker symbol to analyze, including exchange suffix when needed (examples: SPY, CNC.TO, 7203.T, 0700.HK)",
-            "SPY",
+            "Enter the exact ticker symbol to analyze, including exchange suffix when needed (examples: AAPL, MSFT, NVDA, GOOGL, AMZN, META, NFLX)",
+            "NVDA",
         )
     )
     selected_ticker = get_ticker()
@@ -540,6 +555,10 @@ def get_user_selections():
     )
 
     # Step 5: Research depth
+    """ 辩论轮数由 research_depth（研究深度）参数控制，用户在选择时会看到三个选项：
+        Shallow（浅度） → 辩论轮数 = 1
+        Medium （中度） → 辩论轮数 = 3
+        Deep   （深度） → 辩论轮数 = 5 """
     console.print(
         create_question_box(
             "Step 5: Research Depth", "Select your research depth level"
@@ -561,8 +580,14 @@ def get_user_selections():
             "Step 7: Thinking Agents", "Select your thinking agents for analysis"
         )
     )
-    selected_shallow_thinker = select_shallow_thinking_agent(selected_llm_provider)
-    selected_deep_thinker = select_deep_thinking_agent(selected_llm_provider)
+
+    """
+    inputs : selected_llm_provider     : openai
+    outputs : selected_shallow_thinker : qwen3.6-27B
+              selected_deep_thinker    : qwen3.6-27B
+    """
+    selected_shallow_thinker = select_shallow_thinking_agent(selected_llm_provider) # selected_llm_provider : openai
+    selected_deep_thinker = select_deep_thinking_agent(selected_llm_provider) # selected_shallow_thinker : qwen3.6-27B
 
     # Step 8: Provider-specific thinking configuration
     thinking_level = None
@@ -586,6 +611,9 @@ def get_user_selections():
             )
         )
         reasoning_effort = ask_openai_reasoning_effort()
+        if reasoning_effort == "xhigh": # 在特别对Qwen3.8-27B,vLLM设置 --default-chat-template-kwargs '{"reasoning_effort": "xhigh"}' 时候起作用
+            print('-0-' * 100)
+            reasoning_effort = None
     elif provider_lower == "anthropic":
         console.print(
             create_question_box(
@@ -659,11 +687,42 @@ def save_report_to_disk(final_state, ticker: str, save_path: Path):
         analysts_dir.mkdir(exist_ok=True)
         (analysts_dir / "fundamentals.md").write_text(final_state["fundamentals_report"])
         analyst_parts.append(("Fundamentals Analyst", final_state["fundamentals_report"]))
+
+    # ---- 大师分析师信号保存（新增） ----
+    master_signals = final_state.get("master_analyst_signals", {})
+    if master_signals:
+        master_dir = save_path / "1_analysts" / "master"
+        master_dir.mkdir(parents=True, exist_ok=True)
+        
+        # 生成汇总表格（用于完整报告）
+        table_lines = [
+            "| Analyst | Signal | Confidence |",
+            "|---------|--------|------------|"
+        ]
+        for agent_name, signals in master_signals.items():
+            for ticker, sig in signals.items():
+                signal = sig.get('signal', 'N/A')
+                conf = sig.get('confidence', 0)
+                table_lines.append(f"| {agent_name} | {signal} | {conf} |")
+        master_table = "\n".join(table_lines)
+        master_table += "\n\n*For detailed reasoning, see individual files in `1_analysts/master/`.*"
+        analyst_parts.append(("Master Analysts", master_table))
+        
+        # 为每个分析师单独保存详细推理
+        for agent_name, signals in master_signals.items():
+            for ticker, sig in signals.items():
+                content = f"# {agent_name} on {ticker}\n\n"
+                content += f"**Signal**: {sig.get('signal')}\n"
+                content += f"**Confidence**: {sig.get('confidence')}\n\n"
+                content += f"**Reasoning**:\n{sig.get('reasoning', '')}"
+                safe_name = agent_name.replace('_', '-')
+                (master_dir / f"{safe_name}.md").write_text(content)
+
     if analyst_parts:
         content = "\n\n".join(f"### {name}\n{text}" for name, text in analyst_parts)
         sections.append(f"## I. Analyst Team Reports\n\n{content}")
 
-    # 2. Research
+    # 2. Research（原样）
     if final_state.get("investment_debate_state"):
         research_dir = save_path / "2_research"
         debate = final_state["investment_debate_state"]
@@ -684,14 +743,14 @@ def save_report_to_disk(final_state, ticker: str, save_path: Path):
             content = "\n\n".join(f"### {name}\n{text}" for name, text in research_parts)
             sections.append(f"## II. Research Team Decision\n\n{content}")
 
-    # 3. Trading
+    # 3. Trading（原样）
     if final_state.get("trader_investment_plan"):
         trading_dir = save_path / "3_trading"
         trading_dir.mkdir(exist_ok=True)
         (trading_dir / "trader.md").write_text(final_state["trader_investment_plan"])
         sections.append(f"## III. Trading Team Plan\n\n### Trader\n{final_state['trader_investment_plan']}")
 
-    # 4. Risk Management
+    # 4. Risk Management（原样）
     if final_state.get("risk_debate_state"):
         risk_dir = save_path / "4_risk"
         risk = final_state["risk_debate_state"]
@@ -795,12 +854,16 @@ def update_research_team_status(status):
 
 # Ordered list of analysts for status transitions
 ANALYST_ORDER = ["market", "social", "news", "fundamentals"]
+
+
 ANALYST_AGENT_NAMES = {
     "market": "Market Analyst",
     "social": "Social Analyst",
     "news": "News Analyst",
     "fundamentals": "Fundamentals Analyst",
 }
+
+
 ANALYST_REPORT_MAP = {
     "market": "market_report",
     "social": "sentiment_report",
@@ -926,45 +989,52 @@ def format_tool_args(args, max_length=80) -> str:
     return result
 
 def run_analysis():
-    # First get all user selections
+    # 获取用户选择
     selections = get_user_selections()
 
-    # Create config with selected research depth
+    # 配置
     config = DEFAULT_CONFIG.copy()
-    config["max_debate_rounds"] = selections["research_depth"]
+    config["max_debate_rounds"]       = selections["research_depth"]
     config["max_risk_discuss_rounds"] = selections["research_depth"]
-    config["quick_think_llm"] = selections["shallow_thinker"]
-    config["deep_think_llm"] = selections["deep_thinker"]
-    config["backend_url"] = selections["backend_url"]
-    config["llm_provider"] = selections["llm_provider"].lower()
-    # Provider-specific thinking configuration
-    config["google_thinking_level"] = selections.get("google_thinking_level")
+    config["quick_think_llm"]         = selections["shallow_thinker"]
+    config["deep_think_llm"]          = selections["deep_thinker"]
+    config["backend_url"]             = selections["backend_url"]
+    config["llm_provider"]            = selections["llm_provider"].lower()
+    config["google_thinking_level"]   = selections.get("google_thinking_level")
     config["openai_reasoning_effort"] = selections.get("openai_reasoning_effort")
-    config["anthropic_effort"] = selections.get("anthropic_effort")
-    config["output_language"] = selections.get("output_language", "English")
+    config["anthropic_effort"]        = selections.get("anthropic_effort")
+    config["output_language"]         = selections.get("output_language", "English")
 
-    # Create stats callback handler for tracking LLM/tool calls
     stats_handler = StatsCallbackHandler()
 
-    # Normalize analyst selection to predefined order (selection is a 'set', order is fixed)
     selected_set = {analyst.value for analyst in selections["analysts"]}
     selected_analyst_keys = [a for a in ANALYST_ORDER if a in selected_set]
 
-    # Initialize the graph with callbacks bound to LLMs
+    # ---------- 准备创建图 ----------
+    print("[MAIN] Creating TradingAgentsGraph with parameters:")
+    print(f"   selected_analysts: {selected_analyst_keys}")
+    print(f"   use_master_analysts: False")
+    print(f"   master_analysts_list: None")
+    print(f"   config: {config}")
+    # --------------------------------
+
     graph = TradingAgentsGraph(
-        selected_analyst_keys,
+        selected_analysts=selected_analyst_keys,
+        use_master_analysts=False, # True,
+        # master_analysts_list=["ben_graham", "warren_buffett", "peter_lynch", "phil_fisher", "charlie_munger", "michael_burry", "aswath_damodaran", "cathie_wood", "bill_ackman", "rakesh_jhunjhunwala", "mohnish_pabrai", "nassim_taleb", "stanley_druckenmiller", "technical_analyst", "fundamentals_analyst", "growth_analyst", "news_sentiment_analyst", "sentiment_analyst", "valuation_analyst"],
+        master_analysts_list=None,
         config=config,
         debug=True,
         callbacks=[stats_handler],
     )
 
-    # Initialize message buffer with selected analysts
+    print("[MAIN] TradingAgentsGraph created successfully.\n")
+
     message_buffer.init_for_analysis(selected_analyst_keys)
 
-    # Track start time for elapsed display
     start_time = time.time()
 
-    # Create result directory
+    # 创建结果目录
     results_dir = Path(config["results_dir"]) / selections["ticker"] / selections["analysis_date"]
     results_dir.mkdir(parents=True, exist_ok=True)
     report_dir = results_dir / "reports"
@@ -972,17 +1042,18 @@ def run_analysis():
     log_file = results_dir / "message_tool.log"
     log_file.touch(exist_ok=True)
 
+    # 装饰器（用于记录日志）
     def save_message_decorator(obj, func_name):
         func = getattr(obj, func_name)
         @wraps(func)
         def wrapper(*args, **kwargs):
             func(*args, **kwargs)
             timestamp, message_type, content = obj.messages[-1]
-            content = content.replace("\n", " ")  # Replace newlines with spaces
+            content = content.replace("\n", " ")
             with open(log_file, "a") as f:
                 f.write(f"{timestamp} [{message_type}] {content}\n")
         return wrapper
-    
+
     def save_tool_call_decorator(obj, func_name):
         func = getattr(obj, func_name)
         @wraps(func)
@@ -1012,171 +1083,145 @@ def run_analysis():
     message_buffer.add_tool_call = save_tool_call_decorator(message_buffer, "add_tool_call")
     message_buffer.update_report_section = save_report_section_decorator(message_buffer, "update_report_section")
 
-    # Now start the display layout
-    layout = create_layout()
+    # ----- 不再使用 Live UI，改为直接打印 -----
+    console.print("[bold green]Starting analysis...[/bold green]\n")
+    console.print(f"Ticker: {selections['ticker']}")
+    console.print(f"Analysis date: {selections['analysis_date']}")
+    console.print(f"Selected analysts: {', '.join(analyst.value for analyst in selections['analysts'])}")
+    console.print("---\n")
 
-    with Live(layout, refresh_per_second=4) as live:
-        # Initial display
-        update_display(layout, stats_handler=stats_handler, start_time=start_time)
+    # 添加初始消息（仅用于日志，不显示）
+    message_buffer.add_message("System", f"Selected ticker: {selections['ticker']}")
+    message_buffer.add_message("System", f"Analysis date: {selections['analysis_date']}")
+    message_buffer.add_message("System", f"Selected analysts: {', '.join(analyst.value for analyst in selections['analysts'])}")
 
-        # Add initial messages
-        message_buffer.add_message("System", f"Selected ticker: {selections['ticker']}")
-        message_buffer.add_message(
-            "System", f"Analysis date: {selections['analysis_date']}"
-        )
-        message_buffer.add_message(
-            "System",
-            f"Selected analysts: {', '.join(analyst.value for analyst in selections['analysts'])}",
-        )
-        update_display(layout, stats_handler=stats_handler, start_time=start_time)
+    # 设置第一个分析师为 in_progress（状态更新，但不显示）
+    first_analyst = f"{selections['analysts'][0].value.capitalize()} Analyst"
+    message_buffer.update_agent_status(first_analyst, "in_progress")
 
-        # Update agent status to in_progress for the first analyst
-        first_analyst = f"{selections['analysts'][0].value.capitalize()} Analyst"
-        message_buffer.update_agent_status(first_analyst, "in_progress")
-        update_display(layout, stats_handler=stats_handler, start_time=start_time)
+    init_agent_state = graph.propagator.create_initial_state(
+        selections["ticker"], selections["analysis_date"]
+    )
+    args = graph.propagator.get_graph_args(callbacks=[stats_handler])
 
-        # Create spinner text
-        spinner_text = (
-            f"Analyzing {selections['ticker']} on {selections['analysis_date']}..."
-        )
-        update_display(layout, spinner_text, stats_handler=stats_handler, start_time=start_time)
+    # ---------- 开始图流 ----------
+    print("[MAIN] Starting graph stream...\n")
+    # ----------------------------
 
-        # Initialize state and get graph args with callbacks
-        init_agent_state = graph.propagator.create_initial_state(
-            selections["ticker"], selections["analysis_date"]
-        )
-        # Pass callbacks to graph config for tool execution tracking
-        # (LLM tracking is handled separately via LLM constructor)
-        args = graph.propagator.get_graph_args(callbacks=[stats_handler])
+    trace = []
+    for chunk in graph.graph.stream(init_agent_state, **args):
+        # 处理消息
+        if len(chunk["messages"]) > 0:
+            last_message = chunk["messages"][-1]
+            msg_id = getattr(last_message, "id", None)
+            if msg_id != message_buffer._last_message_id:
+                message_buffer._last_message_id = msg_id
+                msg_type, content = classify_message_type(last_message)
+                if content and content.strip():
+                    message_buffer.add_message(msg_type, content)
+                    # 打印消息（截断长度）
+                    console.print(f"[{msg_type}] {content[:200]}..." if len(content) > 200 else f"[{msg_type}] {content}")
+                # 处理工具调用
+                if hasattr(last_message, "tool_calls") and last_message.tool_calls:
+                    for tool_call in last_message.tool_calls:
+                        if isinstance(tool_call, dict):
+                            message_buffer.add_tool_call(tool_call["name"], tool_call["args"])
+                            console.print(f"[Tool] {tool_call['name']}({tool_call['args']})")
+                        else:
+                            message_buffer.add_tool_call(tool_call.name, tool_call.args)
+                            console.print(f"[Tool] {tool_call.name}({tool_call.args})")
 
-        # Stream the analysis
-        trace = []
-        for chunk in graph.graph.stream(init_agent_state, **args):
-            # Process messages if present (skip duplicates via message ID)
-            if len(chunk["messages"]) > 0:
-                last_message = chunk["messages"][-1]
-                msg_id = getattr(last_message, "id", None)
+        # ---------- 图流结束 ----------
+        print("[MAIN] Graph stream finished.\n")
+        # ----------------------------
 
-                if msg_id != message_buffer._last_message_id:
-                    message_buffer._last_message_id = msg_id
+        # 更新分析师状态（与原有逻辑相同）
+        update_analyst_statuses(message_buffer, chunk)
 
-                    # Add message to buffer
-                    msg_type, content = classify_message_type(last_message)
-                    if content and content.strip():
-                        message_buffer.add_message(msg_type, content)
+        # 研究团队
+        if chunk.get("investment_debate_state"):
+            debate_state = chunk["investment_debate_state"]
+            bull_hist = debate_state.get("bull_history", "").strip()
+            bear_hist = debate_state.get("bear_history", "").strip()
+            judge = debate_state.get("judge_decision", "").strip()
+            if bull_hist or bear_hist:
+                update_research_team_status("in_progress")
+            if bull_hist:
+                message_buffer.update_report_section("investment_plan", f"### Bull Researcher Analysis\n{bull_hist}")
+            if bear_hist:
+                message_buffer.update_report_section("investment_plan", f"### Bear Researcher Analysis\n{bear_hist}")
+            if judge:
+                message_buffer.update_report_section("investment_plan", f"### Research Manager Decision\n{judge}")
+                update_research_team_status("completed")
+                message_buffer.update_agent_status("Trader", "in_progress")
 
-                    # Handle tool calls
-                    if hasattr(last_message, "tool_calls") and last_message.tool_calls:
-                        for tool_call in last_message.tool_calls:
-                            if isinstance(tool_call, dict):
-                                message_buffer.add_tool_call(
-                                    tool_call["name"], tool_call["args"]
-                                )
-                            else:
-                                message_buffer.add_tool_call(tool_call.name, tool_call.args)
+        # 交易员
+        if chunk.get("trader_investment_plan"):
+            message_buffer.update_report_section("trader_investment_plan", chunk["trader_investment_plan"])
+            if message_buffer.agent_status.get("Trader") != "completed":
+                message_buffer.update_agent_status("Trader", "completed")
+                message_buffer.update_agent_status("Aggressive Analyst", "in_progress")
 
-            # Update analyst statuses based on report state (runs on every chunk)
-            update_analyst_statuses(message_buffer, chunk)
-
-            # Research Team - Handle Investment Debate State
-            if chunk.get("investment_debate_state"):
-                debate_state = chunk["investment_debate_state"]
-                bull_hist = debate_state.get("bull_history", "").strip()
-                bear_hist = debate_state.get("bear_history", "").strip()
-                judge = debate_state.get("judge_decision", "").strip()
-
-                # Only update status when there's actual content
-                if bull_hist or bear_hist:
-                    update_research_team_status("in_progress")
-                if bull_hist:
-                    message_buffer.update_report_section(
-                        "investment_plan", f"### Bull Researcher Analysis\n{bull_hist}"
-                    )
-                if bear_hist:
-                    message_buffer.update_report_section(
-                        "investment_plan", f"### Bear Researcher Analysis\n{bear_hist}"
-                    )
-                if judge:
-                    message_buffer.update_report_section(
-                        "investment_plan", f"### Research Manager Decision\n{judge}"
-                    )
-                    update_research_team_status("completed")
-                    message_buffer.update_agent_status("Trader", "in_progress")
-
-            # Trading Team
-            if chunk.get("trader_investment_plan"):
-                message_buffer.update_report_section(
-                    "trader_investment_plan", chunk["trader_investment_plan"]
-                )
-                if message_buffer.agent_status.get("Trader") != "completed":
-                    message_buffer.update_agent_status("Trader", "completed")
+        # 风险管理
+        if chunk.get("risk_debate_state"):
+            risk_state = chunk["risk_debate_state"]
+            agg_hist = risk_state.get("aggressive_history", "").strip()
+            con_hist = risk_state.get("conservative_history", "").strip()
+            neu_hist = risk_state.get("neutral_history", "").strip()
+            judge = risk_state.get("judge_decision", "").strip()
+            if agg_hist:
+                if message_buffer.agent_status.get("Aggressive Analyst") != "completed":
                     message_buffer.update_agent_status("Aggressive Analyst", "in_progress")
+                message_buffer.update_report_section("final_trade_decision", f"### Aggressive Analyst Analysis\n{agg_hist}")
+            if con_hist:
+                if message_buffer.agent_status.get("Conservative Analyst") != "completed":
+                    message_buffer.update_agent_status("Conservative Analyst", "in_progress")
+                message_buffer.update_report_section("final_trade_decision", f"### Conservative Analyst Analysis\n{con_hist}")
+            if neu_hist:
+                if message_buffer.agent_status.get("Neutral Analyst") != "completed":
+                    message_buffer.update_agent_status("Neutral Analyst", "in_progress")
+                message_buffer.update_report_section("final_trade_decision", f"### Neutral Analyst Analysis\n{neu_hist}")
+            if judge:
+                if message_buffer.agent_status.get("Portfolio Manager") != "completed":
+                    message_buffer.update_agent_status("Portfolio Manager", "in_progress")
+                    message_buffer.update_report_section("final_trade_decision", f"### Portfolio Manager Decision\n{judge}")
+                    message_buffer.update_agent_status("Aggressive Analyst", "completed")
+                    message_buffer.update_agent_status("Conservative Analyst", "completed")
+                    message_buffer.update_agent_status("Neutral Analyst", "completed")
+                    message_buffer.update_agent_status("Portfolio Manager", "completed")
 
-            # Risk Management Team - Handle Risk Debate State
-            if chunk.get("risk_debate_state"):
-                risk_state = chunk["risk_debate_state"]
-                agg_hist = risk_state.get("aggressive_history", "").strip()
-                con_hist = risk_state.get("conservative_history", "").strip()
-                neu_hist = risk_state.get("neutral_history", "").strip()
-                judge = risk_state.get("judge_decision", "").strip()
+        trace.append(chunk)
 
-                if agg_hist:
-                    if message_buffer.agent_status.get("Aggressive Analyst") != "completed":
-                        message_buffer.update_agent_status("Aggressive Analyst", "in_progress")
-                    message_buffer.update_report_section(
-                        "final_trade_decision", f"### Aggressive Analyst Analysis\n{agg_hist}"
-                    )
-                if con_hist:
-                    if message_buffer.agent_status.get("Conservative Analyst") != "completed":
-                        message_buffer.update_agent_status("Conservative Analyst", "in_progress")
-                    message_buffer.update_report_section(
-                        "final_trade_decision", f"### Conservative Analyst Analysis\n{con_hist}"
-                    )
-                if neu_hist:
-                    if message_buffer.agent_status.get("Neutral Analyst") != "completed":
-                        message_buffer.update_agent_status("Neutral Analyst", "in_progress")
-                    message_buffer.update_report_section(
-                        "final_trade_decision", f"### Neutral Analyst Analysis\n{neu_hist}"
-                    )
-                if judge:
-                    if message_buffer.agent_status.get("Portfolio Manager") != "completed":
-                        message_buffer.update_agent_status("Portfolio Manager", "in_progress")
-                        message_buffer.update_report_section(
-                            "final_trade_decision", f"### Portfolio Manager Decision\n{judge}"
-                        )
-                        message_buffer.update_agent_status("Aggressive Analyst", "completed")
-                        message_buffer.update_agent_status("Conservative Analyst", "completed")
-                        message_buffer.update_agent_status("Neutral Analyst", "completed")
-                        message_buffer.update_agent_status("Portfolio Manager", "completed")
+        # 每处理一个 chunk 后，可打印当前进度（可选）
+        # 这里省略，因为消息已经打印了
 
-            # Update the display
-            update_display(layout, stats_handler=stats_handler, start_time=start_time)
+    final_state = trace[-1]
+    decision = graph.process_signal(final_state["final_trade_decision"])
 
-            trace.append(chunk)
+    # 更新所有 agent 状态为 completed
+    for agent in message_buffer.agent_status:
+        message_buffer.update_agent_status(agent, "completed")
 
-        # Get final state and decision
-        final_state = trace[-1]
-        decision = graph.process_signal(final_state["final_trade_decision"])
+    message_buffer.add_message("System", f"Completed analysis for {selections['analysis_date']}")
 
-        # Update all agent statuses to completed
-        for agent in message_buffer.agent_status:
-            message_buffer.update_agent_status(agent, "completed")
+    for section in message_buffer.report_sections.keys():
+        if section in final_state:
+            message_buffer.update_report_section(section, final_state[section])
 
-        message_buffer.add_message(
-            "System", f"Completed analysis for {selections['analysis_date']}"
-        )
+    # 输出最终结果
+    console.print("\n[bold green]Analysis Complete![/bold green]\n")
+    console.print(f"Final decision: {decision}")
+    console.print(f"Agents completed: {sum(1 for s in message_buffer.agent_status.values() if s == 'completed')}/{len(message_buffer.agent_status)}")
+    stats = stats_handler.get_stats()
+    console.print(f"LLM calls: {stats['llm_calls']}, Tool calls: {stats['tool_calls']}, Tokens in: {stats['tokens_in']}, out: {stats['tokens_out']}")
+    elapsed = time.time() - start_time
+    console.print(f"Elapsed time: {int(elapsed // 60):02d}:{int(elapsed % 60):02d}\n")
 
-        # Update final report sections
-        for section in message_buffer.report_sections.keys():
-            if section in final_state:
-                message_buffer.update_report_section(section, final_state[section])
+    # ---------- 报告保存提示 ----------
+    print("[MAIN] Analysis results ready for saving/display.")
+    # --------------------------------
 
-        update_display(layout, stats_handler=stats_handler, start_time=start_time)
-
-    # Post-analysis prompts (outside Live context for clean interaction)
-    console.print("\n[bold cyan]Analysis Complete![/bold cyan]\n")
-
-    # Prompt to save report
+    # 提示保存报告和显示完整报告（与原来相同）
     save_choice = typer.prompt("Save report?", default="Y").strip().upper()
     if save_choice in ("Y", "YES", ""):
         timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -1193,7 +1238,6 @@ def run_analysis():
         except Exception as e:
             console.print(f"[red]Error saving report: {e}[/red]")
 
-    # Prompt to display full report
     display_choice = typer.prompt("\nDisplay full report on screen?", default="Y").strip().upper()
     if display_choice in ("Y", "YES", ""):
         display_complete_report(final_state)

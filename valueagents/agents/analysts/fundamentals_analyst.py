@@ -1,0 +1,103 @@
+# ./valueagents/agents/analysts/fundamentals_analyst.py
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from valueagents.agents.utils.agent_utils import (
+    build_instrument_context,
+    get_balance_sheet, #
+    get_cashflow, #
+    get_fundamentals, #
+    get_income_statement, #
+    get_insider_transactions,
+    get_language_instruction,
+    retrieve_fundamentals_wisdom,
+)
+from valueagents.dataflows.config import get_config
+
+
+def create_fundamentals_analyst(llm, llm_compress=None):
+    def fundamentals_analyst_node(state):
+        # ----- 入口打印 -----
+        ticker = state["company_of_interest"]
+        trade_date = state["trade_date"]
+        print(f"\n{'='*60}")
+        print(f"📊 [FUNDAMENTALS ANALYST] Analyzing {ticker} at {trade_date}")
+        # print(f"{'='*60}")
+
+        current_date = state["trade_date"]
+        instrument_context = build_instrument_context(state["company_of_interest"])
+
+        tools = [
+            get_fundamentals,
+            get_balance_sheet,
+            get_cashflow,
+            get_income_statement,
+            # retrieve_fundamentals_wisdom,
+        ]
+
+        print(f"   Tools available: {', '.join([tool.name for tool in tools])}")
+
+        system_message = (
+            "You are a researcher tasked with analyzing fundamental information over the past week about a company. Please write a comprehensive report of the company's fundamental information such as financial documents, company profile, basic company financials, and company financial history to gain a full view of the company's fundamental information to inform traders. Make sure to include as much detail as possible. Provide specific, actionable insights with supporting evidence to help traders make informed decisions."
+            + " Make sure to append a Markdown table at the end of the report to organize key points in the report, organized and easy to read."
+            + " Use the available tools: `get_fundamentals` for comprehensive company analysis, `get_balance_sheet`, `get_cashflow`, and `get_income_statement` for specific financial statements."
+            # + """\n\nIMPORTANT: Before writing your final report, you MUST use the `retrieve_fundamentals_wisdom` tool at least once to gather relevant investment wisdom about company valuation, financial analysis, and fundamental investing principles. For example, you can query: "Warren Buffett's approach to evaluating a company's moat" or "Charlie Munger's principles of financial statement analysis". Then incorporate the retrieved wisdom into your analysis report."""
+            + get_language_instruction()
+            + "\n\nIMPORTANT: You MUST call each tool at most ONCE. Even if the returned news content appears empty, sparse, or not directly relevant to the ticker, you MUST proceed to write your final report based on whatever information you have. Do NOT call the same tool twice with different date ranges. Do NOT retry with a wider window. If data is insufficient, explicitly state 'insufficient data' in your report instead of retrying."
+        )
+
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                (
+                    "system",
+                    "You are a helpful AI assistant, collaborating with other assistants."
+                    " Use the provided tools to progress towards answering the question."
+                    " If you are unable to fully answer, that's OK; another assistant with different tools"
+                    " will help where you left off. Execute what you can to make progress."
+                    " If you or any other assistant has the FINAL TRANSACTION PROPOSAL: **BUY/HOLD/SELL** or deliverable,"
+                    " prefix your response with FINAL TRANSACTION PROPOSAL: **BUY/HOLD/SELL** so the team knows to stop."
+                    " You have access to the following tools: {tool_names}.\n{system_message}"
+                    "For your reference, the current date is {current_date}. {instrument_context}",
+                ),
+                MessagesPlaceholder(variable_name="messages"),
+            ]
+        )
+
+        prompt = prompt.partial(system_message=system_message)
+        prompt = prompt.partial(tool_names=", ".join([tool.name for tool in tools]))
+        prompt = prompt.partial(current_date=current_date)
+        prompt = prompt.partial(instrument_context=instrument_context)
+
+        chain = prompt | llm.bind_tools(tools)
+
+        result = chain.invoke(state["messages"])
+
+        if result.tool_calls:
+            print(f"   ⚙️ Tool calls: {[tc['name'] for tc in result.tool_calls]}")
+        else:
+            report = result.content
+            print(f"   📄 Report generated (length: {len(report)} chars)")
+            summary = report[:200].replace('\n', ' ') + "..."
+            print(f"   Summary: {summary}")
+
+        report = ""
+
+        if len(result.tool_calls) == 0:
+            report = result.content
+
+        print(f"[FUNDAMENTALS ANALYST] Done.\n")
+
+        # ===== 添加报告摘要打印 =====
+        # print(f"   📄 Return (messages: {result})")
+        # print(f"   📄 Return (fundamentals_report: {report})")
+        # ===========================
+
+        # ===========================
+        print(f"📊 [FUNDAMENTALS ANALYST] Analyzed‌ {ticker} at {trade_date}")
+        print(f"{'='*60}")
+        # ===========================
+        
+        return {
+            "messages": [result],
+            "fundamentals_report": report,
+        }
+
+    return fundamentals_analyst_node

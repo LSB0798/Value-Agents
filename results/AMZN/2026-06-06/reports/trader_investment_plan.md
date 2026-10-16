@@ -1,0 +1,13 @@
+
+
+I am treating `AMZN` as a staged, risk-defined **BUY**, not an aggressive conviction buy. The core issue is that the bear case is real but not yet decisive: negative free cash flow, rising capex, depreciation pressure, one-time earnings inflation, and technical weakness below the 50-SMA all argue against full-size commitment. However, the bull case is strong enough to support participation because `AMZN` remains above the rising 200-SMA at 232.13, the balance sheet is liquid enough to fund the AI and infrastructure build, and there are near-term catalysts in Prime Day and early-August earnings.
+
+My decision is shaped by the plan’s key correction: do not let the long-term quality thesis override technical invalidation and position sizing. Therefore, I would only buy `AMZN` in the defined 240–249 zone, with the initial fill range at 243–248, and I would start with only 40%–50% of the intended `AMZN` position. I would not chase `AMZN` above 251 unless the 50-SMA is reclaimed with momentum repair.
+
+Risk control is the reason this is a buy rather than a hold. The 200-SMA at 232.13 is the line in the sand. A daily close below 239 would trigger a half-position reduction. A daily close below 232.13 would force a full exit from `AMZN`. If `AMZN` gaps below 232.13 at the open, the correct action is to sell at the open rather than waiting for a close confirmation. Position size should be limited so the stop distance from 246.03 to 238.80 risks no more than 0.5%–1.0% of total capital, and `AMZN` should remain capped at 10%–15% of the portfolio unless the 50-SMA is reclaimed and AWS confirms the growth thesis.
+
+The add-ons should be evidence-based, not hopeful. Add 25% only if `AMZN` dips to 240–242 while holding volume and the 239 area does not break. Add the final 25% only on a daily close above 251.16 with MACD improvement, or on a weekly close above the 50-SMA. The first target is 265, the second is 278.56, and a runner toward 300 should only be kept if AWS growth, advertising revenue, Prime economics, and capex utilization all confirm the thesis.
+
+I am not buying `AMZN` on perfection. I am buying it because the trade structure is favorable: intact long-term support, bounded downside, concrete catalysts, and a funded capex cycle rather than a distress story. The bear case prevents a full commitment, but it does not yet justify selling or avoiding `AMZN` entirely. The right action is controlled participation with staged entries, a hard invalidation level, and proof required before scaling into the full `AMZN` position.
+
+FINAL TRANSACTION PROPOSAL: **BUY**
