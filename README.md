@@ -1,193 +1,174 @@
-START (CLI 启动)
-                                        │
-                                        ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│  阶段一：分析师团队（数据采集 + 基础分析）                                    │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
-│  │ 第一个分析师  │→│ 第二个分析师  │→│ 第三个分析师  │→│ ...          │  │
-│  └──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘  │
-│    (每个分析师都带有工具循环)        顺序由 selected_analysts 列表决定      │
-│                                                                           │
-│  特殊模式：如果 use_master_analysts=True，则所有分析师（含19位大师）       │
-│           串行执行完毕后 → SignalAggregator 汇聚信号                       │
-└─────────────────────────────────────────────────────────────────────────────┘
-                                        │
-                                        ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│  阶段二：研究团队（多空辩论 + 决策）                                         │
-│       ┌───────────────┐                                                    │
-│       │  多头研究员    │ ←→ (交替辩论，由 should_continue_debate 控制)     │
-│       │  (Bull)       │                                                    │
-│       └───────────────┘                                                    │
-│             ↓                                                              │
-│       ┌───────────────┐                                                    │
-│       │  空头研究员    │                                                    │
-│       │  (Bear)       │                                                    │
-│       └───────────────┘                                                    │
-│             ↓ (达到 max_debate_rounds)                                    │
-│       ┌───────────────────┐                                               │
-│       │  研究经理          │ → investment_plan                            │
-│       └───────────────────┘                                               │
-└─────────────────────────────────────────────────────────────────────────────┘
-                                        │
-                                        ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│  阶段三：交易员                                                             │
-│       ┌───────────────────┐                                               │
-│       │  交易员 (Trader)   │ → trader_investment_plan                     │
-│       └───────────────────┘                                               │
-└─────────────────────────────────────────────────────────────────────────────┘
-                                        │
-                                        ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│  阶段四：风险管理团队（三方辩论 + 最终决策）                                  │
-│       ┌──────────────────┐                                                │
-│       │  激进风险分析师    │ ←→ (循环辩论，由 should_continue_risk 控制)   │
-│       │  (Aggressive)     │                                                │
-│       └──────────────────┘                                                │
-│             ↓                                                             │
-│       ┌──────────────────┐                                                │
-│       │  保守风险分析师    │                                                │
-│       │  (Conservative)   │                                                │
-│       └──────────────────┘                                                │
-│             ↓                                                             │
-│       ┌──────────────────┐                                                │
-│       │  中性风险分析师    │                                                │
-│       │  (Neutral)        │                                                │
-│       └──────────────────┘                                                │
-│             ↓ (达到 max_risk_discuss_rounds)                              │
-│       ┌─────────────────────┐                                             │
-│       │  投资组合经理        │ → final_trade_decision                     │
-│       └─────────────────────┘                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
-                                        │
-                                        ▼
-                                       END
+<p align="center">
+  <img src="assets/schema.png" style="width: 80%; height: auto;">
+</p>
 
+# TradingAgents with AI Hedge Fund Analysts
 
+**TradingAgents** is a multi-agent trading decision framework that simulates a hedge fund investment team consisting of:
 
+- **4 News Analysts** — multi-source news intelligence
+- **19 Master Analysts** — inspired by legendary investors (Graham, Buffett, Munger, ...)
+- **Bull / Bear Researchers** — adversarial debate with dynamic skill invocation
+- **Research Manager** — synthesizes debate into an investment plan
+- **Trader** — converts the plan into specific orders
+- **3 Risk Analysts** (Aggressive / Neutral / Conservative) + **Portfolio Manager** — final decision
 
+The system generates trading decisions through **multi-round debates**, **evidence-based skill selection**, and **comprehensive signal aggregation**.
+
+## 🧠 Core Architecture
+
+### Analyst Team
+
+The system currently includes the following analysts:
+
+| Analyst Type | Count | Description |
+|--------------|-------|-------------|
+| **News Analysts** | 4 | Multi‑source news intelligence squad. Each analyst fetches from a distinct provider to generate a macro environment report and sentiment signals. |
+| &nbsp;&nbsp;├─ Alpha News Analyst | 1 | Retrieves market‑moving news via the **Alpha Vantage** API. |
+| &nbsp;&nbsp;├─ Finnhub News Analyst | 1 | Retrieves company‑specific and macro news via the **Finnhub** API. |
+| &nbsp;&nbsp;├─ GNews Analyst | 1 | Retrieves broad global news and headlines via the **GNews** API. |
+| &nbsp;&nbsp;└─ YFinance News Analyst | 1 | Retrieves company‑specific and global macro news via **yfinance**. |
+| **Master Analysts** | 19 | Based on the investment philosophies of famous masters (Graham, Buffett, Lynch, Munger, etc.). Each skill exposes L1 metadata — `best_for` / `not_for` / `capabilities` — that guides on-demand selection by the Bull/Bear Researchers. Each performs quantitative analysis and LLM reasoning independently, outputting trading signals (`bullish`/`bearish`/`neutral`) with confidence scores. |
+
+> 💡 **Master Analysts as Skills**: The 19 master analysts have been encapsulated as **Skills** — 
+> self‑contained packages consisting of a `SKILL.md` (metadata + workflow) and a `skill.py` 
+> (execution logic). At startup, all skills are loaded into a singleton **SkillRegistry** that 
+> provides a lightweight L1 view (name + 120-char description + `best_for` / `not_for` / 
+> `capabilities`). During each debate round, Bull and Bear Researchers query this L1 view to 
+> select relevant skills, then invoke them on‑demand via the registry — retrieving real‑time 
+> valuations, fundamentals, or expert perspectives without loading every skill's full workflow 
+> upfront. This is a **progressive disclosure** design: only selected skills have their 
+> `## Workflow` injected into their internal LLM prompt.
+
+### Workflow
+
+1. **Parallel Analysis**: The News Analysts and the 19 Master Analysts run **in parallel**, each retrieving data and generating reports/signals.
+2. **Signal Aggregation**: After all analysts finish, the **SignalAggregator** node collects and prints a consolidated signal summary.
+3. **Multi‑Round Debate**: **Bull Researcher** and **Bear Researcher** engage in multi‑round debates based on the aggregated signals and raw reports.
+   - The debate depth is **configurable** (1 round = shallow, 3 rounds = medium, 5 rounds = deep).
+   - At each round, each researcher **autonomously selects skills** to fill argument gaps, guided  by the L1 metadata (`best_for` / `not_for` / `capabilities`). Skills already invoked in prior  rounds are excluded from the candidate pool, so evidence accumulates rather than repeats.
+   - Selected skills run in **execution stage**: their full `## Workflow` is loaded and injected into the skill's internal LLM prompt, while the researcher only sees the returned signal — a **progressive disclosure** that keeps the debate prompt lightweight.
+4. **Research Manager Decision**: The **Research Manager** formulates an initial investment plan after the debate.
+5. **Trader Execution**: The **Trader** generates specific trade orders.
+6. **Risk Debate**: **Aggressive/Conservative/Neutral** risk analysts discuss risk exposure in multiple rounds.
+7. **Portfolio Manager**: The **Portfolio Manager** synthesises all information and outputs the final trading decision (`BUY`/`SELL`/`HOLD`/`SHORT` etc.).
+
+### Data Sources
+
+- **Financial Data**: Retrieved from **yfinance** and **SEC EDGAR** (free, no API key required). The legacy Financial Datasets API is only used as a fallback when both free sources are disabled.
+  - **yfinance** — current market data, price history, and quarterly/annual financials.
+  - **SEC EDGAR** — authoritative annual filings (10-K) for long-term fundamental analysis.
+  - **ROIC API** — quarterly fundamentals for TTM (trailing-twelve-month) calculation.
+  - **Finnhub** — insider trades.
+  - **Alpha Vantage** — news with built-in sentiment.
+
+### Data Caching
+
+To reduce API calls and speed up repeated analyses, the system **persists data locally** in `dataflows/data_cache/`.  
+All data is stored by type and ticker, and new data is merged with existing cached data (deduplicated by date/key), so you won't lose historical data when running new analyses.
+
+The cache directory structure is as follows:
+
+```text
 dataflows/data_cache/
-├── prices/                           # 价格数据 (日/月/年)
+├── prices/                           # OHLCV price data (daily)
 │   └── daily/
-│       ├── AAPL-YFin-daily-2021-07-26-2026-07-26.csv  # 现有CSV
-│       └── MSFT-YFin-daily-2021-07-27-2026-07-27.csv
-├── fundamentals/                     # 财务数据 (季/年)
+│       └── AAPL-YFin-daily-*.csv
+├── fundamentals/                     # Financial metrics (quarterly/annual)
 │   ├── quarterly/
-│   │   └── AAPL_roic_quarters.json   # 存储所有季度原始数据
-│   └── annual/
-│       └── AAPL_edgar_annual.json
-├── line_items/                       # 行项目 (季/年)
-│   └── AAPL_line_items.json
-├── insider/                          # 内幕交易
-│   └── AAPL_insider.json
-└── news/                             # 新闻
-    └── AAPL_news.json
+│   │   └── AAPL_roic_quarters.json
+│   ├── annual/
+│   │   └── AAPL_edgar_annual.json
+│   └── edgar/                        # Raw SEC EDGAR statements
+├── market_cap/                       # 🆕 Per (ticker, date) market cap
+│   └── AAPL_2026-06-06.json
+├── line_items/
+├── insider/
+└── news/
+```
 
+- **Prices**: CSV files, one per ticker, containing all daily price data (date range as filename).
+- **Fundamentals**: JSON files storing quarterly/annual financial metrics and raw statements.
+- **Line Items**: JSON files for detailed financial line items (e.g., revenue, debt, cash flow).
+- **Insider**: JSON files for insider transaction history.
+- **News**: JSON files for company news (from Alpha Vantage, Finnhub, etc.).
 
+> **Note**: The cache is automatically managed. If you ever need to reset it, simply delete the `dataflows/data_cache/` directory or individual files. The system will rebuild them on the next run.
 
-节点	RAG 作用	调用方式
-市场分析师	获取大师关于技术分析、市场心理的论述	工具调用
-社交媒体分析师	获取关于市场情绪的名言	工具调用
-新闻分析师	获取关于宏观经济与事件的见解	工具调用
-基本面分析师	获取关于企业估值、护城河的经典原则	工具调用
-Bull/Bear Researcher	引用大师观点支持看涨/看跌论据	工具调用
-Research Manager	综合辩论时参考经典决策案例	工具调用
-Trader	获取大师关于交易纪律、资金管理的建议	工具调用      制定交易细节
-风险分析师	获取关于风险管理、安全边际的论述	工具调用
-Portfolio Manager	最终决策时引用大师原则	工具调用
+### Optional Feature: RAG (Retrieval‑Augmented Generation)
 
-在每个节点中增加一个可选的工具 retrieve_investment_wisdom，让 LLM 在需要时主动查询。这种方式对原有代码改动最小，且灵活。
+RAG is disabled by default but can be enabled optionally. When activated, agents can query a local knowledge base (e.g., Buffett’s letters, Munger’s speeches) to enhance their reasoning. For setup details, see the RAG Service Setup section below.
 
+### Skills System (Extension Point)
+The master analysts have been refactored into Skills — a modular, plug‑and‑play system. Each skill resides in its own folder under agents/skills/ and consists of:
 
+- SKILL.md: YAML frontmatter with metadata plus a detailed workflow description:
+  - `name`, `description` — identity and short summary
+  - `best_for` — scenarios where this skill is the right choice
+  - `not_for` — anti-patterns to avoid mis-selection
+  - `capabilities` — what signals / metrics the skill provides
+  - `inputs` — required and optional parameters
+  - `## Workflow` — step-by-step execution logic (injected into the skill's internal LLM prompt)
 
+- skill.py: A Python module that exports an execute() function.
 
+These Skills are loaded once at startup via a singleton `SkillRegistry` and exposed to the Bull/Bear Researchers as an on‑demand catalog. During each debate round, a researcher reviews its argument gaps, selects relevant skills by their `best_for` / `not_for` / `capabilities` metadata, and invokes them through the registry to obtain additional analysis.
 
+```text
+agents/skills/
+├── buffett_skill/
+│   ├── SKILL.md
+│   └── skill.py
+├── munger_skill/
+│   ├── SKILL.md
+│   └── skill.py
+└── ...
+```
 
-为市场分析师（技术面）加入RAG
+## 📦 Installation & Usage
 
-  创建了RAG工具函数：在tradingagents/agents/utils/investment_rag.py中定义了retrieve_investment_wisdom。
+### Requirements
 
-  注册了RAG工具：
+- Python 3.13+
+- Docker (optional but recommended)
 
-  在tradingagents/agents/utils/agent_utils.py中导入了该工具。
+### Clone & Install
 
-  在tradingagents/graph/trading_graph.py的_create_tool_nodes方法中，将工具添加到了market分析师的ToolNode中。
+```bash
+git clone https://github.com/LSB0798/Value-Agents.git
+cd Value-Agents
+conda create -n valueagents python=3.10
+conda activate valueagents
+pip install .
+```
 
-  在tradingagents/agents/analysts/market_analyst.py中，将工具加入到了tools列表，并在系统提示中添加了使用引导。
+# Required for financial data
+## Data source toggles (recommended: enable both free sources)
+USE_YFINANCE=true          # Use yfinance for prices, metrics, quarterly data
+USE_EDGAR=true             # Use SEC EDGAR for authoritative annual filings
 
-  调整了模型参数：在tradingagents/llm_clients/openai_client.py中设置了max_tokens=8192。
+## Legacy: only needed if you disable both free sources above
+FINANCIAL_DATASETS_API_KEY=your-api-key
 
+## News API keys (optional — only required if you use the corresponding analyst)
+ALPHA_VANTAGE_API_KEY=your-alpha-vantage-key
+FINNHUB_API_KEY=your-finnhub-key
+GNEWS_API_KEY=your-gnews-key
 
+## For LLM (OpenAI-compatible local endpoint)
+OPENAI_API_BASE=http://your-local-llm:port/v1
+OPENAI_API_KEY=dummy
 
+# News API keys (optional — only required if you use the corresponding analyst)
+ALPHA_VANTAGE_API_KEY=your-alpha-vantage-key
+FINNHUB_API_KEY=your-finnhub-key
+GNEWS_API_KEY=your-gnews-key
 
-并非所有角色都必须加入巴菲特和芒格的 RAG。每个角色有不同的分析侧重点，强行注入大师智慧可能反而偏离其职责。例如：
-  市场分析师：主要负责技术指标、价格趋势，大师的“技术分析无用论”可能与任务冲突。
-  新闻分析师：需要客观解读宏观事件，大师言论可能引入主观偏见。
-  风险分析师：风险控制原则（如安全边际）是大师经典，但也可以独立于大师言论。
-因此，您可以根据角色的实际需要选择性加入。我建议至少保留以下角色的 RAG，因为它们与价值投资理念高度相关：
-  基本面分析师（估值、护城河）
-  Bull/Bear Researcher（辩论论据）
-  Research Manager（综合决策）
-  Portfolio Manager（最终决策）
-  Trader（交易纪律）
+# For LLM (OpenAI‑compatible local endpoint)
+OPENAI_API_BASE=http://your-local-llm:port/v1
+OPENAI_API_KEY=dummy
 
-
-
-
-注入方式	核心原理与特点	与传统“注入”的维度对比
-- 注入方式 : 全塞模式
-- 核心原理与特点 : 不依赖外部检索，直接将所有上下文一次性注入。优点是架构简单，能保留完整的文档结构；缺点是受限于模型上下文长度，且随着上下文变长，准确率可能下降。	
-- 与传统“注入”的维度对比
-  -- 信息源：静态的完整上下文
-  -- 决策者：无
-  -- 可靠性：低（受限于模型长文本能力）
-  -- 关键组件：LLM 服务
-
-- 注入方式 :Naive RAG
-- 核心原理与特点 : 基础的“检索-生成”模式。根据用户查询，从外部知识库中检索最相关的若干文档片段，直接拼接后输入给模型。
-- 与传统“注入”的维度对比
-  -- 信息源：检索到的外部知识
-  -- 决策者：预定义的检索器
-  -- 可靠性：中（受检索精度影响）
-  -- 关键组件：向量数据库
-
-- 注入方式 : Advanced RAG
-- 核心原理与特点 : 在 Naive RAG 基础上进行一系列优化，例如查询改写、索引优化、重排序等，以提升检索精度和生成质量。
-- 与传统“注入”的维度对比
-  -- 信息源：检索到的外部知识
-  -- 决策者：预定义的检索器
-  -- 可靠性：高
-  -- 关键组件：向量数据库、重排序模型
-
-- 注入方式 :Agentic RAG
-- 核心原理与特点 : 将检索能力交给智能体（Agent）自主决策。模型作为“大脑”，自行判断是否需要检索、检索什么、如何检索以及如何使用检索结果。你的“引导式工具注入”就属于此类。
-- 与传统“注入”的维度对比
-  -- 信息源：模型自主检索的外部知识
-  -- 决策者：Agent（LLM）
-  -- 可靠性：高（模型需具备良好工具使用能力）
-  -- 关键组件：LLM Agent、外部工具/API
-
-- 注入方式 :MCP 协议生态
-- 核心原理与特点 : 通过标准化协议，让Agent能动态发现并调用外部工具或服务。其“注入”方式主要体现为将工具检索结果作为上下文。
-- 与传统“注入”的维度对比
-  -- 信息源：动态发现的外部工具/服务
-  -- 决策者：Agent（LLM）
-  -- 可靠性：极高（协议约束）
-  -- 关键组件：MCP 服务器、Agent
-
-- 注入方式 :Tool RAG 检索增强
-- 核心原理与特点 : 核心思想是为工具（Tool）建立索引。当模型需要选择工具时，先从知识库中检索出最相关的几个工具，再将工具描述注入Prompt。
-- 与传统“注入”的维度对比
-  -- 信息源：动态检索的工具元数据
-  -- 决策者：预定义的检索器 + LLM
-  -- 可靠性：高（语义匹配）
-  -- 关键组件：向量数据库
-
-- 注入方式 :Contextual Retrieval
-- 核心原理与特点 : 旨在解决传统RAG中信息碎片化的问题。它在创建向量库时为每个文档块添加上下文信息（如出处、背景），以使检索更准确。
-- 与传统“注入”的维度对比
-  -- 信息源：含上下文的外部知识
-  -- 决策者：预定义的检索器
-  -- 可靠性：高
-  -- 关键组件：向量数据库
+# Run
+```
+python cli/main.py
+```
