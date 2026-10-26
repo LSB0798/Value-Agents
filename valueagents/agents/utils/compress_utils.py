@@ -18,7 +18,7 @@ _client_cache = {}
 def get_compress_config_83():
     """从环境变量读取压缩服务配置"""
     return {
-        "base_url": os.environ.get("COMPRESS_API_URL", "http://10.20.223.83:61273/v1"),
+        "base_url": os.environ.get("COMPRESS_API_URL", ""),
         "model": os.environ.get("COMPRESS_MODEL", "qwen3_32B"),
         "api_key": os.environ.get("COMPRESS_API_KEY", "EMPTY"),
         "timeout": int(os.environ.get("COMPRESS_TIMEOUT", "3600")),
@@ -27,7 +27,7 @@ def get_compress_config_83():
 def get_compress_config_75():
     """从环境变量读取压缩服务配置"""
     return {
-        "base_url": os.environ.get("COMPRESS_API_URL", "http://10.20.223.75:8001/v1"),
+        "base_url": os.environ.get("COMPRESS_API_URL", ""),
         "model": os.environ.get("COMPRESS_MODEL", "qwen3.6-27B"),
         "api_key": os.environ.get("COMPRESS_API_KEY", "EMPTY"),
         "timeout": int(os.environ.get("COMPRESS_TIMEOUT", "30")),
@@ -36,7 +36,7 @@ def get_compress_config_75():
 def get_compress_config():
     """从环境变量读取压缩服务配置"""
     return {
-        "base_url": os.environ.get("COMPRESS_API_URL", "http://10.20.223.82:61274/v1"),
+        "base_url": os.environ.get("COMPRESS_API_URL", ""),
         "model": os.environ.get("COMPRESS_MODEL", "qwen3_37"),
         "api_key": os.environ.get("COMPRESS_API_KEY", "EMPTY"),
         "timeout": int(os.environ.get("COMPRESS_TIMEOUT", "30")),

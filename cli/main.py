@@ -33,12 +33,8 @@ from cli.stats_handler import StatsCallbackHandler
 
 import os
 os.environ["FINANCIAL_DATASETS_API_KEY"] = "7822668c-eb7d-43b6-bee4-fb31a46e182a"
-# os.environ["COMPRESS_API_URL"] = "http://10.20.223.83:61273/v1"
-# os.environ["COMPRESS_MODEL"] = "qwen3_32B"
-# os.environ["COMPRESS_API_KEY"] = "EMPTY"
-# os.environ["COMPRESS_TIMEOUT"] = "600"
 
-os.environ["COMPRESS_API_URL"] = "http://10.20.223.75:8001/v1"
+os.environ["COMPRESS_API_URL"] = ""
 os.environ["COMPRESS_MODEL"] = "qwen3.6-27B"
 os.environ["COMPRESS_API_KEY"] = "EMPTY"
 os.environ["COMPRESS_TIMEOUT"] = "600"

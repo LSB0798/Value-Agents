@@ -130,9 +130,6 @@ class TradingAgentsGraph:
             max_risk_discuss_rounds=self.config["max_risk_discuss_rounds"],
         )
 
-        """
-        self.quick_thinking_llm : callbacks=[<cli.stats_handler.StatsCallbackHandler object at 0x76855ecefbe0>] metadata={'lc_versions': {'langchain-core': '1.4.7', 'langchain-openai': '1.3.2'}} output_version=None client=<openai.resources.chat.completions.completions.Completions object at 0x76855e0afbe0> async_client=<openai.resources.chat.completions.completions.AsyncCompletions object at 0x76855e0e0040> root_client=<openai.OpenAI object at 0x76855e0ac6a0> root_async_client=<openai.AsyncOpenAI object at 0x76855e0aff70> model_name='qwen3.6-27B' model_kwargs={} openai_api_key=SecretStr('**********') openai_api_base='http://10.20.223.75:8001/v1' openai_proxy=None max_tokens=40960 reasoning_effort='medium' stream_chunk_timeout=120.0 use_responses_api=False
-        self.deep_thinking_llm  : callbacks=[<cli.stats_handler.StatsCallbackHandler object at 0x76855ecefbe0>] metadata={'lc_versions': {'langchain-core': '1.4.7', 'langchain-openai': '1.3.2'}} output_version=None client=<openai.resources.chat.completions.completions.Completions object at 0x76855ed662f0> async_client=<openai.resources.chat.completions.completions.AsyncCompletions object at 0x76855e0ac6d0> root_client=<openai.OpenAI object at 0x76855edb7be0> root_async_client=<openai.AsyncOpenAI object at 0x76855e0ac790> model_name='qwen3.6-27B' model_kwargs={} openai_api_key=SecretStr('**********') openai_api_base='http://10.20.223.75:8001/v1' openai_proxy=None max_tokens=40960 reasoning_effort='medium' stream_chunk_timeout=120.0 use_responses_api=False """
         self.graph_setup = GraphSetup(
             self.quick_thinking_llm,
             self.deep_thinking_llm,

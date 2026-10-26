@@ -259,8 +259,7 @@ def get_model_v0(model_name: str, model_provider: ModelProvider, api_keys: dict 
 def get_model(model_name: str, model_provider: ModelProvider, api_keys: dict = None) -> ChatOpenAI | ChatGroq | ChatOllama | GigaChat | None:
     # ========== 侵入式修改：强制使用本地 Qwen3-32B ==========
     # 忽略传入的 model_name 和 model_provider，直接返回连接到本地 API 的 ChatOpenAI 实例
-    # LOCAL_API_BASE = "http://10.20.223.83:61273/v1"
-    LOCAL_API_BASE = "http://10.20.223.75:8001/v1"
+    LOCAL_API_BASE = ""
     LOCAL_API_KEY = "dummy"
     # LOCAL_MODEL_NAME = "qwen3_32B"
     LOCAL_MODEL_NAME = "qwen3.6-27B"

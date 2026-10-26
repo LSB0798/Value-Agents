@@ -281,9 +281,7 @@ def select_llm_provider() -> tuple[str, str | None]:
     
     api_url = questionary.text(
         "Enter API base URL (with /v1 suffix):",
-        default="http://10.20.223.75:8001/v1",
-        # default="http://10.20.223.83:61273/v1",
-        # default="http://10.20.223.89:61253/v1",
+        default="",
         validate=lambda x: x.startswith("http") or "Must be a valid HTTP/HTTPS URL",
     ).ask()
     if not api_url:
@@ -343,9 +341,7 @@ def compress_llm_provider() -> tuple[str, str | None]:
     
     api_url = questionary.text(
         "Enter API base URL (with /v1 suffix):",
-        # default="http://10.20.223.75:8001/v1",
-        default="http://10.20.223.83:61273/v1",
-        # default="http://10.20.223.89:61253/v1",
+        default="",
         validate=lambda x: x.startswith("http") or "Must be a valid HTTP/HTTPS URL",
     ).ask()
     if not api_url:
