@@ -97,28 +97,6 @@ class TradingAgentsGraph:
         if self.callbacks:
             llm_kwargs["callbacks"] = self.callbacks
 
-        """
-        self.config : {
-                        'project_dir': '/data/lishuaibing/valueagents/ValueAgents/valueagents', 
-                        'results_dir': './results', 
-                        'data_cache_dir': '/data/lishuaibing/valueagents/ValueAgents/valueagents/dataflows/data_cache', 
-                        'llm_provider': 'openai', 
-                        'deep_think_llm': 'qwen3.6-27B', 
-                        'quick_think_llm': 'qwen3.6-27B', 
-                        'backend_url': 'http://10.20.223.75:8001/v1', 
-                        'google_thinking_level': None, 
-                        'openai_reasoning_effort': 'medium', 
-                        'anthropic_effort': None, 
-                        'output_language': 'English', 
-                        'max_debate_rounds': 1, 
-                        'max_risk_discuss_rounds': 1, 
-                        'max_recur_limit': 100, 
-                        'data_vendors': {'core_stock_apis': 'yfinance', 
-                                         'technical_indicators': 'yfinance', 
-                                         'fundamental_data': 'yfinance', 
-                                         'news_data': 'yfinance'}, 
-                        'tool_vendors': {}}
-        """
 
         deep_client = create_llm_client(
             provider=self.config["llm_provider"],

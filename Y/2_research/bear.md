@@ -1,2 +1,0 @@
-
-Bear Analyst: <think>

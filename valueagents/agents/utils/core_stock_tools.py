@@ -8,7 +8,7 @@ from .compress_utils import compress_text, estimate_word_count
 import datetime
 import os
 
-LOG_FILE = "/data/lishuaibing/valueagents/ValueAgents/valueagents.log"
+LOG_FILE = "valueagents.log"
 
 def debug_log(label, data):
     """Write debug info to a persistent log file."""

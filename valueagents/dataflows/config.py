@@ -1,4 +1,4 @@
-# /data/lishuaibing/valueagents/ValueAgents/valueagents/dataflows/config.py
+# ./valueagents/dataflows/config.py
 
 import valueagents.default_config as default_config
 from typing import Dict, Optional

@@ -7,7 +7,7 @@ from openai import OpenAI
 
 # 诊断阈值：completion_tokens 超过这个值就 dump
 DIAGNOSTIC_TOKEN_THRESHOLD = 2048
-DIAGNOSTIC_LOG_FILE = "/data/lishuaibing/tmp/compress_reasoning_dump.log"
+DIAGNOSTIC_LOG_FILE = "compress_reasoning_dump.log"
 
 # 估算平均 token/word 比率（英文约 1.3，中文约 1.8，这里采用保守值 2.0）
 TOKEN_PER_WORD = 2.0
