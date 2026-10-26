@@ -13,14 +13,13 @@ def retrieve_investment_wisdom(query: str) -> str:
     print(f"[RAG] LLM generated query: {query}")
     try:
         resp = requests.post(
-            "http://10.10.29.53:8000/search",  # 你的 RAG API 地址
+            "",  # 你的 RAG API 地址
             json={"query": query},
             timeout=10
         )
         resp.raise_for_status()
         data = resp.json()
         context = data.get("context", "")
-        print('>>>>>> context : {}'.format(context))
         if not context:
             return "未找到相关信息。"
         # 限制返回长度，避免超过 token 限制
@@ -40,7 +39,7 @@ def retrieve_market_wisdom(query: str) -> str:
     print(f"[RAG] LLM generated query: {query}")
     try:
         resp = requests.post(
-            "http://10.10.29.53:8000/search",  # 你的 RAG API 地址
+            "http:// :8000/search",  # 你的 RAG API 地址
             json={"query": query},
             timeout=10
         )
@@ -68,7 +67,7 @@ def retrieve_sentiment_wisdom(query: str) -> str:
     print(f"[RAG] LLM generated query: {query}")
     try:
         resp = requests.post(
-            "http://10.10.29.53:8000/search",  # 你的 RAG API 地址
+            "http:// :8000/search",  # 你的 RAG API 地址
             json={"query": query},
             timeout=10
         )
@@ -96,7 +95,7 @@ def retrieve_news_wisdom(query: str) -> str:
     print(f"[RAG] LLM generated query: {query}")
     try:
         resp = requests.post(
-            "http://10.10.29.53:8000/search",  # 你的 RAG API 地址
+            "http:// :8000/search",  # 你的 RAG API 地址
             json={"query": query},
             timeout=10
         )
@@ -123,7 +122,7 @@ def retrieve_fundamentals_wisdom(query: str) -> str:
     print(f"[RAG] LLM generated query: {query}")
     try:
         resp = requests.post(
-            "http://10.10.29.53:8000/search",  # 你的 RAG API 地址
+            "http:// :8000/search",  # 你的 RAG API 地址
             json={"query": query},
             timeout=10
         )
@@ -150,7 +149,7 @@ def retrieve_bull_wisdom(query: str) -> str:
     print(f"[RAG] LLM generated query: {query}")
     try:
         resp = requests.post(
-            "http://10.10.29.53:8000/search",  # 你的 RAG API 地址
+            "http:// :8000/search",  # 你的 RAG API 地址
             json={"query": query},
             timeout=10
         )
@@ -177,7 +176,7 @@ def retrieve_bear_wisdom(query: str) -> str:
     print(f"[RAG] LLM generated query: {query}")
     try:
         resp = requests.post(
-            "http://10.10.29.53:8000/search",  # 你的 RAG API 地址
+            "http:// :8000/search",  # 你的 RAG API 地址
             json={"query": query},
             timeout=10
         )
@@ -211,7 +210,7 @@ def retrieve_research_manager_wisdom_v0(query: str, context: dict = None, role: 
         print("[RAG] No context provided")
     try:
         resp = requests.post(
-            "http://10.10.29.53:9000/search",  # 你的 RAG API 地址
+            "http:// :9000/search",  # 你的 RAG API 地址
             json={"query": query, "context": context, "role": role},
             timeout=10
         )
@@ -283,7 +282,7 @@ def retrieve_trader_wisdom(query: str) -> str:
     print(f"[RAG] LLM generated query: {query}")
     try:
         resp = requests.post(
-            "http://10.10.29.53:8000/search",  # 你的 RAG API 地址
+            "http:// :8000/search",  # 你的 RAG API 地址
             json={"query": query},
             timeout=10
         )
@@ -310,7 +309,7 @@ def retrieve_risk_wisdom(query: str) -> str:
     print(f"[RAG] LLM generated query: {query}")
     try:
         resp = requests.post(
-            "http://10.10.29.53:8000/search",  # 你的 RAG API 地址
+            "http:// :8000/search",  # 你的 RAG API 地址
             json={"query": query},
             timeout=10
         )
@@ -337,7 +336,7 @@ def retrieve_portfolio_manager_wisdom(query: str) -> str:
     print(f"[RAG] LLM generated query: {query}")
     try:
         resp = requests.post(
-            "http://10.10.29.53:8000/search",  # 你的 RAG API 地址
+            "http:// :8000/search",  # 你的 RAG API 地址
             json={"query": query},
             timeout=10
         )

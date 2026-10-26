@@ -34,7 +34,7 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 def _get_config() -> dict:
     return {
-        "base_url": os.environ.get("EMBEDDING_API_URL", "http://10.10.29.53:8003/v1"),
+        "base_url": os.environ.get("EMBEDDING_API_URL", ""),
         "model": os.environ.get("EMBEDDING_MODEL", "qwen3-embedding-0.6b"),
         "api_key": os.environ.get("EMBEDDING_API_KEY", "dummy"),
         "timeout": float(os.environ.get("EMBEDDING_TIMEOUT", "30")),
