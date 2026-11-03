@@ -45,13 +45,13 @@ logger = logging.getLogger(__name__)
 # API 配置（环境变量优先，保留原项目里的默认 key 作为 fallback）
 # ---------------------------------------------------------------------------
 FINNHUB_API_KEY = os.environ.get(
-    "FINNHUB_API_KEY", "d8tr0gpr01qhcnk5oj3gd8tr0gpr01qhcnk5oj40"
+    "FINNHUB_API_KEY", ""
 )
 ALPHA_VANTAGE_API_KEY = os.environ.get(
-    "ALPHA_VANTAGE_API_KEY", "LEPNUFM9ZGGRXWDR"
+    "ALPHA_VANTAGE_API_KEY", ""
 )
 GNEWS_API_KEY = os.environ.get(
-    "GNEWS_API_KEY", "45b40e4ff3978c4df4945e5828cba917"
+    "GNEWS_API_KEY", ""
 )
 
 DEFAULT_SOURCES = ("finnhub", "alpha_vantage", "gnews")
