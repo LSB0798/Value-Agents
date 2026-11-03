@@ -376,3 +376,4 @@ A: Multi-agent debate introduces sampling variance. `UNDERWEIGHT` vs `SELL` on t
 
 **Q: Single compression calls are slow. How do I diagnose?**
 A: Compare TP=2 vs TP=4 with `vllm bench serve`. Short requests (1–3 K tokens) often run faster on TP=2 due to lower all-reduce overhead. Also check `nvidia-smi topo -m` for NVLink vs PCIe topology.
+
