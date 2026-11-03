@@ -1,10 +1,11 @@
+# valueagents/cli/utils.py
 import questionary
 from typing import List, Optional, Tuple, Dict
 
 from rich.console import Console
 
 from cli.models import AnalystType
-from tradingagents.llm_clients.model_catalog import get_model_options
+from valueagents.llm_clients.model_catalog import get_model_options
 
 console = Console()
 
@@ -174,107 +175,12 @@ def select_openrouter_model() -> str:
     return choice
 
 
-def select_shallow_thinking_agent(provider) -> str:
-    """Select shallow thinking llm engine using an interactive selection."""
-
-    if provider.lower() == "openrouter":
-        return select_openrouter_model()
-
-    choice = questionary.select(
-        "Select Your [Quick-Thinking LLM Engine]:",
-        choices=[
-            questionary.Choice(display, value=value)
-            for display, value in get_model_options(provider, "quick")
-        ],
-        instruction="\n- Use arrow keys to navigate\n- Press Enter to select",
-        style=questionary.Style(
-            [
-                ("selected", "fg:magenta noinherit"),
-                ("highlighted", "fg:magenta noinherit"),
-                ("pointer", "fg:magenta noinherit"),
-            ]
-        ),
-    ).ask()
-
-    if choice is None:
-        console.print(
-            "\n[red]No shallow thinking llm engine selected. Exiting...[/red]"
-        )
-        exit(1)
-
-    return choice
-
-
-def select_deep_thinking_agent(provider) -> str:
-    """Select deep thinking llm engine using an interactive selection."""
-
-    if provider.lower() == "openrouter":
-        return select_openrouter_model()
-
-    choice = questionary.select(
-        "Select Your [Deep-Thinking LLM Engine]:",
-        choices=[
-            questionary.Choice(display, value=value)
-            for display, value in get_model_options(provider, "deep")
-        ],
-        instruction="\n- Use arrow keys to navigate\n- Press Enter to select",
-        style=questionary.Style(
-            [
-                ("selected", "fg:magenta noinherit"),
-                ("highlighted", "fg:magenta noinherit"),
-                ("pointer", "fg:magenta noinherit"),
-            ]
-        ),
-    ).ask()
-
-    if choice is None:
-        console.print("\n[red]No deep thinking llm engine selected. Exiting...[/red]")
-        exit(1)
-
-    return choice
-
-def select_llm_provider() -> tuple[str, str | None]:
-    """Select the LLM provider and its API endpoint."""
-    BASE_URLS = [
-        ("OpenAI", "https://api.openai.com/v1"),
-        ("Google", None),  # google-genai SDK manages its own endpoint
-        ("Anthropic", "https://api.anthropic.com/"),
-        ("xAI", "https://api.x.ai/v1"),
-        ("Openrouter", "https://openrouter.ai/api/v1"),
-        ("Ollama", "http://localhost:11434/v1"),
-    ]
-    
-    choice = questionary.select(
-        "Select your LLM Provider:",
-        choices=[
-            questionary.Choice(display, value=(display, value))
-            for display, value in BASE_URLS
-        ],
-        instruction="\n- Use arrow keys to navigate\n- Press Enter to select",
-        style=questionary.Style(
-            [
-                ("selected", "fg:magenta noinherit"),
-                ("highlighted", "fg:magenta noinherit"),
-                ("pointer", "fg:magenta noinherit"),
-            ]
-        ),
-    ).ask()
-    
-    if choice is None:
-        console.print("\n[red]no OpenAI backend selected. Exiting...[/red]")
-        exit(1)
-    
-    display_name, url = choice
-    print(f"You selected: {display_name}\tURL: {url}")
-
-    return display_name, url
-
-
 def ask_openai_reasoning_effort() -> str:
     """Ask for OpenAI reasoning effort level."""
     choices = [
         questionary.Choice("Medium (Default)", "medium"),
-        questionary.Choice("High (More thorough)", "high"),
+        questionary.Choice("XHigh (More thorough)", "xhigh"),
+        # questionary.Choice("High (More thorough)", "high"),
         questionary.Choice("Low (Faster)", "low"),
     ]
     return questionary.select(
@@ -360,3 +266,168 @@ def ask_output_language() -> str:
         ).ask().strip()
 
     return choice
+
+
+
+# ========================================================================= #
+# ===================== 替换以下三个函数 用于金融主功能 ====================== #
+import os
+_SINGLE_MODEL_NAME = None
+
+def select_llm_provider() -> tuple[str, str | None]:
+    """使用单一 OpenAI 兼容 API，用户只需输入 URL 和模型名一次"""
+    global _SINGLE_MODEL_NAME
+    console.print("\n[bold cyan]⚙️  Single API Mode (OpenAI-compatible)[/bold cyan]")
+    
+    api_url = questionary.text(
+        "Enter API base URL (with /v1 suffix):",
+        default="/v1",
+        validate=lambda x: x.startswith("http") or "Must be a valid HTTP/HTTPS URL",
+    ).ask()
+    if not api_url:
+        console.print("[red]No URL provided. Exiting...[/red]")
+        exit(1)
+    
+    model_name = questionary.text(
+        "Enter model name (used for ALL agents):",
+        default="",
+        validate=lambda x: len(x.strip()) > 0 or "Model name cannot be empty",
+    ).ask()
+    if not model_name:
+        console.print("[red]No model name provided. Exiting...[/red]")
+        exit(1)
+    
+    _SINGLE_MODEL_NAME = model_name.strip()
+    # 固定返回 provider = "openai"，因为你的 API 是 OpenAI 兼容的
+
+    # 🔧 设置占位 API Key（因为你的本地 API 不需要真实 key）
+    os.environ["OPENAI_API_KEY"] = "dummy"
+
+    # ========== 插入检查代码 ==========
+    print(f"[DEBUG] select_llm_provider returns: provider='openai', base_url={api_url}")
+    print(f"[DEBUG] Model name cached: {_SINGLE_MODEL_NAME}")
+    # =================================
+
+    return "openai", api_url
+
+def select_shallow_thinking_agent(provider: str) -> str:
+    """直接返回之前缓存的模型名"""
+    global _SINGLE_MODEL_NAME
+    if _SINGLE_MODEL_NAME is None:
+        console.print("[red]Please select LLM provider first. Exiting...[/red]")
+        exit(1)
+    return _SINGLE_MODEL_NAME
+
+def select_deep_thinking_agent(provider: str) -> str:
+    """与浅层思考使用相同模型"""
+    global _SINGLE_MODEL_NAME
+    if _SINGLE_MODEL_NAME is None:
+        console.print("[red]Please select LLM provider first. Exiting...[/red]")
+        exit(1)
+    return _SINGLE_MODEL_NAME
+
+
+# ========================================================================= #
+# ===================== 替换以下三个函数 用于 LLM 压缩 ====================== #
+import os
+_COMPRESS_MODEL_NAME = None
+
+def compress_llm_provider() -> tuple[str, str | None]:
+    """使用单一 OpenAI 兼容 API，用户只需输入 URL 和模型名一次"""
+    global _COMPRESS_MODEL_NAME
+    console.print("\n[bold cyan]⚙️  Single API Mode (OpenAI-compatible)[/bold cyan]")
+    
+    api_url = questionary.text(
+        "Enter API base URL (with /v1 suffix):",
+        default="",
+        validate=lambda x: x.startswith("http") or "Must be a valid HTTP/HTTPS URL",
+    ).ask()
+    if not api_url:
+        console.print("[red]No URL provided. Exiting...[/red]")
+        exit(1)
+    
+    model_name = questionary.text(
+        "Enter model name (used for ALL agents):",
+        # default="qwen3.6-27B",
+        default="qwen3_32B",
+        # default="qwen3-moe",
+        validate=lambda x: len(x.strip()) > 0 or "Model name cannot be empty",
+    ).ask()
+    if not model_name:
+        console.print("[red]No model name provided. Exiting...[/red]")
+        exit(1)
+    
+    _COMPRESS_MODEL_NAME = model_name.strip()
+    # 固定返回 provider = "openai"，因为你的 API 是 OpenAI 兼容的
+
+    # 🔧 设置占位 API Key（因为你的本地 API 不需要真实 key）
+    os.environ["OPENAI_API_KEY"] = "dummy"
+
+    # ========== 插入检查代码 ==========
+    print(f"[DEBUG] compress_llm_provider returns: provider='openai', base_url={api_url}")
+    print(f"[DEBUG] Model name cached: {_COMPRESS_MODEL_NAME}")
+    # =================================
+
+    return "openai", api_url
+
+def compress_shallow_thinking_agent(provider: str) -> str:
+    """直接返回之前缓存的模型名"""
+    global _COMPRESS_MODEL_NAME
+    if _COMPRESS_MODEL_NAME is None:
+        console.print("[red]Please compress LLM provider first. Exiting...[/red]")
+        exit(1)
+    return _COMPRESS_MODEL_NAME
+
+def compress_deep_thinking_agent(provider: str) -> str:
+    """与浅层思考使用相同模型"""
+    global _COMPRESS_MODEL_NAME
+    if _COMPRESS_MODEL_NAME is None:
+        console.print("[red]Please compress LLM provider first. Exiting...[/red]")
+        exit(1)
+    return _COMPRESS_MODEL_NAME
+
+def select_master_analysts() -> list[str]:
+    """多选大师分析师（Phase 6a）。
+
+    Returns:
+        list of master skill names, e.g. ["warren_buffett_analyst", "charlie_munger_analyst"]
+    """
+    MASTER_CHOICES = [
+        ("Warren Buffett", "warren_buffett_analyst"),
+        ("Charlie Munger", "charlie_munger_analyst"),
+        ("Ben Graham", "ben_graham_analyst"),
+        ("Peter Lynch", "peter_lynch_analyst"),
+        ("Phil Fisher", "phil_fisher_analyst"),
+        ("Bill Ackman", "bill_ackman_analyst"),
+        ("Michael Burry", "michael_burry_analyst"),
+        ("Aswath Damodaran", "aswath_damodaran_analyst"),
+        ("Mohnish Pabrai", "mohnish_pabrai_analyst"),
+        ("Nassim Taleb", "nassim_taleb_analyst"),
+        ("Cathie Wood", "cathie_wood_analyst"),
+        ("Stanley Druckenmiller", "stanley_druckenmiller_analyst"),
+        ("Rakesh Jhunjhunwala", "rakesh_jhunjhunwala_analyst"),
+        ("Fundamental Analyst", "fundamental_analyst"),
+        ("Growth Analyst", "growth_analyst"),
+        ("News Sentiment", "news_sentiment_analyst"),
+        ("Sentiment Analyst", "sentiment_analyst"),
+        ("Technical Analyst", "technical_analyst"),
+        ("Valuation Analyst", "valuation_analyst"),
+    ]
+
+    choices = questionary.checkbox(
+        "Select master analysts (recommend 3-5):",
+        choices=[questionary.Choice(name, value=val) for name, val in MASTER_CHOICES],
+        instruction="\n- Space to select, Enter to confirm\n- Recommend 3-5 for best latency",
+        validate=lambda x: len(x) > 0 or "Select at least one master",
+        style=questionary.Style([
+            ("checkbox-selected", "fg:magenta"),
+            ("selected", "fg:magenta noinherit"),
+            ("highlighted", "noinherit"),
+        ]),
+    ).ask()
+
+    if not choices:
+        console.print("\n[yellow]No masters selected. Using default 3.[/yellow]")
+        return ["warren_buffett_analyst", "charlie_munger_analyst", "ben_graham_analyst"]
+
+    return choices
