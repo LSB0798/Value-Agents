@@ -1,0 +1,55 @@
+{
+  "case_id": "B2",
+  "ticker": "GOOGL",
+  "end_date": "2026-09-10",
+  "captured_at": "2026-11-10T12:20:17.899733Z",
+  "source": "phase0_capture",
+  "config": {
+    "research_depth": 5,
+    "llm": "qwen3.6-27B",
+    "temperature": 0.3
+  },
+  "expected": {
+    "final_rating": "Buy",
+    "report_lengths": {
+      "market_report": [
+        7149,
+        10923
+      ],
+      "sentiment_report": [
+        9690,
+        16981
+      ],
+      "news_report": [
+        8306,
+        13012
+      ],
+      "fundamentals_report": [
+        11359,
+        12863
+      ]
+    },
+    "tokens_in_range": [
+      607764,
+      783516
+    ],
+    "tokens_out_range": [
+      312144,
+      432723
+    ],
+    "llm_calls_range": [
+      88,
+      108
+    ],
+    "elapsed_minutes_range": [
+      144.8,
+      198.0
+    ],
+    "master_signals_summary": {
+      "bullish": 0,
+      "bearish": 0,
+      "neutral": 2
+    },
+    "decision_evidence_summary": "bullish with valuation caveat (from v1.0 docs)"
+  }
+}

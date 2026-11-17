@@ -1,0 +1,55 @@
+{
+  "case_id": "B3",
+  "ticker": "MSFT",
+  "end_date": "2026-01-16",
+  "captured_at": "2026-11-11T00:31:05.155430Z",
+  "source": "phase0_capture",
+  "config": {
+    "research_depth": 5,
+    "llm": "qwen3.6-27B",
+    "temperature": 0.3
+  },
+  "expected": {
+    "final_rating": "Overweight",
+    "report_lengths": {
+      "market_report": [
+        8651,
+        12708
+      ],
+      "sentiment_report": [
+        13618,
+        17595
+      ],
+      "news_report": [
+        9218,
+        11091
+      ],
+      "fundamentals_report": [
+        9825,
+        13321
+      ]
+    },
+    "tokens_in_range": [
+      777560,
+      837896
+    ],
+    "tokens_out_range": [
+      428238,
+      453860
+    ],
+    "llm_calls_range": [
+      113,
+      127
+    ],
+    "elapsed_minutes_range": [
+      189.5,
+      202.4
+    ],
+    "master_signals_summary": {
+      "bullish": 0,
+      "bearish": 1,
+      "neutral": 1
+    },
+    "decision_evidence_summary": "balanced (from v1.0 docs, placeholder)"
+  }
+}

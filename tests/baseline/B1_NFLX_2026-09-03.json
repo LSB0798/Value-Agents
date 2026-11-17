@@ -1,0 +1,55 @@
+{
+  "case_id": "B1",
+  "ticker": "NFLX",
+  "end_date": "2026-09-03",
+  "captured_at": "2026-11-12T13:57:49.042826Z",
+  "source": "phase0_capture",
+  "config": {
+    "research_depth": 5,
+    "llm": "qwen3.6-27B",
+    "temperature": 0.3
+  },
+  "expected": {
+    "final_rating": "Overweight",
+    "report_lengths": {
+      "market_report": [
+        12629,
+        12631
+      ],
+      "sentiment_report": [
+        10050,
+        10052
+      ],
+      "news_report": [
+        6476,
+        6478
+      ],
+      "fundamentals_report": [
+        12173,
+        12175
+      ]
+    },
+    "tokens_in_range": [
+      625861,
+      625863
+    ],
+    "tokens_out_range": [
+      358329,
+      358331
+    ],
+    "llm_calls_range": [
+      92,
+      94
+    ],
+    "elapsed_minutes_range": [
+      162.8,
+      164.8
+    ],
+    "master_signals_summary": {
+      "bullish": 1,
+      "bearish": 0,
+      "neutral": 2
+    },
+    "decision_evidence_summary": "bearish leaning with quality caveat (from v1.0 docs)"
+  }
+}

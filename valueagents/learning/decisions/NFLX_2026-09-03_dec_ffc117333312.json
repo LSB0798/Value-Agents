@@ -1,0 +1,877 @@
+{
+  "decision_id": "dec_ffc117333312",
+  "ticker": "NFLX",
+  "end_date": "2026-09-03",
+  "timestamp": "2026-11-16T13:31:38.364247Z",
+  "evidence_graph": {
+    "market": {
+      "agent_id": "market_analyst",
+      "ticker": "NFLX",
+      "end_date": "2026-09-03",
+      "evidence": [
+        {
+          "id": "ev_tool_b71a6b72",
+          "source": "tool:tool",
+          "source_type": "external",
+          "timestamp": "2026-11-16T10:08:25.460018Z",
+          "content": {
+            "text": "# Stock data for NFLX from 2026-03-01 to 2026-09-03\n# Total records: 129\n# Data retrieved on: 2026-11-16 18:04:41\n\nDate,Open,High,Low,Close,Volume,Dividends,Stock Splits\n2026-03-02,95.26,98.07,95.2,97.09,79915400,0.0,0.0\n2026-03-03,96.01,98.46,95.33,97.7,59149000,0.0,0.0\n2026-03-04,97.11,99.75,96.99,98.66,52604300,0.0,0.0\n2026-03-05,98.5,100.19,98.1,99.17,53403000,0.0,0.0\n2026-03-06,99.33,99.88,97.4,99.02,41196300,0.0,0.0\n2026-03-09,97.7,98.94,96.58,98.32,48589000,0.0,0.0\n2026-03-10,97.81,98.49,96.29,96.94,41027200,0.0,0.0\n2026-03-11,97.41,98.0,94.69,94.89,33962900,0.0,0.0\n2026-03-12,94.86,95.4,93.87,94.31,34206900,0.0,0.0\n2026-03-13,94.64,95.68,94.24,95.31,29876700,0.0,0.0\n2026-03-16,95.58,96.1,94.36,95.2,34931800,0.0,0.0\n2026-03-17,95.3,96.34,94.01,94.36,26434500,0.0,0.0\n2026-03-18,94.45,95.34,93.61,94.7,27878300,0.0,0.0\n2026-03-19,94.31,95.75,90.78,91.74,40169300,0.0,0.0\n2026-03-20,91.31,91.88,90.69,91.82,61678000,0.0,0.0\n2026-03-23,92.04,93.98,91.86,93.38,34315900,0.0,0.0\n2026-03-24,92.79,93.74,90.82,90.92,28938000,0.0,0.0\n2026-03-25,91.71,92.52,91.24,92.28,29545600,0.0,0.0\n2026-03-26,91.52,95.86,91.01,93.32,59522000,0.0,0.0\n2026-03-27,94.57,95.58,92.74,93.43,44590700,0.0,0.0\n2026-03-30,92.75,94.49,92.22,92.97,32375100,0.0,0.0\n2026-03-31,93.03,96.26,93.03,96.15,54270000,0.0,0.0\n2026-04-01,96.47,97.2,94.26,95.55,30439300,0.0,0.0\n2026-04-02,95.27,98.71,95.17,98.66,37068000,0.0,0.0\n2026-04-06,100.96,102.69,97.97,98.93,37029300,0.0,0.0\n2026-04-07,98.55,99.88,98.25,98.82,25016700,0.0,0.0\n2026-04-08,100.32,100.4,97.44,99.39,30957600,0.0,0.0\n2026-04-09,99.63,102.34,99.08,102.05,35087800,0.0,0.0\n2026-04-10,102.47,103.08,101.46,103.01,25769900,0.0,0.0\n2026-04-13,103.03,103.67,102.06,103.16,26042800,0.0,0.0\n2026-04-14,103.12,106.57,103.04,106.28,40534900,0.0,0.0\n2026-04-15,105.98,107.85,105.04,107.71,38023700,0.0,0.0\n2026-04-16,107.47,108.95,106.62,107.79,64928300,0.0,0.0\n2026-04-17,96.37,98.74,95.1,97.31,125958700,0.0,0.0\n2026-04-20,97.14,97.6,93.54,94.83,63298300,0.0,0.",
+            "full_length": 6836,
+            "truncated": true
+          },
+          "raw_ref": "tool_call:chatcmpl-tool-8463d02f2fedbb73"
+        },
+        {
+          "id": "ev_tool_e41fa8bf",
+          "source": "tool:tool",
+          "source_type": "external",
+          "timestamp": "2026-11-16T10:08:25.460080Z",
+          "content": {
+            "text": "## close_50_sma values from 2026-07-05 to 2026-09-03:\n\n2026-09-03: N/A: Not a trading day (weekend or holiday)\n2026-09-02: 75.07659957885743\n2026-09-01: 74.87839950561523\n2026-08-31: 74.71979949951172\n2026-08-30: N/A: Not a trading day (weekend or holiday)\n2026-08-29: N/A: Not a trading day (weekend or holiday)\n2026-08-28: 74.64639938354492\n2026-08-27: 74.55119934082032\n2026-08-26: 74.52879943847657\n2026-08-25: 74.53299942016602\n2026-08-24: 74.49519927978515\n2026-08-23: N/A: Not a trading day (weekend or holiday)\n2026-08-22: N/A: Not a trading day (weekend or holiday)\n2026-08-21: 74.52039916992187\n2026-08-20: 74.56859924316406\n2026-08-19: 74.59399932861328\n2026-08-18: 74.64239929199219\n2026-08-17: 74.73059936523437\n2026-08-16: N/A: Not a trading day (weekend or holiday)\n2026-08-15: N/A: Not a trading day (weekend or holiday)\n2026-08-14: 74.84139938354492\n2026-08-13: 74.90859924316406\n2026-08-12: 75.01039932250977\n2026-08-11: 75.24319931030273\n2026-08-10: 75.46779922485352\n2026-08-09: N/A: Not a trading day (weekend or holiday)\n2026-08-08: N/A: Not a trading day (weekend or holiday)\n2026-08-07: 75.66919921875\n2026-08-06: 75.93339920043945\n2026-08-05: 76.21319915771484\n2026-08-04: 76.50119918823242\n2026-08-03: 76.81579925537109\n2026-08-02: N/A: Not a trading day (weekend or holiday)\n2026-08-01: N/A: Not a trading day (weekend or holiday)\n2026-07-31: 77.11099914550782\n2026-07-30: 77.46339920043945\n2026-07-29: 77.79299926757812\n2026-07-28: 78.0607992553711\n2026-07-27: 78.35179931640624\n2026-07-26: N/A: Not a trading day (weekend or holiday)\n2026-07-25: N/A: Not a trading day (weekend or holiday)\n2026-07-24: 78.69499923706054\n2026-07-23: 79.04639938354492\n2026-07-22: 79.37759933471679\n2026-07-21: 79.75679931640624\n2026-07-20: 80.14839935302734\n2026-07-19: N/A: Not a trading day (weekend or holiday)\n2026-07-18: N/A: Not a trading day (weekend or holiday)\n2026-07-17: 80.56179931640625\n2026-07-16: 80.94059936523438\n2026-07-15: 81.27399932861329\n2026-07-14: 81.64159927368163",
+            "full_length": 2534,
+            "truncated": true
+          },
+          "raw_ref": "tool_call:chatcmpl-tool-93dd16bb302393d6"
+        },
+        {
+          "id": "ev_tool_a2ef739b",
+          "source": "tool:tool",
+          "source_type": "external",
+          "timestamp": "2026-11-16T10:08:25.460094Z",
+          "content": {
+            "text": "## close_200_sma values from 2026-07-05 to 2026-09-03:\n\n2026-09-03: N/A: Not a trading day (weekend or holiday)\n2026-09-02: 87.18643474578857\n2026-09-01: 87.34989971160888\n2026-08-31: 87.52459972381592\n2026-08-30: N/A: Not a trading day (weekend or holiday)\n2026-08-29: N/A: Not a trading day (weekend or holiday)\n2026-08-28: 87.68756969451904\n2026-08-27: 87.83900470733643\n2026-08-26: 87.99163471221924\n2026-08-25: 88.13284473419189\n2026-08-24: 88.27092472076416\n2026-08-23: N/A: Not a trading day (weekend or holiday)\n2026-08-22: N/A: Not a trading day (weekend or holiday)\n2026-08-21: 88.41735469818116\n2026-08-20: 88.56944972991943\n2026-08-19: 88.72817974090576\n2026-08-18: 88.87157974243163\n2026-08-17: 89.03293476104736\n2026-08-16: N/A: Not a trading day (weekend or holiday)\n2026-08-15: N/A: Not a trading day (weekend or holiday)\n2026-08-14: 89.20408477783204\n2026-08-13: 89.36056476593018\n2026-08-12: 89.51670978546143\n2026-08-11: 89.7024547958374\n2026-08-10: 89.88668979644775\n2026-08-09: N/A: Not a trading day (weekend or holiday)\n2026-08-08: N/A: Not a trading day (weekend or holiday)\n2026-08-07: 90.12591480255126\n2026-08-06: 90.37449481964111\n2026-08-05: 90.60572479248047\n2026-08-04: 90.8265198135376\n2026-08-03: 91.06031482696534\n2026-08-02: N/A: Not a trading day (weekend or holiday)\n2026-08-01: N/A: Not a trading day (weekend or holiday)\n2026-07-31: 91.3013398361206\n2026-07-30: 91.55230484008788\n2026-07-29: 91.79649486541749\n2026-07-28: 92.0438798904419\n2026-07-27: 92.28905490875245\n2026-07-26: N/A: Not a trading day (weekend or holiday)\n2026-07-25: N/A: Not a trading day (weekend or holiday)\n2026-07-24: 92.53258491516114\n2026-07-23: 92.76378993988037\n2026-07-22: 92.99599994659424\n2026-07-21: 93.234614944458\n2026-07-20: 93.47671493530274\n2026-07-19: N/A: Not a trading day (weekend or holiday)\n2026-07-18: N/A: Not a trading day (weekend or holiday)\n2026-07-17: 93.7381749343872\n2026-07-16: 93.99662994384765\n2026-07-15: 94.23018493652344\n2026-07-14: 94.46590492248535\n2",
+            "full_length": 2559,
+            "truncated": true
+          },
+          "raw_ref": "tool_call:chatcmpl-tool-928103be9386967c"
+        },
+        {
+          "id": "ev_tool_a664542b",
+          "source": "tool:tool",
+          "source_type": "external",
+          "timestamp": "2026-11-16T10:08:25.460107Z",
+          "content": {
+            "text": "## close_10_ema values from 2026-07-05 to 2026-09-03:\n\n2026-09-03: N/A: Not a trading day (weekend or holiday)\n2026-09-02: 80.66378546764939\n2026-09-01: 80.20462593669735\n2026-08-31: 80.07009890960927\n2026-08-30: N/A: Not a trading day (weekend or holiday)\n2026-08-29: N/A: Not a trading day (weekend or holiday)\n2026-08-28: 79.85234243357625\n2026-08-27: 79.43730714754805\n2026-08-26: 79.34782066080525\n2026-08-25: 78.87844767776805\n2026-08-24: 78.13365752684237\n2026-08-23: N/A: Not a trading day (weekend or holiday)\n2026-08-22: N/A: Not a trading day (weekend or holiday)\n2026-08-21: 77.71669205808945\n2026-08-20: 77.30040221813363\n2026-08-19: 76.66938062446367\n2026-08-18: 75.88035382529934\n2026-08-17: 75.46043319912887\n2026-08-16: N/A: Not a trading day (weekend or holiday)\n2026-08-15: N/A: Not a trading day (weekend or holiday)\n2026-08-14: 75.33608576714275\n2026-08-13: 74.70854845715016\n2026-08-12: 73.92378192234585\n2026-08-11: 73.8601781085399\n2026-08-10: 73.65355081809824\n2026-08-09: N/A: Not a trading day (weekend or holiday)\n2026-08-08: N/A: Not a trading day (weekend or holiday)\n2026-08-07: 73.06767301866955\n2026-08-06: 72.82937826956314\n2026-08-05: 72.638128453598\n2026-08-04: 72.2910465658993\n2026-08-03: 72.00683475947153\n2026-08-02: N/A: Not a trading day (weekend or holiday)\n2026-08-01: N/A: Not a trading day (weekend or holiday)\n2026-07-31: 71.71279763245305\n2026-07-30: 71.71341953200424\n2026-07-29: 71.38973539046177\n2026-07-28: 70.89189942091593\n2026-07-27: 70.55898831675316\n2026-07-26: N/A: Not a trading day (weekend or holiday)\n2026-07-25: N/A: Not a trading day (weekend or holiday)\n2026-07-24: 70.5943187147252\n2026-07-23: 70.70639035402178\n2026-07-22: 71.1100327905492\n2026-07-21: 71.6833736819386\n2026-07-20: 72.35301268482601\n2026-07-19: N/A: Not a trading day (weekend or holiday)\n2026-07-18: N/A: Not a trading day (weekend or holiday)\n2026-07-17: 73.40923806498266\n2026-07-16: 74.40018053536943\n2026-07-15: 74.41133210453573\n2026-07-14: 74.57385028217128\n20",
+            "full_length": 2554,
+            "truncated": true
+          },
+          "raw_ref": "tool_call:chatcmpl-tool-875b64a5f70be6fc"
+        },
+        {
+          "id": "ev_tool_d94f42d8",
+          "source": "tool:tool",
+          "source_type": "external",
+          "timestamp": "2026-11-16T10:08:25.460118Z",
+          "content": {
+            "text": "## macd values from 2026-07-05 to 2026-09-03:\n\n2026-09-03: N/A: Not a trading day (weekend or holiday)\n2026-09-02: 1.9588357559628236\n2026-09-01: 1.8682535353383827\n2026-08-31: 1.9209545854219527\n2026-08-30: N/A: Not a trading day (weekend or holiday)\n2026-08-29: N/A: Not a trading day (weekend or holiday)\n2026-08-28: 1.9358422088002953\n2026-08-27: 1.858468529673516\n2026-08-26: 1.9240979886791507\n2026-08-25: 1.814932429595416\n2026-08-24: 1.5707980274656705\n2026-08-23: N/A: Not a trading day (weekend or holiday)\n2026-08-22: N/A: Not a trading day (weekend or holiday)\n2026-08-21: 1.4623822708194183\n2026-08-20: 1.3454975533190776\n2026-08-19: 1.1207389660277443\n2026-08-18: 0.8094179795808287\n2026-08-17: 0.6497408523540571\n2026-08-16: N/A: Not a trading day (weekend or holiday)\n2026-08-15: N/A: Not a trading day (weekend or holiday)\n2026-08-14: 0.6146658157503708\n2026-08-13: 0.34306509704455834\n2026-08-12: -0.016731085865984596\n2026-08-11: -0.06539134054898454\n2026-08-10: -0.18560310528015123\n2026-08-09: N/A: Not a trading day (weekend or holiday)\n2026-08-08: N/A: Not a trading day (weekend or holiday)\n2026-08-07: -0.48906462164201514\n2026-08-06: -0.650368952666895\n2026-08-05: -0.8009741520424711\n2026-08-04: -1.0334773322754387\n2026-08-03: -1.2510583644098432\n2026-08-02: N/A: Not a trading day (weekend or holiday)\n2026-08-01: N/A: Not a trading day (weekend or holiday)\n2026-07-31: -1.486137523086171\n2026-07-30: -1.5996217328998057\n2026-07-29: -1.86985607863879\n2026-07-28: -2.2344117346572148\n2026-07-27: -2.5409624551600842\n2026-07-26: N/A: Not a trading day (weekend or holiday)\n2026-07-25: N/A: Not a trading day (weekend or holiday)\n2026-07-24: -2.692655229306709\n2026-07-23: -2.815540311286952\n2026-07-22: -2.809251540301986\n2026-07-21: -2.723708333513713\n2026-07-20: -2.5891610025806955\n2026-07-19: N/A: Not a trading day (weekend or holiday)\n2026-07-18: N/A: Not a trading day (weekend or holiday)\n2026-07-17: -2.2708237348610965\n2026-07-16: -1.9689338489205994\n2026-07-15: ",
+            "full_length": 2603,
+            "truncated": true
+          },
+          "raw_ref": "tool_call:chatcmpl-tool-97ed91d760385d54"
+        },
+        {
+          "id": "ev_tool_9da1959c",
+          "source": "tool:tool",
+          "source_type": "external",
+          "timestamp": "2026-11-16T10:08:25.460131Z",
+          "content": {
+            "text": "## macdh values from 2026-07-05 to 2026-09-03:\n\n2026-09-03: N/A: Not a trading day (weekend or holiday)\n2026-09-02: 0.26566108594074866\n2026-09-01: 0.24149413680149512\n2026-08-31: 0.35456872108543913\n2026-08-30: N/A: Not a trading day (weekend or holiday)\n2026-08-29: N/A: Not a trading day (weekend or holiday)\n2026-08-28: 0.4580985247351417\n2026-08-27: 0.49524947679214804\n2026-08-26: 0.6846913049958199\n2026-08-25: 0.7466985721610402\n2026-08-24: 0.689238813071555\n2026-08-23: N/A: Not a trading day (weekend or holiday)\n2026-08-22: N/A: Not a trading day (weekend or holiday)\n2026-08-21: 0.7531327596931917\n2026-08-20: 0.8245312321161491\n2026-08-19: 0.8059054528538532\n2026-08-18: 0.6960608296204011\n2026-08-17: 0.7103989097987298\n2026-08-16: N/A: Not a trading day (weekend or holiday)\n2026-08-15: N/A: Not a trading day (weekend or holiday)\n2026-08-14: 0.8529236006447259\n2026-08-13: 0.794553782100095\n2026-08-12: 0.6333960447145759\n2026-08-11: 0.7430848012102199\n2026-08-10: 0.808644236781608\n2026-08-09: N/A: Not a trading day (weekend or holiday)\n2026-08-08: N/A: Not a trading day (weekend or holiday)\n2026-08-07: 0.707343779615146\n2026-08-06: 0.7228753934940526\n2026-08-05: 0.7529890424919894\n2026-08-04: 0.7087331228820193\n2026-08-03: 0.6683353714681195\n2026-08-02: N/A: Not a trading day (weekend or holiday)\n2026-08-01: N/A: Not a trading day (weekend or holiday)\n2026-07-31: 0.6003400556588216\n2026-07-30: 0.6369408597598922\n2026-07-29: 0.525941728960881\n2026-07-28: 0.29287150518267646\n2026-07-27: 0.059538660975476\n2026-07-26: N/A: Not a trading day (weekend or holiday)\n2026-07-25: N/A: Not a trading day (weekend or holiday)\n2026-07-24: -0.07726944792727997\n2026-07-23: -0.21947189188934324\n2026-07-22: -0.2680510938767129\n2026-07-21: -0.24952066055761835\n2026-07-20: -0.17735349476400586\n2026-07-19: N/A: Not a trading day (weekend or holiday)\n2026-07-18: N/A: Not a trading day (weekend or holiday)\n2026-07-17: 0.09664539926459126\n2026-07-16: 0.4226966350212358\n2026-07-15: 0.3925",
+            "full_length": 2610,
+            "truncated": true
+          },
+          "raw_ref": "tool_call:chatcmpl-tool-a3e3e67410d651dc"
+        },
+        {
+          "id": "ev_tool_aacf35f9",
+          "source": "tool:tool",
+          "source_type": "external",
+          "timestamp": "2026-11-16T10:08:25.460141Z",
+          "content": {
+            "text": "## rsi values from 2026-07-05 to 2026-09-03:\n\n2026-09-03: N/A: Not a trading day (weekend or holiday)\n2026-09-02: 63.8893141682433\n2026-09-01: 59.38896004331444\n2026-08-31: 60.260683971120486\n2026-08-30: N/A: Not a trading day (weekend or holiday)\n2026-08-29: N/A: Not a trading day (weekend or holiday)\n2026-08-28: 62.64422161072291\n2026-08-27: 58.35199284044167\n2026-08-26: 64.25995310160184\n2026-08-25: 67.26581469954964\n2026-08-24: 62.579720706596575\n2026-08-23: N/A: Not a trading day (weekend or holiday)\n2026-08-22: N/A: Not a trading day (weekend or holiday)\n2026-08-21: 61.61434628104369\n2026-08-20: 63.6097822838976\n2026-08-19: 63.88925145255156\n2026-08-18: 58.73352791464386\n2026-08-17: 54.416912712425734\n2026-08-16: N/A: Not a trading day (weekend or holiday)\n2026-08-15: N/A: Not a trading day (weekend or holiday)\n2026-08-14: 61.75169720016821\n2026-08-13: 62.04196417376722\n2026-08-12: 51.342556477126635\n2026-08-11: 53.35233981942316\n2026-08-10: 58.888089289113\n2026-08-09: N/A: Not a trading day (weekend or holiday)\n2026-08-08: N/A: Not a trading day (weekend or holiday)\n2026-08-07: 52.30097349709214\n2026-08-06: 50.76790313884165\n2026-08-05: 52.54518684031012\n2026-08-04: 50.55984245286129\n2026-08-03: 49.81717441744089\n2026-08-02: N/A: Not a trading day (weekend or holiday)\n2026-08-01: N/A: Not a trading day (weekend or holiday)\n2026-07-31: 44.601153827245156\n2026-07-30: 48.85032035254538\n2026-07-29: 50.2509444251848\n2026-07-28: 46.404477850034596\n2026-07-27: 39.42509805370338\n2026-07-26: N/A: Not a trading day (weekend or holiday)\n2026-07-25: N/A: Not a trading day (weekend or holiday)\n2026-07-24: 38.26211949005743\n2026-07-23: 33.68584884492763\n2026-07-22: 32.28765872818444\n2026-07-21: 32.53537472210552\n2026-07-20: 28.65045991131231\n2026-07-19: N/A: Not a trading day (weekend or holiday)\n2026-07-18: N/A: Not a trading day (weekend or holiday)\n2026-07-17: 30.72315869233348\n2026-07-16: 42.01216011080606\n2026-07-15: 39.44881327599926\n2026-07-14: 38.88719655978467\n202",
+            "full_length": 2574,
+            "truncated": true
+          },
+          "raw_ref": "tool_call:chatcmpl-tool-817a68210bd51f4e"
+        },
+        {
+          "id": "ev_tool_abf0681b",
+          "source": "tool:tool",
+          "source_type": "external",
+          "timestamp": "2026-11-16T10:08:25.460161Z",
+          "content": {
+            "text": "## atr values from 2026-07-05 to 2026-09-03:\n\n2026-09-03: N/A: Not a trading day (weekend or holiday)\n2026-09-02: 2.2577414445367547\n2026-09-01: 2.2144908098992575\n2026-08-31: 2.190220966099441\n2026-08-30: N/A: Not a trading day (weekend or holiday)\n2026-08-29: N/A: Not a trading day (weekend or holiday)\n2026-08-28: 2.2756224380259606\n2026-08-27: 2.257593230471768\n2026-08-26: 2.2635619170329977\n2026-08-25: 2.35152859394419\n2026-08-24: 2.297030981278839\n2026-08-23: N/A: Not a trading day (weekend or holiday)\n2026-08-22: N/A: Not a trading day (weekend or holiday)\n2026-08-21: 2.350648279568317\n2026-08-20: 2.4299289399332475\n2026-08-19: 2.5022307435308773\n2026-08-18: 2.4339402607991776\n2026-08-17: 2.384243216933369\n2026-08-16: N/A: Not a trading day (weekend or holiday)\n2026-08-15: N/A: Not a trading day (weekend or holiday)\n2026-08-14: 2.3322621137287243\n2026-08-13: 2.437051413192232\n2026-08-12: 2.302209026406538\n2026-08-11: 2.385455780691416\n2026-08-10: 2.3827986739026543\n2026-08-09: N/A: Not a trading day (weekend or holiday)\n2026-08-08: N/A: Not a trading day (weekend or holiday)\n2026-08-07: 2.3545524180490127\n2026-08-06: 2.426441206441605\n2026-08-05: 2.4507827907562234\n2026-08-04: 2.4746892062260533\n2026-08-03: 2.5535116876094275\n2026-08-02: N/A: Not a trading day (weekend or holiday)\n2026-08-01: N/A: Not a trading day (weekend or holiday)\n2026-07-31: 2.577628135597112\n2026-07-30: 2.6174458722896783\n2026-07-29: 2.581865231568872\n2026-07-28: 2.6273934906303595\n2026-07-27: 2.5710390968056513\n2026-07-26: N/A: Not a trading day (weekend or holiday)\n2026-07-25: N/A: Not a trading day (weekend or holiday)\n2026-07-24: 2.6311189569039826\n2026-07-23: 2.6250512547833154\n2026-07-22: 2.696978086581551\n2026-07-21: 2.733668614726045\n2026-07-20: 2.7885664586998633\n2026-07-19: N/A: Not a trading day (weekend or holiday)\n2026-07-18: N/A: Not a trading day (weekend or holiday)\n2026-07-17: 2.829225839612473\n2026-07-16: 2.333781931654478\n2026-07-15: 2.379457629184089\n2026-07-14: 2.41",
+            "full_length": 2591,
+            "truncated": true
+          },
+          "raw_ref": "tool_call:chatcmpl-tool-a226a6a98d68399c"
+        },
+        {
+          "id": "ev_tool_4e1e6373",
+          "source": "tool:tool",
+          "source_type": "external",
+          "timestamp": "2026-11-16T10:08:25.460173Z",
+          "content": {
+            "text": "## boll_ub values from 2026-07-05 to 2026-09-03:\n\n2026-09-03: N/A: Not a trading day (weekend or holiday)\n2026-09-02: 84.44600305117076\n2026-09-01: 84.01244295229554\n2026-08-31: 83.8723111071353\n2026-08-30: N/A: Not a trading day (weekend or holiday)\n2026-08-29: N/A: Not a trading day (weekend or holiday)\n2026-08-28: 83.61590073697212\n2026-08-27: 83.29007642891794\n2026-08-26: 83.02491991566815\n2026-08-25: 82.34417346969522\n2026-08-24: 81.39233257354202\n2026-08-23: N/A: Not a trading day (weekend or holiday)\n2026-08-22: N/A: Not a trading day (weekend or holiday)\n2026-08-21: 81.02508028978986\n2026-08-20: 80.62121755149414\n2026-08-19: 80.06350277885328\n2026-08-18: 79.29777688808376\n2026-08-17: 78.91487938389591\n2026-08-16: N/A: Not a trading day (weekend or holiday)\n2026-08-15: N/A: Not a trading day (weekend or holiday)\n2026-08-14: 78.85082390474716\n2026-08-13: 78.06168966037123\n2026-08-12: 77.2537489114875\n2026-08-11: 77.18727969643632\n2026-08-10: 77.01413789646472\n2026-08-09: N/A: Not a trading day (weekend or holiday)\n2026-08-08: N/A: Not a trading day (weekend or holiday)\n2026-08-07: 76.55924605524822\n2026-08-06: 76.45544318503032\n2026-08-05: 76.75703004071362\n2026-08-04: 77.00011355252785\n2026-08-03: 77.42861702790714\n2026-08-02: N/A: Not a trading day (weekend or holiday)\n2026-08-01: N/A: Not a trading day (weekend or holiday)\n2026-07-31: 77.81951195885529\n2026-07-30: 78.60052267596632\n2026-07-29: 78.68915653646852\n2026-07-28: 78.58385370430234\n2026-07-27: 78.67805280925027\n2026-07-26: N/A: Not a trading day (weekend or holiday)\n2026-07-25: N/A: Not a trading day (weekend or holiday)\n2026-07-24: 78.77851240398016\n2026-07-23: 78.753156251673\n2026-07-22: 78.62985471985277\n2026-07-21: 78.44781940026719\n2026-07-20: 78.21711249034416\n2026-07-19: N/A: Not a trading day (weekend or holiday)\n2026-07-18: N/A: Not a trading day (weekend or holiday)\n2026-07-17: 78.18919434676492\n2026-07-16: 78.12364885764727\n2026-07-15: 78.8252204057434\n2026-07-14: 80.25831453434742\n2026-",
+            "full_length": 2571,
+            "truncated": true
+          },
+          "raw_ref": "tool_call:chatcmpl-tool-91e462000cc7ccb3"
+        }
+      ],
+      "claims": [
+        {
+          "id": "cl_d05a65f0",
+          "statement": "NFLX closed at $82.73 on 2026-09-02, about 5.1% below the 200 SMA of $87.19.",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "ev_tool_b71a6b72",
+            "ev_tool_a2ef739b"
+          ],
+          "framework": "technical",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_d91aad5b",
+          "statement": "NFLX is trading above the 50 SMA ($75.08) and the 10 EMA ($80.66), supporting a short-term recovery.",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "ev_tool_b71a6b72",
+            "ev_tool_e41fa8bf",
+            "ev_tool_a664542b"
+          ],
+          "framework": "technical",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_a552e81d",
+          "statement": "The 200 SMA declined from $87.52 on 2026-08-31 to $87.19 on 2026-09-02, indicating the long-term trend remains bearish.",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "ev_tool_a2ef739b"
+          ],
+          "framework": "technical",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_f8d55bc6",
+          "statement": "MACD is positive at +1.96 on 2026-09-02, confirming a bullish momentum shift.",
+          "confidence": 0.9,
+          "evidence_ids": [
+            "ev_tool_d94f42d8"
+          ],
+          "framework": "technical",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_a9c13f7a",
+          "statement": "MACD histogram is positive at +0.27 but lower than the 2026-08-31 level of +0.35, indicating fading momentum.",
+          "confidence": 0.85,
+          "evidence_ids": [
+            "ev_tool_9da1959c"
+          ],
+          "framework": "technical",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_9d12d7eb",
+          "statement": "RSI is 63.9 on 2026-09-02, in a neutral-bullish zone below classic overbought.",
+          "confidence": 0.9,
+          "evidence_ids": [
+            "ev_tool_aacf35f9"
+          ],
+          "framework": "technical",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_724526a9",
+          "statement": "The rising Bollinger upper band at $84.45 is only about 2.1% above the $82.73 close, suggesting near-term overbought pressure.",
+          "confidence": 0.9,
+          "evidence_ids": [
+            "ev_tool_4e1e6373",
+            "ev_tool_b71a6b72"
+          ],
+          "framework": "technical",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_fb5149e0",
+          "statement": "ATR is $2.26 on 2026-09-02, about 2.7% of price, supporting a 2x ATR stop of roughly $4.50.",
+          "confidence": 0.9,
+          "evidence_ids": [
+            "ev_tool_abf0681b",
+            "ev_tool_b71a6b72"
+          ],
+          "framework": "technical",
+          "counter_claim_ids": []
+        }
+      ],
+      "signals": [
+        {
+          "ticker": "NFLX",
+          "dimension": "trend",
+          "framework": "technical",
+          "direction": "neutral",
+          "strength": 0.65,
+          "claim_ids": [
+            "cl_d05a65f0",
+            "cl_d91aad5b",
+            "cl_a552e81d"
+          ],
+          "provenance": "aggregated from 3 trend claims"
+        },
+        {
+          "ticker": "NFLX",
+          "dimension": "momentum",
+          "framework": "technical",
+          "direction": "neutral",
+          "strength": 0.55,
+          "claim_ids": [
+            "cl_f8d55bc6",
+            "cl_a9c13f7a",
+            "cl_9d12d7eb"
+          ],
+          "provenance": "aggregated from 3 momentum claims"
+        },
+        {
+          "ticker": "NFLX",
+          "dimension": "volatility",
+          "framework": "technical",
+          "direction": "neutral",
+          "strength": 0.5,
+          "claim_ids": [
+            "cl_724526a9",
+            "cl_fb5149e0"
+          ],
+          "provenance": "aggregated from 2 volatility claims"
+        }
+      ],
+      "narrative": "\n\nAll 8 indicators returned successfully (note: 2026-09-03 is a Saturday, so the latest values are as of the 2026-09-02 close). Here is the full analysis.\n\n---\n\n# NFLX Technical Analysis Report — as of 2026-09-02 close\n\n## 1. Executive Summary\n\nNFLX is in a **short-term recovery within a larger, still-confirmed downtrend**. After a ~40% drawdown from the April 16 high ($107.79) to the July 17 intraday low ($65.08), the stock has staged an orderly ~20% rebound over six weeks, built on a staircase of higher lows. Price ($82.73) has reclaimed the 50 SMA and is trading above a rising 10 EMA with a positive, rising MACD — but it sits **~5% below the declining 200 SMA ($87.19)** and is pressing the rising Bollinger upper band ($84.45) while the MACD histogram has been fading for two weeks. The 200 SMA is the decisive battleground: a close above ~$87.20 would confirm a medium-term reversal; failure there risks a retest of $75 (50 SMA) or lower.\n\n## 2. Price Action Context\n\n- **Two earnings-style shocks:** April 17 (−9.7% on 126M shares, ~3.5x normal volume) and July 17 (−14.3% on 142M shares, ~4x normal volume). Both were followed by multi-week recoveries — a recurring pattern of sell-the-news crashes with dip-buying follow-through.\n- **Drawdown:** $107.79 (Apr 16) → $65.08 (Jul 17 low) = **−39.6%**.\n- **Recovery:** $68.95 (Jul 17 close) → $82.73 (Sep 2) = **+20.0%**, with higher lows every week: 65.08 → 66.69 → 69.86 → 71.23 → 73.08 → 75.44 → 78.10 → 79.02 → 80.65.\n- **Volume on the recovery is modest** (20–47M/day), notably lighter than the crash days — the rebound is being carried by persistent buying rather than aggressive accumulation.\n\n## 3. Trend Structure (50 SMA / 200 SMA / 10 EMA)\n\n| Layer | Value (9/2) | Price vs. level | Slope | Read |\n|---|---|---|---|---|\n| 200 SMA | $87.19 | **−5.1% below** | Declining (95.88 → 87.19 since Jul 6) | Long-term trend still bearish |\n| 50 SMA | $75.08 | **+10.2% above** | Flattening (76.82 → 75.08 in 3 wks) | Medium-term trend being repaired |\n| 10 EMA | $80.66 | **+2.6% above** | Steadily rising (71.71 → 80.66 since Jul 31) | Short-term momentum bullish |\n\nKey nuance: the 50 SMA was reclaimed on **Aug 13** (close $78.24 vs. 50 SMA $74.91) — that was the first structural repair signal. The 50 SMA has since flattened near $74.5–75.1, which is what allows price to hold above it. However, the 50 SMA is still ~$12 below the 200 SMA (death-cross configuration persists), so a full trend reversal requires the 50 SMA to turn up and the 200 SMA to flatten — a process that takes months, not days. Until price clears $87.19, this remains a **counter-trend rally**, not a confirmed reversal.\n\n## 4. Momentum (MACD / Histogram / RSI)\n\n- **MACD line: +1.96**, crossed above zero on **Aug 13** (from −0.02 to +0.34) and has climbed steadily from −2.94 (Jul 6). This is a clean bullish momentum shift confirming the higher-low structure.\n- **MACD histogram: +0.27 but fading** — it peaked at ~0.85 on Aug 14, printed a secondary peak of 0.82 on Aug 20, and has since decayed: 0.75 → 0.69 → 0.50 → 0.46 → 0.35 → 0.24 → 0.27. Momentum is still positive but **decelerating for two consecutive weeks**.\n- **RSI: 63.9** — recovered from a deeply oversold 28.7 (Jul 20), crossed above 50 around Aug 10, and is now in the bullish-but-not-overbought zone. There is still room to ~70 before classic overbought.\n- **Mild bearish divergence warning:** price made a marginally higher high on Sep 2 ($82.73 vs. $82.23 on Aug 25), but RSI printed a *lower* high (63.9 vs. 67.3) and the MACD histogram is far lower (0.27 vs. 0.75). Both momentum gauges are losing steam into resistance — a classic setup for a consolidation or pullback before the 200 SMA test.\n\n## 5. Volatility (ATR / Bollinger)\n\n- **ATR: $2.26 (~2.7% of price)**, down from a peak of $2.83 on Jul 17. Volatility is contracting as the recovery matures — favorable for holding, but it also means stops should be sized to ~2× ATR (≈$4.50) to avoid noise.\n- **Bollinger upper band: $84.45 and rising** (77.0 → 84.45 since Aug 10). Price is within **~2.1%** of the band. In strong trends price can \"ride the band,\" but combined with the fading histogram, the near-term path of least resistance is a pause/consolidation rather than an immediate extension.\n\n## 6. Key Levels\n\n- **Resistance:** $84.45 (Bollinger UB) → **$87.19–87.50 (200 SMA — the decisive level)** → $90–92 (May breakdown zone) → $95–98 (March/April consolidation) → $107.79 (April high).\n- **Support:** $80.30–80.66 (Sep 2 low / 10 EMA) → $78.10–79.00 (late-August higher-low shelf) → **$75.08 (50 SMA — the line in the sand for the recovery)** → $70.50–71.20 (July shelf) → $65.08 (July 17 low).\n\n## 7. Actionable Insights\n\n1. **Do not chase at $82.73.** You are buying ~2% below the Bollinger UB and ~5% below the 200 SMA, with momentum decelerating. Reward-to-risk to the 200 SMA is only ~2:1 with a high probability of a rejection or pause at that confluence.\n2. **Bullish trigger (new entry):** a daily close **above $87.20 on volume >30M** would confirm the 200 SMA reclaim and the medium-term reversal. First targets: $90–92, then $95–98. This is the highest-conviction entry available.\n3. **Dip-buy trigger:** a pullback to **$78–80.50** (10 EMA + late-August higher-low shelf) that holds on shrinking volume would offer a better R:R entry with a stop below $77.\n4. **Invalidation / exit:** a daily close **below $75 (50 SMA)** breaks the recovery structure — exit longs and expect a retest of $70–71, with $65 as the ultimate support. Short-term holders can trail below the 10 EMA (~$80.66).\n5. **Position sizing:** with ATR at $2.26, a 2×ATR stop ≈ $4.50 (~5.4% from current price). Size positions so that stop distance fits your risk budget; the July 17 tape (−14% in a day) shows this name can gap through technical levels on news.\n6. **Watch the 50/200 SMA gap:** the 50 SMA flattening at ~$75 while the 200 SMA declines at ~$87 means a golden cross is months away. Treat any rally that stalls below $87 as a range trade ($75–87) until proven otherwise.\n\n## 8. Recommendation\n\n**HOLD** for existing positions (short-term trend intact: above rising 10 EMA, positive MACD, higher lows; trail stop below $80.66, hard exit below $75). **No new aggressive longs at current levels** — wait for either (a) a confirmed close above $87.20 on volume, or (b) a pullback to $78–80.50 that holds. New shorts are also unattractive here given the intact short-term uptrend; the 200 SMA rejection would be the better short setup.\n\n---\n\n## Key Points Summary\n\n| Category | Indicator | Latest (9/2) | Signal | Implication |\n|---|---|---|---|---|\n| Price | Close | $82.73 | +20% off Jul 17 low | Orderly 6-week recovery on higher lows |\n| Trend (long) | 200 SMA | $87.19 (declining) | Price 5.1% below | Long-term trend still bearish; decisive resistance |\n| Trend (med) | 50 SMA | $75.08 (flattening) | Price 10.2% above | Reclaimed Aug 13; recovery support / invalidation line |\n| Trend (short) | 10 EMA | $80.66 (rising) | Price 2.6% above | Short-term momentum bullish; trailing-stop reference |\n| Momentum | MACD | +1.96 (rising) | Zero-cross up Aug 13 | Confirms momentum shift to bullish |\n| Momentum | MACD Hist | +0.27 (fading 2 wks) | Decaying from 0.85 peak | Momentum decelerating into resistance |\n| Momentum | RSI | 63.9 | Neutral-bullish, mild bearish div. | Room to ~70; divergence warns against chasing |\n| Volatility | ATR | $2.26 (~2.7%) | Contracting from 2.83 | 2×ATR stop ≈ $4.50; size positions accordingly |\n| Volatility | Boll UB | $84.45 (rising) | Price ~2% below band | Near-term overbought pressure / pause zone |\n| Volume | Crash days | 142M (7/17), 126M (4/17) | ~4x normal | Earnings-shock pattern; gap risk on news |\n\n**Bottom line: HOLD — recovery intact but capped by the 200 SMA at $87.19 with fading momentum. Buy the breakout above $87.20 on volume, or the dip to $78–80.50; exit below $75.**",
+      "meta": {
+        "extractor_version": "w1.5_llm"
+      }
+    },
+    "sentiment": {
+      "agent_id": "social_analyst",
+      "ticker": "NFLX",
+      "end_date": "2026-09-03",
+      "evidence": [
+        {
+          "id": "ev_tool_3ad55ccb",
+          "source": "tool:tool",
+          "source_type": "external",
+          "timestamp": "2026-11-16T10:12:09.404086Z",
+          "content": {
+            "text": "[aggregated] sources: alpha_vantage=0 | gnews=10 | finnhub=50 | raw=50 deduped=45 multi_source=4\n\n1. [Yahoo|T3] 2026-09-03 — A Video Game Trailer Was Netflix's Most-Watched English Film Late Last Month. Here's Why This Matters for Investors.\n   The streaming giant didn't produce it and only had it exclusively for six hours. So, what did it get?\n   https://finnhub.io/api/news?id=c328de356d25a97bbaa5b653c92890092acb1c2de5eaadd1a58bb5e0d65bec66\n\n2. [Yahoo|T3] 2026-09-03 — DIS Is Priced Like The Best Of Its Group. Is It?\n   The market is charging a premium for Walt Disney stock, but its growth and profit metrics currently trail key rivals. Is this a bet on a magical future, or just a storybook valuation.\n   https://finnhub.io/api/news?id=d3ca2480cdf4102d28394ec135e9dbee8dc83136c52f5d51ed0fcd7a06a2f0c8\n\n3. [Yahoo|T3] 2026-09-03 — How Far Can Amazon Stock Fall When The Business Is Fine?\n   Amazon.com (AMZN) trades at $255, down 10% over the past month and about 10% below its 52-week high. The second quarter of 2026, reported in July, was a strong one: revenue rose 20% year over year to $200.6 billion and operating income rose 43%, though about $1.2 billion of that income came from ...\n   https://finnhub.io/api/news?id=784ebfa6487c7bb29e44e57e5fe3651294c2056dd24186e670d2838f9c797a6a\n\n4. [Yahoo|T3] 2026-09-03 — Is It Worth Investing in Netflix (NFLX) Based on Wall Street's Bullish Views?\n   According to the average brokerage recommendation (ABR), one should invest in Netflix (NFLX). It is debatable whether this highly sought-after metric is effective because Wall Street analysts' recommendations tend to be overly optimistic. Would it be worth investing in the stock?\n   https://finnhub.io/api/news?id=321fdd05e3ee38ca2407809807edf3045ab5df0205bbbc850b1692a70c94b538\n\n5. [Yahoo|T3] 2026-09-03 — Netflix Stock Rebound Fuels Ad Growth Talk: A Sign of More Upside?\n   NFLX's ad business is gaining momentum as AI tools, programmatic access and advertiser growth fuel hopes for a sustained stock recovery.\n   https://finnhub.io/api/news?id=76639c23caa0bd83f288689131aa83311ae8e7db934f16113a56dc1cb61913be\n\n6. [SeekingAlpha|T3] 2026-09-03 — Netflix: A Second Monetization Cycle Is Just Getting Started\n   Netflix's PEG ratio and 24%+ EPS growth justify valuation relative to slower-growing sector peers. Find out why NFLX stock is a Buy.\n   https://finnhub.io/api/news?id=55a1c82cd1b9665df0b56422fdb7898ad13ab91633ae0365a31b412979be0cf3\n\n7. [Yahoo|T3] 2026-09-03 — Netflix’s Acquisition Wishlist: Which Streaming Target Has the Best Odds?\n   After losing a real bid for a major media company, Netflix now sits on a shortlist of four potential acquisition targets, but regulatory walls, controlling shareholders, and astronomical price tags eliminate most of them before the conversation even starts.\n   https://finnhub.io/api/news?id=157fc2b7805cff7346bc80fd48fb0bbeec8cd526ea1f510dc16c562b8ee30178\n\n8. [Yahoo|T3] 2026-09-03 — Why Netflix Stock Gained 13% in August\n   Investors pounced as the stock hit a 52-week low.\n   https://finnhub.io/api/news?id=64ab5b541a44e9d688291cddcacd10223fed4d2b80fb3914bea8773c65eb2531\n\n9. [Yahoo + 1 others|T3] 2026-09-02 — InterDigital wins third injunction against Disney from Unified Patent Court\n   WILMINGTON, Del., Sept. 02, 2026 (GLOBE NEWSWIRE) -- InterDigital, Inc. (Nasdaq: IDCC), a wireless, video and AI technology research and development company, today announced that it has been awarded another injunction against Disney by a court in Europe. The Düsseldorf Local Division of the Unifi...\n   https://finnhub.io/api/news?id=bb38bf07fdd9d26412d8d993f0a63ca682c602e74c8c23aa2845413bf55082f6\n\n10. [Yahoo + 1 others|T3] 2026-09-02 — Netflix (NFLX) Unveils New Partnership, Is It Still Below Fair Value?\n   Netflix (NFLX) is back in the spotlight after unveiling “The Gentlemen’s Serve,” a multi-country partnership with Stella Artois tied to the second season of Guy Ritchie’s series The Gentlemen. Netflix’s latest brand tie up lands as the stock trades at US$80.81, with a 30 day share price return of...\n   https://finnhub.io/api/news?id=6c3f560635b545e29742ca91bce05e184bc63e53be53c75ddc118baa0cc2765b\n\n11. [Yahoo|T3] 2026-09-02 — A Disney Strangle Strategy Can Profit From Big Swings By The Entertainment Stock\n   Disney stock is showing extremely low implied volatility. Consider setting up a long strangle with options.\n   https://finnhub.io/api/news?id=b13c4cab6e88dde0c2156f0a8a8895fbcf3f6fb7f4a19b65f9960f5eab59b726\n\n12. [Yahoo|T3] 2026-09-02 — Asian Equities Traded in the US as American Depositary Receipts Rise in Wednesday Trading\n   Asian equities traded in the US as American depositary receipts were tracking higher Wednesday morni\n   https://finnhub.io/api/news?id=15e5e776150423d4684ab12b572688ca2579cdf1876eace602510255cdcd6627\n\n13. [Yahoo|T3] 2026-09-02 — Delistings Trend Below Last Year's Pace As Summer Comes to an End: Realtor.com® August Housing Report\n   Pending sales declined year over year in August for the first",
+            "full_length": 8526,
+            "truncated": true
+          },
+          "raw_ref": "tool_call:chatcmpl-tool-99b1e5ad56f8ffc5"
+        }
+      ],
+      "claims": [
+        {
+          "id": "cl_043b3f08",
+          "statement": "NFLX rebounded roughly 13% in August after hitting a 52-week low.",
+          "confidence": 0.9,
+          "evidence_ids": [
+            "ev_tool_3ad55ccb"
+          ],
+          "framework": "sentiment",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_5b2402a1",
+          "statement": "Sell-side sentiment is bullish, with the average brokerage recommendation described as bullish.",
+          "confidence": 0.85,
+          "evidence_ids": [
+            "ev_tool_3ad55ccb"
+          ],
+          "framework": "sentiment",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_b089d45a",
+          "statement": "Advertising business momentum is a key bullish theme, driven by AI tools, programmatic access, and advertiser growth.",
+          "confidence": 0.85,
+          "evidence_ids": [
+            "ev_tool_3ad55ccb"
+          ],
+          "framework": "sentiment",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_611bdd40",
+          "statement": "NFLX is framed as potentially below fair value and entering a second monetization cycle, with 24%+ EPS growth cited as valuation support.",
+          "confidence": 0.8,
+          "evidence_ids": [
+            "ev_tool_3ad55ccb"
+          ],
+          "framework": "sentiment",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_9f10b572",
+          "statement": "NFLX remains a year-to-date underperformer versus the S&P 500.",
+          "confidence": 0.85,
+          "evidence_ids": [
+            "ev_tool_3ad55ccb"
+          ],
+          "framework": "sentiment",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_3d4addb4",
+          "statement": "Netflix lost a real bid for a major media target, making M&A a long-dated optionality rather than a near-term catalyst.",
+          "confidence": 0.8,
+          "evidence_ids": [
+            "ev_tool_3ad55ccb"
+          ],
+          "framework": "sentiment",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_00e567cf",
+          "statement": "A video game trailer was Netflix's most-watched English-language title late last month, but it was not Netflix-produced and was exclusive for only six hours.",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "ev_tool_3ad55ccb"
+          ],
+          "framework": "sentiment",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_f95105a2",
+          "statement": "Overall weekly sentiment is cautiously bullish or contrarian-recovery, with bullish coverage accelerating into Sept 2-3.",
+          "confidence": 0.85,
+          "evidence_ids": [
+            "ev_tool_3ad55ccb"
+          ],
+          "framework": "sentiment",
+          "counter_claim_ids": []
+        }
+      ],
+      "signals": [
+        {
+          "ticker": "NFLX",
+          "dimension": "momentum",
+          "framework": "sentiment",
+          "direction": "bullish",
+          "strength": 0.75,
+          "claim_ids": [
+            "cl_043b3f08",
+            "cl_b089d45a",
+            "cl_f95105a2"
+          ],
+          "provenance": "aggregated from rebound, ad-momentum, and sentiment-acceleration claims"
+        },
+        {
+          "ticker": "NFLX",
+          "dimension": "trend",
+          "framework": "sentiment",
+          "direction": "bullish",
+          "strength": 0.7,
+          "claim_ids": [
+            "cl_5b2402a1",
+            "cl_611bdd40"
+          ],
+          "provenance": "aggregated from sell-side alignment and valuation re-rating claims"
+        },
+        {
+          "ticker": "NFLX",
+          "dimension": "relative_performance",
+          "framework": "sentiment",
+          "direction": "bearish",
+          "strength": 0.5,
+          "claim_ids": [
+            "cl_9f10b572",
+            "cl_3d4addb4"
+          ],
+          "provenance": "aggregated from YTD underperformance and M&A execution-risk claims"
+        }
+      ],
+      "narrative": "\n\n# NFLX (Netflix) — Weekly News & Sentiment Report\n**Coverage window:** 2026-08-27 → 2026-09-03 | **Reference price:** US$80.81 (as of 2026-09-02)\n\n---\n\n## 1. Executive Summary\n\nNetflix (NFLX) enters the start of September in a **recovery / re-rating phase** after a bruising stretch that saw the stock print a **52-week low** before **rebounding roughly 13% in August**. The week's news flow is dominated by a **bullish, \"second monetization cycle\" narrative** anchored on three pillars: (1) accelerating **advertising business momentum** (AI tooling, programmatic access, advertiser growth), (2) **strong earnings growth** (24%+ EPS growth cited as valuation-justifying), and (3) a **consensus-bullish Wall Street stance** (Average Brokerage Recommendation). Offsetting the optimism, NFLX remains a **year-to-date underperformer versus the S&P 500** (grouped with MercadoLibre and Tesla), and the company **lost a real bid for a major media target**, leaving a speculative acquisition wishlist. Net tone across the week: **cautiously bullish / contrarian-recovery**, with the heaviest positive coverage clustered on **Sept 2–3**.\n\n> **Data note:** This report is built from aggregated, deduplicated company news (Finnhub + GNews + Alpha Vantage). Direct raw social-media post feeds and a numeric sentiment index were not returned by the tool, so \"sentiment\" below is inferred from the tone, framing, and source mix of the coverage. No figures have been invented beyond what the sources state.\n\n---\n\n## 2. Key Company-Specific News (Ranked by Relevance)\n\n### A. The Rebound & Valuation Story (most important this week)\n- **\"Why Netflix Stock Gained 13% in August\"** (Yahoo, 09-03) — Investors \"pounced as the stock hit a 52-week low.\" This is the anchor event: a capitulation low followed by a sharp mean-reversion bounce. It frames the entire week's bullish coverage as a **value/recovery trade**, not a momentum breakout.\n- **\"Netflix: A Second Monetization Cycle Is Just Getting Started\"** (SeekingAlpha, 09-03) — Argues the **PEG ratio and 24%+ EPS growth** justify the valuation relative to slower-growing peers; explicit **Buy** thesis. This is the intellectual backbone of the bull case: NFLX is being re-rated as a *growth* name again, not a mature cash cow.\n- **\"Is It Worth Investing in Netflix (NFLX) Based on Wall Street's Bullish Views?\"** (Yahoo, 09-03) — Confirms the **Average Brokerage Recommendation (ABR) is bullish**, while noting the well-known caveat that analyst calls skew optimistic. Useful as a sentiment gauge: the sell-side is firmly on the buy side.\n\n### B. Advertising = The New Growth Engine\n- **\"Netflix Stock Rebound Fuels Ad Growth Talk: A Sign of More Upside?\"** (Yahoo, 09-03) — The **ad business is gaining momentum**, driven by **AI tools, programmatic access, and advertiser growth**. This is the single most actionable thematic driver: the market is beginning to assign optionality to ads as a *second* revenue/monetization curve on top of subscriptions.\n\n### C. Brand / Content Partnerships (execution & monetization)\n- **\"Netflix (NFLX) Unveils New Partnership, Is It Still Below Fair Value?\"** (Yahoo, 09-02) — Launched **\"The Gentlemen's Serve,\"** a multi-country **Stella Artois** partnership tied to the second season of Guy Ritchie's *The Gentlemen*. The headline's \"still below fair value?\" framing signals the market is treating NFLX as **undervalued**. Brand tie-ups also reinforce the ad/brand-monetization theme.\n- **\"A Video Game Trailer Was Netflix's Most-Watched English Film Late Last Month\"** (Yahoo, 09-03) — A nuanced data point: the top English-language title was **not Netflix-produced** and was exclusive for only **six hours**. *Bull read:* Netflix's platform reach is broad enough to capture even non-owned content. *Bear read:* reliance on non-produced content for top slots can dilute the \"originals\" moat. Net: **neutral-to-mildly-positive**, but worth watching for content-cost implications.\n\n### D. M&A Speculation (a wildcard, not a near-term driver)\n- **\"Netflix's Acquisition Wishlist: Which Streaming Target Has the Best Odds?\"** (Yahoo, 09-03) — After **losing a real bid for a major media company**, Netflix sits on a **shortlist of four potential targets**, but **regulatory walls, controlling shareholders, and price tags** eliminate most. *Takeaway:* M&A is a **long-dated optionality**, not a catalyst to trade this week. The lost bid is a minor negative (shows execution risk / competitive intensity) but is being framed as \"they'll keep looking.\"\n\n### E. Relative-Performance Context (the bear's counterpoint)\n- **\"Netflix, MercadoLibre, and Tesla Are All Underperforming the S&P 500. Here's the 1 Stock I'd Buy in September.\"** (Yahoo, 09-02) — Confirms NFLX is a **YTD laggard vs. the index**, but the contrarian \"1 stock I'd buy\" framing suggests at least one prominent voice sees the underperformance as an **entry opportunity**. This is the key tension in the week's sentiment: *fundamentals improving* vs. *price still lagging the market*.\n\n---\n\n## 3. Sentiment Analysis\n\n### Overall Tone\n**Cautiously bullish / contrarian-recovery.** The preponderance of headlines is framed around *rebound, fair value, second monetization cycle, and ad momentum* — all bullish constructs. The bearish elements (52-week low, YTD underperformance, lost acquisition bid) are present but are being **reframed as opportunities** rather than warnings.\n\n### Bullish Signals\n| Signal | Evidence |\n|---|---|\n| Sharp August rebound | +13% off a 52-week low |\n| Sell-side alignment | ABR bullish; SeekingAlpha \"Buy\" |\n| Growth re-rating | 24%+ EPS growth, PEG cited as justification |\n| New revenue curve | Ad business momentum (AI, programmatic, advertisers) |\n| Undervaluation framing | \"Still below fair value?\" headline |\n| Monetization execution | Stella Artois multi-country brand partnership |\n\n### Bearish / Cautious Signals\n| Signal | Evidence |\n|---|---|\n| Relative weakness | YTD underperformer vs. S&P 500 |\n| Recent capitulation | 52-week low (early August) |\n| M&A execution risk | Lost a real bid for a major media target |\n| Content-moat question | Top English title was non-produced, 6-hr exclusive |\n| Analyst-bias caveat | ABR \"tends to be overly optimistic\" |\n\n### Day-by-Day Sentiment\n| Date | Dominant Theme | Net Sentiment |\n|---|---|---|\n| 2026-08-27 → 09-01 | Thin NFLX-specific coverage in window | Neutral (quiet) |\n| 2026-09-02 (Wed) | New partnership + \"below fair value\"; YTD-laggard/contrarian-buy piece | **Mixed-to-Positive** |\n| 2026-09-03 (Thu) | Rebound recap, ad growth, second monetization cycle, ABR bullish, M&A wishlist | **Strongly Positive** |\n\n**Read-through:** Sentiment **accelerated into the end of the week**, with Sept 3 being the most bullish day (multiple independent bullish pieces). This clustering suggests a **narrative shift is in progress** — the market is moving from \"why is this falling?\" to \"this is a second monetization cycle.\"\n\n---\n\n## 4. Implications for Traders & Investors\n\n**For swing/position traders:**\n- The **13% August rebound off a 52-week low** is a classic **capitulation → mean-reversion** setup. The bullish news clustering on Sept 2–3 supports **continuation risk to the upside** in the near term, but the stock is still a **YTD laggard**, so rallies may be **choppy and headline-driven**.\n- **Catalyst watch:** The **ad business** is the swing factor. Any concrete ad-revenue/advertiser disclosure (e.g., at the next earnings) is the most likely **upside catalyst**; a soft ad read would deflate the \"second monetization cycle\" thesis quickly.\n- **M&A is a wildcard, not a plan:** The lost bid + regulatory walls mean **do not underwrite an acquisition** into your thesis this week. Treat it as free optionality.\n\n**For longer-term investors:**\n- The **24%+ EPS growth + PEG** argument is the core bull case. If you believe ads scale, the current \"below fair value\" framing supports **accumulation on weakness** rather than chasing the post-rebound price.\n- The **non-produced top title** is a minor **content-cost/moat** flag — monitor whether Netflix's originals continue to drive the top of the charts, or whether the platform is increasingly a distribution pipe for third-party content.\n\n**Risk flags to monitor:**\n1. **Relative strength:** Will NFLX finally outperform the S&P 500, or stay a laggard? A break of the YTD underperformance is the confirmation signal bulls need.\n2. **Ad monetization proof:** Programmatic/AI/advertiser growth must convert into reported numbers.\n3. **Valuation re-rating sustainability:** The \"second monetization cycle\" is a *narrative* — it needs earnings to keep funding it.\n4. **Macro/sector:** The week's broader tape (war tensions, surging oil, \"September curse\" per one piece) adds **market-level volatility risk** that can override company-specific news.\n\n---\n\n## 5. Bottom Line\n\nNFLX is in a **sentiment inflection**: a 52-week-low capitulation, a 13% August rebound, and a week of **bullish, \"second monetization cycle / ad growth / below fair value\"** coverage point to a **cautiously bullish, contrarian-recovery** posture. The strongest actionable theme is **advertising as a second growth curve**, with the **sell-side firmly bullish**. The main caveats are **continued YTD underperformance vs. the S&P 500**, **M&A execution risk (lost bid)**, and a **narrative that still needs earnings to prove it**. For traders, this is a **headline-sensitive, rebound-phase** name — favor **buying weakness into the ad-growth narrative** over chasing strength, and keep **ad-revenue disclosure** as the primary catalyst to watch.\n\n---\n\n## 6. Key Points at a Glance\n\n| Date | Headline / Theme | Source (Tier) | Sentiment | Key Takeaway | Trading Implication |\n|---|---|---|---|---|---|\n| 2026-09-03 | Why NFLX gained 13% in August | Yahoo (T3) | Positive | Rebound off a 52-week low | Capitulation → mean-reversion; continuation risk |\n| 2026-09-03 | Second monetization cycle just starting | SeekingAlpha (T3) | Positive (Buy) | 24%+ EPS growth, PEG justifies valuation | Core bull thesis; accumulate on weakness |\n| 2026-09-03 | Rebound fuels ad growth talk | Yahoo (T3) | Positive | Ads: AI, programmatic, advertiser growth | Primary upside catalyst; watch ad disclosures |\n| 2026-09-03 | Worth investing per Wall Street's bullish views | Yahoo (T3) | Positive | ABR bullish (with bias caveat) | Sell-side aligned; sentiment gauge |\n| 2026-09-03 | Acquisition wishlist after lost bid | Yahoo (T3) | Neutral | 4-target shortlist; regulatory/price walls | M&A = long-dated optionality, not a near-term trade |\n| 2026-09-03 | Video game trailer = top English film | Yahoo (T3) | Neutral-mild + | Non-produced, 6-hr exclusive topped charts | Platform reach vs. originals-moat question |\n| 2026-09-02 | New Stella Artois partnership; \"below fair value?\" | Yahoo (T3) | Positive | \"The Gentlemen's Serve\" multi-country tie-up | Reinforces ad/brand monetization; undervalued framing |\n| 2026-09-02 | NFLX underperforming S&P 500; \"1 stock I'd buy\" | Yahoo (T3) | Mixed | YTD laggard, but contrarian buy case | Key tension: improving fundamentals vs. lagging price |\n\n**Net weekly sentiment: Cautiously Bullish / Contrarian-Recovery** (strongest on Sept 3).\n\n---\n\n*Prepared from aggregated, deduplicated company news (Finnhub, GNews, Alpha Vantage). Reference price US$80.81 as of 2026-09-02. Sentiment inferred from coverage tone and source mix; no raw social-media post feed or numeric sentiment index was returned by the tool, so no such metrics are quoted.*",
+      "meta": {
+        "extractor_version": "w1.5_llm"
+      }
+    },
+    "news": {
+      "agent_id": "news_analyst",
+      "ticker": "NFLX",
+      "end_date": "2026-09-03",
+      "evidence": [
+        {
+          "id": "ev_tool_b164fea1",
+          "source": "tool:tool",
+          "source_type": "external",
+          "timestamp": "2026-11-16T10:15:38.584509Z",
+          "content": {
+            "text": "[aggregated] sources: alpha_vantage=0 | finnhub=50 | gnews=10 | raw=50 deduped=45 multi_source=4\n\n1. [Yahoo|T3] 2026-09-03 — A Video Game Trailer Was Netflix's Most-Watched English Film Late Last Month. Here's Why This Matters for Investors.\n   The streaming giant didn't produce it and only had it exclusively for six hours. So, what did it get?\n   https://finnhub.io/api/news?id=c328de356d25a97bbaa5b653c92890092acb1c2de5eaadd1a58bb5e0d65bec66\n\n2. [Yahoo|T3] 2026-09-03 — DIS Is Priced Like The Best Of Its Group. Is It?\n   The market is charging a premium for Walt Disney stock, but its growth and profit metrics currently trail key rivals. Is this a bet on a magical future, or just a storybook valuation.\n   https://finnhub.io/api/news?id=d3ca2480cdf4102d28394ec135e9dbee8dc83136c52f5d51ed0fcd7a06a2f0c8\n\n3. [Yahoo|T3] 2026-09-03 — How Far Can Amazon Stock Fall When The Business Is Fine?\n   Amazon.com (AMZN) trades at $255, down 10% over the past month and about 10% below its 52-week high. The second quarter of 2026, reported in July, was a strong one: revenue rose 20% year over year to $200.6 billion and operating income rose 43%, though about $1.2 billion of that income came from ...\n   https://finnhub.io/api/news?id=784ebfa6487c7bb29e44e57e5fe3651294c2056dd24186e670d2838f9c797a6a\n\n4. [Yahoo|T3] 2026-09-03 — Is It Worth Investing in Netflix (NFLX) Based on Wall Street's Bullish Views?\n   According to the average brokerage recommendation (ABR), one should invest in Netflix (NFLX). It is debatable whether this highly sought-after metric is effective because Wall Street analysts' recommendations tend to be overly optimistic. Would it be worth investing in the stock?\n   https://finnhub.io/api/news?id=321fdd05e3ee38ca2407809807edf3045ab5df0205bbbc850b1692a70c94b538\n\n5. [Yahoo|T3] 2026-09-03 — Netflix Stock Rebound Fuels Ad Growth Talk: A Sign of More Upside?\n   NFLX's ad business is gaining momentum as AI tools, programmatic access and advertiser growth fuel hopes for a sustained stock recovery.\n   https://finnhub.io/api/news?id=76639c23caa0bd83f288689131aa83311ae8e7db934f16113a56dc1cb61913be\n\n6. [SeekingAlpha|T3] 2026-09-03 — Netflix: A Second Monetization Cycle Is Just Getting Started\n   Netflix's PEG ratio and 24%+ EPS growth justify valuation relative to slower-growing sector peers. Find out why NFLX stock is a Buy.\n   https://finnhub.io/api/news?id=55a1c82cd1b9665df0b56422fdb7898ad13ab91633ae0365a31b412979be0cf3\n\n7. [Yahoo|T3] 2026-09-03 — Netflix’s Acquisition Wishlist: Which Streaming Target Has the Best Odds?\n   After losing a real bid for a major media company, Netflix now sits on a shortlist of four potential acquisition targets, but regulatory walls, controlling shareholders, and astronomical price tags eliminate most of them before the conversation even starts.\n   https://finnhub.io/api/news?id=157fc2b7805cff7346bc80fd48fb0bbeec8cd526ea1f510dc16c562b8ee30178\n\n8. [Yahoo|T3] 2026-09-03 — Why Netflix Stock Gained 13% in August\n   Investors pounced as the stock hit a 52-week low.\n   https://finnhub.io/api/news?id=64ab5b541a44e9d688291cddcacd10223fed4d2b80fb3914bea8773c65eb2531\n\n9. [Yahoo + 1 others|T3] 2026-09-02 — InterDigital wins third injunction against Disney from Unified Patent Court\n   WILMINGTON, Del., Sept. 02, 2026 (GLOBE NEWSWIRE) -- InterDigital, Inc. (Nasdaq: IDCC), a wireless, video and AI technology research and development company, today announced that it has been awarded another injunction against Disney by a court in Europe. The Düsseldorf Local Division of the Unifi...\n   https://finnhub.io/api/news?id=bb38bf07fdd9d26412d8d993f0a63ca682c602e74c8c23aa2845413bf55082f6\n\n10. [Yahoo + 1 others|T3] 2026-09-02 — Netflix (NFLX) Unveils New Partnership, Is It Still Below Fair Value?\n   Netflix (NFLX) is back in the spotlight after unveiling “The Gentlemen’s Serve,” a multi-country partnership with Stella Artois tied to the second season of Guy Ritchie’s series The Gentlemen. Netflix’s latest brand tie up lands as the stock trades at US$80.81, with a 30 day share price return of...\n   https://finnhub.io/api/news?id=6c3f560635b545e29742ca91bce05e184bc63e53be53c75ddc118baa0cc2765b\n\n11. [Yahoo|T3] 2026-09-02 — A Disney Strangle Strategy Can Profit From Big Swings By The Entertainment Stock\n   Disney stock is showing extremely low implied volatility. Consider setting up a long strangle with options.\n   https://finnhub.io/api/news?id=b13c4cab6e88dde0c2156f0a8a8895fbcf3f6fb7f4a19b65f9960f5eab59b726\n\n12. [Yahoo|T3] 2026-09-02 — Asian Equities Traded in the US as American Depositary Receipts Rise in Wednesday Trading\n   Asian equities traded in the US as American depositary receipts were tracking higher Wednesday morni\n   https://finnhub.io/api/news?id=15e5e776150423d4684ab12b572688ca2579cdf1876eace602510255cdcd6627\n\n13. [Yahoo|T3] 2026-09-02 — Delistings Trend Below Last Year's Pace As Summer Comes to an End: Realtor.com® August Housing Report\n   Pending sales declined year over year in August for the first",
+            "full_length": 8526,
+            "truncated": true
+          },
+          "raw_ref": "tool_call:chatcmpl-tool-83555ae55edfb1ef"
+        },
+        {
+          "id": "ev_tool_0adfa1d5",
+          "source": "tool:tool",
+          "source_type": "external",
+          "timestamp": "2026-11-16T10:15:38.584543Z",
+          "content": {
+            "text": "[DATA_UNAVAILABLE] role=global news for 2026-09-03 reason=all sources empty or failed; failed=[]\n\nINSTRUCTION: Do NOT fabricate data. Do NOT write speculative analysis. Do NOT add tables or hypothetical scenarios. Respond with a report under 200 words that:\n  1. Starts with the exact marker `INSUFFICIENT_DATA: <short reason>`\n  2. Explains which data is missing\n  3. Stops.",
+            "full_length": 375,
+            "truncated": false
+          },
+          "raw_ref": "tool_call:chatcmpl-tool-bd9d8720e8c0a84b"
+        }
+      ],
+      "claims": [
+        {
+          "id": "cl_3ed5bbc6",
+          "statement": "NFLX gained approximately 13% in August after touching a 52-week low.",
+          "confidence": 0.85,
+          "evidence_ids": [
+            "ev_tool_b164fea1"
+          ],
+          "framework": "news",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_cfcebb1d",
+          "statement": "NFLX's ad tier is gaining momentum from AI tools, programmatic access, and advertiser growth.",
+          "confidence": 0.85,
+          "evidence_ids": [
+            "ev_tool_b164fea1"
+          ],
+          "framework": "news",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_84c08823",
+          "statement": "Analyst commentary argues that NFLX's PEG ratio and 24%+ EPS growth support a second monetization cycle and a Buy rating.",
+          "confidence": 0.75,
+          "evidence_ids": [
+            "ev_tool_b164fea1"
+          ],
+          "framework": "news",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_d0885b45",
+          "statement": "NFLX is underperforming the S&P 500 year-to-date.",
+          "confidence": 0.75,
+          "evidence_ids": [
+            "ev_tool_b164fea1"
+          ],
+          "framework": "news",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_1a40cf46",
+          "statement": "Netflix unveiled a Stella Artois brand partnership tied to the second season of The Gentlemen.",
+          "confidence": 0.8,
+          "evidence_ids": [
+            "ev_tool_b164fea1"
+          ],
+          "framework": "news",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_97497c0a",
+          "statement": "The dedicated global/macro news feed returned no data for 2026-09-03, leaving macro context unverified.",
+          "confidence": 1.0,
+          "evidence_ids": [
+            "ev_tool_0adfa1d5"
+          ],
+          "framework": "news",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_cc075753",
+          "statement": "A video-game trailer was Netflix's most-watched English-language title late last month.",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "ev_tool_b164fea1"
+          ],
+          "framework": "news",
+          "counter_claim_ids": []
+        }
+      ],
+      "signals": [
+        {
+          "ticker": "NFLX",
+          "dimension": "momentum",
+          "framework": "news",
+          "direction": "bullish",
+          "strength": 0.75,
+          "claim_ids": [
+            "cl_3ed5bbc6",
+            "cl_cfcebb1d",
+            "cl_84c08823"
+          ],
+          "provenance": "aggregated from 3 company-news claims on price rebound, ad momentum, and analyst valuation support"
+        },
+        {
+          "ticker": "NFLX",
+          "dimension": "trend",
+          "framework": "news",
+          "direction": "bearish",
+          "strength": 0.45,
+          "claim_ids": [
+            "cl_d0885b45",
+            "cl_97497c0a"
+          ],
+          "provenance": "aggregated from 2 claims on relative underperformance and unavailable macro verification"
+        },
+        {
+          "ticker": "NFLX",
+          "dimension": "catalyst",
+          "framework": "news",
+          "direction": "neutral",
+          "strength": 0.5,
+          "claim_ids": [
+            "cl_1a40cf46",
+            "cl_cc075753"
+          ],
+          "provenance": "aggregated from 2 claims on brand partnership and content reach"
+        }
+      ],
+      "narrative": "\n\nFINAL TRANSACTION PROPOSAL: **BUY**\n\n# NFLX (Netflix) — Weekly News & Macro Report\n**Coverage window:** 2026-08-27 → 2026-09-03 | **Prepared:** 2026-09-03\n\n## Executive Summary\nThe past week's NFLX news flow is **predominantly bullish and improving**. The stock rebounded ~13% in August after touching a 52-week low, the ad business is showing clear momentum, and a \"second monetization cycle\" thesis is gaining analyst traction. Wall Street's aggregate recommendation remains bullish. The main offsetting factors are that NFLX is still **underperforming the S&P 500 year-to-date** and that the broader macro environment is showing stress (war tensions, surging oil, a \"September curse\" risk-off move). Note: the dedicated global/macro feed returned no data this week, so macro context below is limited to what surfaced in the company news stream.\n\n## 1. Stock Performance & Positioning\n- **August rebound:** NFLX gained **~13% in August** as investors \"pounced\" after the stock hit a **52-week low** (Yahoo, 2026-09-03). This is a classic mean-reversion / dip-buying setup that has already played out.\n- **Current level:** One Sept 2 article cites NFLX trading at **US$80.81** with a 30-day return under discussion — i.e., the stock is still in a recovery phase from its low, not at highs.\n- **Relative weakness:** NFLX is flagged as **underperforming the S&P 500 YTD** (alongside MercadoLibre and Tesla) in a Sept 2 piece — so the absolute rebound has not yet closed the relative gap.\n\n## 2. Ad Business & Monetization Momentum (key bull catalyst)\n- **Ad growth:** NFLX's ad tier is \"gaining momentum as **AI tools, programmatic access and advertiser growth** fuel hopes for a sustained stock recovery\" (Yahoo, 2026-09-03). This is the most concrete forward catalyst in the week's flow.\n- **Second monetization cycle:** A Seeking Alpha piece argues NFLX's **PEG ratio and 24%+ EPS growth** justify its valuation vs. slower-growing peers, framing a \"second monetization cycle\" as \"just getting started\" and rating it a **Buy**.\n- **Viewing/content signal:** A video-game trailer was Netflix's **most-watched English-language title** late last month — notable because Netflix did not produce it and held exclusivity for only ~6 hours, underscoring the platform's distribution reach and the value of exclusive windows.\n\n## 3. Content, Partnerships & M&A\n- **Brand partnership:** NFLX unveiled **\"The Gentlemen's Serve,\"** a multi-country **Stella Artois** tie-in tied to the second season of Guy Ritchie's *The Gentlemen* (Yahoo, 2026-09-02) — evidence of an expanding brand-integration / sponsorship revenue stream.\n- **M&A:** After losing a real bid for a major media company, Netflix reportedly holds a **shortlist of four potential acquisition targets**, but **regulatory walls, controlling shareholders, and price tags eliminate most** before talks start (Yahoo, 2026-09-03). Net: M&A is a live but low-probability near-term catalyst.\n\n## 4. Analyst Sentiment\n- **Wall Street bullish:** The average brokerage recommendation (ABR) points to **invest/buy** on NFLX (Yahoo, 2026-09-03), with the caveat that ABR tends to be optimistic.\n- **Peer context:** Disney is being debated on valuation (premium price vs. trailing growth), and FuboTV/Disney moved on a Hulu live-TV-bundle re-rating — useful for gauging how the market is re-pricing streaming/live-TV economics, but not NFLX-specific.\n\n## 5. Macro Context (Limited — see Data Gaps)\nThe dedicated global news feed returned **no data** this week. The only macro signal available came incidentally from the company-news stream: a Sept 2 analyst-note roundup described **Tuesday's risk-off move driven by \"war tensions, surging oil, and the September curse,\"** which \"hammered stocks, bonds, and gold all at once.\" I am **not** extrapolating a full macro picture from this single passing reference.\n\n## 6. Actionable Insights\n1. **Core thesis is improving:** Ad-tier momentum (AI + programmatic + advertiser growth) and a 24%+ EPS-growth / PEG-justified valuation are the strongest, most concrete bull arguments. This supports a **BUY** on the company fundamentals.\n2. **Momentum is real but early:** The 13% August rebound off a 52-week low shows dip-buyers are active, yet NFLX still trails the S&P 500 YTD — implying the re-rating may have room to continue *if* macro cooperates.\n3. **Macro is the key risk you cannot currently size:** With the global feed down, treat war/oil-driven risk-off as an unquantified headwind. Consider **staggered entries / defined risk** rather than a single full-size position, and re-check macro data before adding.\n4. **Watch for:** (a) next ad-tier / subscriber datapoint, (b) any M&A progress on the four-target shortlist, (c) whether the \"second monetization cycle\" thesis is corroborated by fresh analyst upgrades.\n5. **Catalyst asymmetry:** Upside catalysts (ad growth, partnerships, EPS) are recurring and near-term; the main downside risk is exogenous macro, which is outside NFLX's control.\n\n## Data Gaps\n- **Global/macro news: UNAVAILABLE.** `get_aggregated_global_news` (2026-09-03, 7-day lookback) returned `[DATA_UNAVAILABLE]` — all sources empty/failed. I therefore could **not** independently verify Fed policy, inflation, rates, or geopolitical developments. The single macro reference above (war tensions / surging oil / \"September curse\") is drawn from the company-news stream only and should be treated as unconfirmed.\n- **No price/valuation series:** Only a single cited price point (US$80.81, Sept 2) and qualitative performance figures (13% August gain, 52-week low, YTD underperformance) were available; no full price history, volume, or consensus target-price data.\n- **No earnings/financials detail:** EPS growth (24%+) and PEG are cited from a single analyst article; no primary financial statements or guidance were in the feed.\n\n## Key Points Table\n\n| # | Theme | Detail (as reported) | Date | Source / Tier | Direction |\n|---|-------|----------------------|------|---------------|-----------|\n| 1 | Stock performance | +13% in August after hitting a 52-week low | 2026-09-03 | Yahoo / T3 | Bullish |\n| 2 | Price level | Cited at US$80.81, in recovery from low | 2026-09-02 | Yahoo / T3 | Neutral |\n| 3 | Relative perf | Underperforming S&P 500 YTD (w/ MELI, TSLA) | 2026-09-02 | Yahoo / T3 | Bearish |\n| 4 | Ad business | Momentum from AI tools, programmatic, advertiser growth | 2026-09-03 | Yahoo / T3 | Bullish |\n| 5 | Valuation thesis | PEG + 24%+ EPS growth justify valuation; \"2nd monetization cycle\"; Buy | 2026-09-03 | SeekingAlpha / T3 | Bullish |\n| 6 | Analyst view | ABR points to invest/buy (optimism caveat) | 2026-09-03 | Yahoo / T3 | Bullish |\n| 7 | Partnership | \"The Gentlemen's Serve\" — Stella Artois, *The Gentlemen* S2 | 2026-09-02 | Yahoo / T3 | Bullish |\n| 8 | M&A | 4-target shortlist; most blocked by regulation/price | 2026-09-03 | Yahoo / T3 | Neutral |\n| 9 | Content signal | Video-game trailer = most-watched EN title (6-hr exclusivity) | 2026-09-03 | Yahoo / T3 | Neutral |\n| 10 | Macro (unconfirmed) | Risk-off: war tensions, surging oil, \"September curse\" | 2026-09-02 | Yahoo / T3 (passing) | Bearish |\n\n**Bottom line:** Company fundamentals and momentum favor **BUY**, but the unassessable macro environment (global feed down) argues for **staggered entries and defined risk** until macro data is restored.",
+      "meta": {
+        "extractor_version": "w1.5_llm"
+      }
+    },
+    "fundamentals": {
+      "agent_id": "fundamentals_analyst",
+      "ticker": "NFLX",
+      "end_date": "2026-09-03",
+      "evidence": [
+        {
+          "id": "ev_tool_f9b26c8d",
+          "source": "tool:tool",
+          "source_type": "external",
+          "timestamp": "2026-11-16T10:21:03.854618Z",
+          "content": {
+            "text": "# Company Fundamentals for NFLX\n# Data retrieved on: 2026-11-16 18:16:59\n\nName: Netflix, Inc.\nSector: Communication Services\nIndustry: Entertainment\nMarket Cap: 255208161280\nPE Ratio (TTM): 17.962427\nForward PE: 16.479555\nPEG Ratio: 0.99\nPrice to Book: 8.714246\nEPS (TTM): 3.46\nForward EPS: 3.77134\nDividend Yield: 0.0\nBeta: 1.606\n52 Week High: 115.25\n52 Week Low: 61.39\n50 Day Average: 69.1846\n200 Day Average: 80.49785\nRevenue (TTM): 49734631424\nGross Profit: 25207793664\nEBITDA: 15957057536\nNet Income: 14766653440\nProfit Margin: 0.29691\nOperating Margin: 0.31296\nReturn on Equity: 0.53463\nReturn on Assets: 0.17124\nDebt to Equity: 59.857\nCurrent Ratio: 1.075\nBook Value: 7.132\nFree Cash Flow: 25475807232",
+            "full_length": 708,
+            "truncated": false
+          },
+          "raw_ref": "tool_call:chatcmpl-tool-8d93a1c59b0c4343"
+        },
+        {
+          "id": "ev_tool_8fa9b0db",
+          "source": "tool:tool",
+          "source_type": "external",
+          "timestamp": "2026-11-16T10:21:03.854680Z",
+          "content": {
+            "text": "# Income Statement data for NFLX (quarterly)\n# Data retrieved on: 2026-11-16 18:16:59\n\n,2026-06-30,2026-03-31,2025-12-31,2025-09-30\nTax Effect Of Unusual Items,0.0,0.0,0.0,0.0\nTax Rate For Calcs,0.16,0.19,0.126175,0.18\nNormalized EBITDA,8656110000.0,11125638000.0,7852355000.0,7374774000.0\nNet Income From Continuing Operation Net Minority Interest,3401414000.0,5282791000.0,2418521000.0,2546916000.0\nReconciled Depreciation,4411839000.0,4316475000.0,4850219000.0,4090070000.0\nReconciled Cost Of Revenue,6036965000.0,5888238000.0,6522621000.0,6164250000.0\nEBITDA,8656110000.0,11125638000.0,7852355000.0,7374774000.0\nEBIT,4244271000.0,6809163000.0,3002136000.0,3284704000.0\nNet Interest Income,-124024000.0,2590089000.0,-188922000.0,-138837000.0\nInterest Expense,175685000.0,262077000.0,234395000.0,175294000.0\nInterest Income,51661000.0,2852166000.0,45473000.0,36457000.0\nNormalized Income,3401414000.0,5282791000.0,2418521000.0,2546916000.0\nNet Income From Continuing And Discontinued Operation,3401414000.0,5282791000.0,2418521000.0,2546916000.0\nTotal Expenses,8367328000.0,8292760000.0,9094099000.0,8262060000.0\nTotal Operating Income As Reported,4192610000.0,3956997000.0,2956663000.0,3248247000.0\nDiluted Average Shares,4261300000.0,4298437000.0,4317144000.0,4340390000.0\nBasic Average Shares,4189303000.0,4222787000.0,4229221000.0,4244550000.0\nDiluted EPS,0.8,1.23,0.56,0.587\nBasic EPS,0.81,1.25,0.57,0.6\nDiluted NI Availto Com Stockholders,3401414000.0,5282791000.0,2418521000.0,2546916000.0\nNet Income Common Stockholders,3401414000.0,5282791000.0,2418521000.0,2546916000.0\nNet Income,3401414000.0,5282791000.0,2418521000.0,2546916000.0\nNet Income Including Noncontrolling Interests,3401414000.0,5282791000.0,2418521000.0,2546916000.0\nNet Income Continuous Operations,3401414000.0,5282791000.0,2418521000.0,2546916000.0\nTax Provision,667172000.0,1264295000.0,349220000.0,562494000.0\nPretax Income,4068586000.0,6547086000.0,2767741000.0,3109410000.0\nNet Non Operating Interest Income Expense,-124024000.0,2590089000.0,-188922000.0,-138837000.0\nInterest Expense Non Operating,175685000.0,262077000.0,234395000.0,175294000.0\nInterest Income Non Operating,51661000.0,2852166000.0,45473000.0,36457000.0\nOperating Income,4192610000.0,3956997000.0,2956663000.0,3248247000.0\nOperating Expense,2330363000.0,2404522000.0,2571478000.0,2097810000.0\nResearch And Development,1007675000.0,959696000.0,890300000.0,853584000.0\nSelling General And Administration,1322688000.0,1444826000.0,1681178000.0,1244226000.0\nSelling And Marketing Expense,823838000.0,842217000.0,1113376000.0,786295000.0\nGeneral And Administrative Expense,498850000.0,602609000.0,567802000.0,457931000.0\nOther Gand A,498850000.0,602609000.0,567802000.0,457931000.0\nGross Profit,6522973000.0,6361519000.0,5528141000.0,5346057000.0\nCost Of Revenue,6036965000.0,5888238000.0,6522621000.0,6164250000.0\nTotal Revenue,12559938000.0,12249757000.0,12050762000.0,11510307000.0\nOperating Revenue,12559938000.0,12249757000.0,12050762000.0,11510307000.0\n",
+            "full_length": 3006,
+            "truncated": false
+          },
+          "raw_ref": "tool_call:chatcmpl-tool-a78e370a75d080c6"
+        },
+        {
+          "id": "ev_tool_4daeee66",
+          "source": "tool:tool",
+          "source_type": "external",
+          "timestamp": "2026-11-16T10:21:03.854722Z",
+          "content": {
+            "text": "# Balance Sheet data for NFLX (quarterly)\n# Data retrieved on: 2026-11-16 18:17:00\n\n,2026-06-30,2026-03-31,2025-12-31,2025-09-30,2025-06-30,2025-03-31\nTreasury Shares Number,,360366959.0,346541145.0,327605410.0,312285320.0,296983370.0\nOrdinary Shares Number,4163939676.0,4212794271.0,4222162150.0,4237323340.0,,\nShare Issued,4163939676.0,4573161230.0,4568703295.0,4564928750.0,,\nNet Debt,5210074000.0,2100744000.0,5429155000.0,5175733000.0,,\nTotal Debt,14309306000.0,14360516000.0,14462836000.0,14463020000.0,,\nTangible Book Value,-3685521000.0,-2249896000.0,-6162904000.0,-6685844000.0,,\nInvested Capital,44461358000.0,45486915000.0,41078324000.0,40417055000.0,,\nWorking Capital,1718405000.0,4939404000.0,2039261000.0,3231076000.0,,\nNet Tangible Assets,-3685521000.0,-2249896000.0,-6162904000.0,-6685844000.0,,\nCommon Stock Equity,30152052000.0,31126399000.0,26615488000.0,25954035000.0,,\nTotal Capitalization,41977600000.0,44487730000.0,40079459000.0,40417055000.0,,\nTotal Equity Gross Minority Interest,30152052000.0,31126399000.0,26615488000.0,25954035000.0,,\nStockholders Equity,30152052000.0,,,,,\nGains Losses Not Affecting Retained Earnings,-97117000.0,-235031000.0,-580382000.0,-719256000.0,,\nOther Equity Adjustments,-97117000.0,-235031000.0,-580382000.0,-719256000.0,,\nTreasury Stock,28387657000.0,23681974000.0,22372658000.0,20270631000.0,,\nRetained Earnings,50966323000.0,47564909000.0,42282118000.0,39863597000.0,,\nCapital Stock,7670503000.0,7478495000.0,7286410000.0,7080325000.0,,\nCommon Stock,7670503000.0,7478495000.0,7286410000.0,7080325000.0,,\nPreferred Stock,,,0.0,,,\nTotal Liabilities Net Minority Interest,28298389000.0,29889515000.0,28981505000.0,28980800000.0,,\nTotal Non Current Liabilities Net Minority Interest,16163491000.0,17757937000.0,18000575000.0,19248941000.0,,\nOther Non Current Liabilities,4337943000.0,4396606000.0,4536604000.0,4785921000.0,,\nLong Term Debt And Capital Lease Obligation,11825548000.0,13361331000.0,13463971000.0,14463020000.0,,\nLong Term Debt,11825548000.0,13361331000.0,13463971000.0,14463020000.0,,\nCurrent Liabilities,12134898000.0,12131578000.0,10980930000.0,9731859000.0,,\nOther Current Liabilities,3866522000.0,4052278000.0,4084854000.0,4102640000.0,,\nCurrent Deferred Liabilities,1797456000.0,1743448000.0,1775730000.0,1724675000.0,,\nCurrent Deferred Revenue,1797456000.0,1743448000.0,1775730000.0,1724675000.0,,\nCurrent Debt And Capital Lease Obligation,2483758000.0,999185000.0,998865000.0,,,1005881000.0\nCurrent Debt,2483758000.0,999185000.0,998865000.0,,,1005881000.0\nOther Current Borrowings,2483758000.0,999185000.0,998865000.0,,,\nPayables And Accrued Expenses,3987162000.0,5336667000.0,4121481000.0,3904544000.0,,\nCurrent Accrued Expenses,3172611000.0,4441986000.0,3220869000.0,3111311000.0,,\nPayables,814551000.0,894681000.0,900612000.0,793233000.0,,\nAccounts Payable,814551000.0,894681000.0,900612000.0,793233000.0,,\nTotal Assets,58450441000.0,61015914000.0,55596993000.0,54934835000.0,,\nTotal Non Current Assets,44597138000.0,43944932000.0,42576802000.0,41971900000.0,,\nOther Non Current Assets,8360717000.0,8420808000.0,7794060000.0,7494132000.0,,\nGoodwill And Other Intangible Assets,33837573000.0,33376295000.0,32778392000.0,32639879000.0,,\nOther Intangible Assets,33837573000.0,33376295000.0,32778392000.0,32639879000.0,,\nNet PPE,2398848000.0,2147829000.0,2004350000.0,1837889000.0,,\nAccumulated Depreciation,-1219780000.0,-1156084000.0,-1096891000.0,-1045844000.0,,\nGross PPE,3618628000.0,3303913000.0,3101241000.0,2883733000.0,,\nLeases,1368550000.0,1343717000.0,1263051000.0,1077182000.0,,\nConstruction In Progress,449133000.0,306721000.0,285010000.0,442677000.0,,\nMachinery Furniture Equipment,1093817000.0,959835000.0,860434000.0,774047000.0,,\nBuildings And Improvements,551411000.0,538654000.0,537082000.0,508861000.0,,\nLand And Improvements,155717000.0,154986000.0,155664000.0,80966000.0,,\nProperties,0.0,0.0,0.0,0.0,,\nCurrent Assets,13853303000.0,17070982000.0,13020191000.0,12962935000.0,,\nOther Current Assets,2136910000.0,2176991000.0,876302000.0,1482197000.0,,\nPrepaid Assets,584525000.0,601821000.0,498054000.0,467553000.0,,\nReceivables,2003958000.0,2003720000.0,2583476000.0,1688793000.0,,\nTaxes Receivable,,,552000000.0,,,\nAccounts Receivable,2003958000.0,2003720000.0,2031476000.0,1688793000.0,,\nCash Cash Equivalents And Short Term Investments,9127910000.0,12288450000.0,9062359000.0,9324392000.0,,\nOther Short Term Investments,28678000.0,28678000.0,28678000.0,37105000.0,,\nCash And Cash Equivalents,9099232000.0,12259772000.0,9033681000.0,9287287000.0,,\nCash Equivalents,5061612000.0,8394856000.0,3824971000.0,4703165000.0,,\nCash Financial,4037620000.0,3864916000.0,5208710000.0,4584122000.0,,\n",
+            "full_length": 4686,
+            "truncated": false
+          },
+          "raw_ref": "tool_call:chatcmpl-tool-a08719a8006f620d"
+        },
+        {
+          "id": "ev_tool_0793630b",
+          "source": "tool:tool",
+          "source_type": "external",
+          "timestamp": "2026-11-16T10:21:03.854756Z",
+          "content": {
+            "text": "# Cash Flow data for NFLX (quarterly)\n# Data retrieved on: 2026-11-16 18:17:00\n\n,2026-06-30,2026-03-31,2025-12-31,2025-09-30,2025-06-30\nFree Cash Flow,1525168000.0,5094075000.0,1872307000.0,2660455000.0,\nRepurchase Of Capital Stock,-4714403000.0,-1270588000.0,-2079559000.0,-1856885000.0,\nRepayment Of Debt,0.0,0.0,0.0,0.0,\nIssuance Of Debt,,,0.0,0.0,\nIssuance Of Capital Stock,59980000.0,49310000.0,76082000.0,70215000.0,\nCapital Expenditure,-218644000.0,-196130000.0,-239335000.0,-164719000.0,\nEnd Cash Position,9102786000.0,12266873000.0,9039194000.0,9290868000.0,\nBeginning Cash Position,12266873000.0,9039194000.0,9290868000.0,8180573000.0,\nEffect Of Exchange Rate Changes,-19628000.0,-49838000.0,-29377000.0,-21721000.0,\nChanges In Cash,-3144459000.0,3277517000.0,-222297000.0,1132016000.0,\nFinancing Cash Flow,-4669627000.0,-1230814000.0,-2077410000.0,-1737029000.0,\nCash Flow From Continuing Financing Activities,-4669627000.0,-1230814000.0,-2077410000.0,-1737029000.0,\nNet Other Financing Charges,-15204000.0,-9536000.0,-73933000.0,49641000.0,\nNet Common Stock Issuance,-4654423000.0,-1221278000.0,-2003477000.0,-1786670000.0,\nCommon Stock Payments,-4714403000.0,-1270588000.0,-2079559000.0,-1856885000.0,\nCommon Stock Issuance,59980000.0,49310000.0,76082000.0,70215000.0,\nNet Issuance Payments Of Debt,0.0,0.0,0.0,0.0,\nNet Long Term Debt Issuance,0.0,0.0,0.0,0.0,\nLong Term Debt Payments,0.0,0.0,0.0,0.0,\nLong Term Debt Issuance,,,0.0,0.0,\nInvesting Cash Flow,-218644000.0,-781874000.0,-256529000.0,43871000.0,\nCash Flow From Continuing Investing Activities,-218644000.0,-781874000.0,-256529000.0,43871000.0,\nNet Other Investing Changes,,,,36190000.0,-36190000.0\nNet Investment Purchase And Sale,0.0,0.0,0.0,172400000.0,\nSale Of Investment,0.0,0.0,8450000.0,176250000.0,\nPurchase Of Investment,0.0,0.0,-8450000.0,-3850000.0,\nNet Business Purchase And Sale,0.0,-585744000.0,,0.0,0.0\nPurchase Of Business,0.0,-585744000.0,,0.0,0.0\nNet PPE Purchase And Sale,-218644000.0,-196130000.0,-239335000.0,-164719000.0,\nPurchase Of PPE,-218644000.0,-196130000.0,-239335000.0,-164719000.0,\nOperating Cash Flow,1743812000.0,5290205000.0,2111642000.0,2825174000.0,\nCash Flow From Continuing Operating Activities,1743812000.0,5290205000.0,2111642000.0,2825174000.0,\nChange In Working Capital,-1305239000.0,105299000.0,-252362000.0,575750000.0,\nChange In Other Working Capital,-9762000.0,-486119000.0,-192127000.0,-101255000.0,\nChange In Other Current Assets,111713000.0,-704640000.0,-313014000.0,-169597000.0,\nChange In Payables And Accrued Expense,-1407190000.0,1296058000.0,252779000.0,846602000.0,\nChange In Accrued Expense,-1249793000.0,1295904000.0,134889000.0,707151000.0,\nChange In Payable,-157397000.0,154000.0,117890000.0,139451000.0,\nChange In Account Payable,-157397000.0,154000.0,117890000.0,139451000.0,\nOther Non Cash Items,-4967961000.0,-4603474000.0,-4866718000.0,-4487380000.0,\nStock Based Compensation,131312000.0,140405000.0,134624000.0,80986000.0,\nDeferred Tax,81260000.0,58819000.0,-162912000.0,20539000.0,\nDeferred Income Tax,81260000.0,58819000.0,-162912000.0,20539000.0,\nDepreciation Amortization Depletion,4411839000.0,4316475000.0,4850219000.0,4090070000.0,\nDepreciation And Amortization,4411839000.0,4316475000.0,4850219000.0,4090070000.0,\nAmortization Cash Flow,4311309000.0,4217900000.0,4764236000.0,4002744000.0,\nAmortization Of Intangibles,4311309000.0,4217900000.0,4764236000.0,4002744000.0,\nDepreciation,100530000.0,98575000.0,85983000.0,87326000.0,\nOperating Gains Losses,-8813000.0,-10110000.0,-9730000.0,-1707000.0,\nNet Foreign Currency Exchange Gain Loss,-8813000.0,-10110000.0,-9730000.0,-1707000.0,\nNet Income From Continuing Operations,3401414000.0,5282791000.0,2418521000.0,2546916000.0,\n",
+            "full_length": 3723,
+            "truncated": false
+          },
+          "raw_ref": "tool_call:chatcmpl-tool-b80b867f658da426"
+        }
+      ],
+      "claims": [
+        {
+          "id": "cl_607be1b3",
+          "statement": "NFLX has a TTM P/E of about 17.96x and a market cap of about $255.2B.",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "ev_tool_f9b26c8d"
+          ],
+          "framework": "fundamental",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_95da0516",
+          "statement": "NFLX revenue grew from $11.51B in Q3 2025 to $12.56B in Q2 2026.",
+          "confidence": 0.9,
+          "evidence_ids": [
+            "ev_tool_8fa9b0db"
+          ],
+          "framework": "fundamental",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_dea4fabe",
+          "statement": "NFLX gross margin increased to about 51.9% in Q1 2026 and Q2 2026 from about 46% in Q3 2025 and Q4 2025.",
+          "confidence": 0.9,
+          "evidence_ids": [
+            "ev_tool_8fa9b0db"
+          ],
+          "framework": "fundamental",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_e4b2ecaf",
+          "statement": "NFLX operating margin expanded to about 33.4% in Q2 2026.",
+          "confidence": 0.85,
+          "evidence_ids": [
+            "ev_tool_8fa9b0db"
+          ],
+          "framework": "fundamental",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_43db4f43",
+          "statement": "NFLX had modest net debt of $5.21B in Q2 2026, with total debt of $14.31B and cash plus short-term investments of $9.13B.",
+          "confidence": 0.9,
+          "evidence_ids": [
+            "ev_tool_4daeee66"
+          ],
+          "framework": "fundamental",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_e285c3c8",
+          "statement": "NFLX's balance sheet is intangible-heavy, with goodwill and intangibles of $33.84B and negative tangible book value of -$3.69B in Q2 2026.",
+          "confidence": 0.9,
+          "evidence_ids": [
+            "ev_tool_4daeee66"
+          ],
+          "framework": "fundamental",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_b37880f9",
+          "statement": "NFLX generated about $11.15B of free cash flow over the last four quarters, including $1.53B in Q2 2026 and $5.09B in Q1 2026.",
+          "confidence": 0.85,
+          "evidence_ids": [
+            "ev_tool_0793630b"
+          ],
+          "framework": "fundamental",
+          "counter_claim_ids": []
+        },
+        {
+          "id": "cl_3e5ee3bb",
+          "statement": "NFLX returned about $9.92B to shareholders through buybacks over the last four quarters, with $4.71B in Q2 2026 and rising treasury shares.",
+          "confidence": 0.85,
+          "evidence_ids": [
+            "ev_tool_0793630b",
+            "ev_tool_4daeee66"
+          ],
+          "framework": "fundamental",
+          "counter_claim_ids": []
+        }
+      ],
+      "signals": [
+        {
+          "ticker": "NFLX",
+          "dimension": "profitability",
+          "framework": "fundamental",
+          "direction": "bullish",
+          "strength": 0.85,
+          "claim_ids": [
+            "cl_95da0516",
+            "cl_dea4fabe",
+            "cl_e4b2ecaf"
+          ],
+          "provenance": "aggregated from 3 income statement claims"
+        },
+        {
+          "ticker": "NFLX",
+          "dimension": "cash_flow",
+          "framework": "fundamental",
+          "direction": "bullish",
+          "strength": 0.8,
+          "claim_ids": [
+            "cl_b37880f9",
+            "cl_3e5ee3bb"
+          ],
+          "provenance": "aggregated from 2 cash flow and capital return claims"
+        },
+        {
+          "ticker": "NFLX",
+          "dimension": "balance_sheet",
+          "framework": "fundamental",
+          "direction": "neutral",
+          "strength": 0.6,
+          "claim_ids": [
+            "cl_43db4f43",
+            "cl_e285c3c8"
+          ],
+          "provenance": "aggregated from 2 balance sheet claims"
+        }
+      ],
+      "narrative": "\n\nAll four tools returned complete data (no `DATA_UNAVAILABLE`/`PARTIAL_DATA` prefixes), so this is a full-success case. Here is the comprehensive fundamental report.\n\n---\n\n# NFLX (Netflix, Inc.) — Fundamental Analysis Report\n\n**Trading date: 2026-09-03 | Most recent reported quarter: Q2 2026 (ended 2026-06-30)**\n\n## 1. Executive Summary\n\nNetflix is a **high-quality, cash-generative, asset-light** entertainment business trading at an **attractive valuation** (P/E ~18x, PEG ~0.99) while sitting **at its 52-week low (~$61, a ~47% drawdown from the $115 high)**. The fundamental picture is strong and *improving*: gross margin has jumped from ~46% to ~52%, operating margin has expanded to ~33%, and the company is returning ~$10B to shareholders via buybacks over the last four quarters. The tension for traders is **strong trailing fundamentals vs. a persistent downtrend** (price is ~11% below the 50-day and ~24% below the 200-day average). This is a classic \"value vs. value-trap\" setup: the cheap multiple and sub-1 PEG argue for a mean-reversion/contrarian long, but the momentum and position at the 52-week low argue for waiting for confirmation.\n\n## 2. Company Profile & Snapshot\n\n| Item | Detail |\n|---|---|\n| Company | Netflix, Inc. (NFLX) |\n| Sector / Industry | Communication Services / Entertainment |\n| Market Cap | **$255.2B** |\n| Implied Share Price | ~$61.3 (Mkt Cap ÷ 4.164B shares) |\n| 52-Week Range | $61.39 – $115.25 (currently at the low) |\n| 50-Day / 200-Day Avg | $69.18 / $80.50 (price below both) |\n| Beta | **1.61** (high volatility) |\n| Dividend Yield | 0% (all capital returned via buybacks) |\n| Shares Outstanding | ~4.16B (declining via buybacks) |\n\n## 3. Valuation\n\n| Metric | Value | Read |\n|---|---|---|\n| P/E (TTM) | **17.96x** | Low for a ~30% net-margin growth company |\n| Forward P/E | **16.48x** | Market expects EPS growth (3.46 → 3.77) |\n| PEG Ratio | **0.99** | **<1 = growth-adjusted undervaluation** |\n| Price/Book | 8.71x | Elevated (but book is depressed by intangibles) |\n| EPS (TTM) | $3.46 | |\n| Forward EPS | $3.77 | ~9% expected growth |\n\n**Key takeaway:** A PEG near 1.0 with a forward P/E of ~16.5x is historically cheap for Netflix. The market has de-rated the multiple substantially (stock at 52-week low), which is the core bull case. The risk is that the low multiple reflects *forward* growth deceleration the market is pricing in.\n\n## 4. Profitability & Income Statement Trends (Quarterly)\n\n| Metric | Q3'25 (09-30) | Q4'25 (12-31) | Q1'26 (03-31) | Q2'26 (06-30) | Trend |\n|---|---|---|---|---|---|\n| Revenue | $11.51B | $12.05B | $12.25B | $12.56B | Steady QoQ growth |\n| Gross Margin | 46.5% | 45.9% | **51.9%** | **51.9%** | **~600bp step-up** |\n| Operating Margin | 28.2% | 24.5% | 32.3% | **33.4%** | Expanding |\n| Net Income | $2.55B | $2.42B | $5.28B* | $3.40B | Strong |\n| Diluted EPS | $0.587 | $0.56 | $1.23* | $0.80 | Strong |\n| D&A (content amort.) | $4.09B | $4.85B | $4.32B | $4.41B | High, non-cash |\n\n\\* **Q1'26 net income/EPS was inflated by a one-time $2.85B interest income item** (vs. ~$0.04–0.05B in other quarters). Excluding it, Q1'26 \"core\" net income is ~$2.4B and EPS ~$0.56 — in line with other quarters. **Do not annualize the $1.23 EPS.**\n\n**Key takeaways:**\n- **Gross margin is the standout positive** — a ~600bp jump to ~52% signals content-cost discipline and pricing power. This is a genuine fundamental inflection.\n- **Operating leverage is working**: opex (R&D + SG&A) is roughly flat-to-down while revenue grows, pushing operating margin to a ~33% high.\n- **TTM (per fundamentals): Revenue $49.7B, Net Margin ~29.7%, Operating Margin ~31.3%, ROE 53.5%, ROA 17.1%.** ROE is very high but is *amplified by buybacks shrinking the equity base* — treat with care.\n- **D&A is ~$4.3–4.9B/quarter** — this is content amortization (a real economic cost, but non-cash). It's why EBITDA (~$8.7B in Q2'26) is far above EBIT (~$4.2B).\n\n## 5. Balance Sheet & Financial Health\n\n| Metric | Q2'26 (06-30) | Q1'26 | Q4'25 | Read |\n|---|---|---|---|---|\n| Total Debt | $14.31B | $14.36B | $14.46B | Stable, slowly declining |\n| Cash + ST Investments | $9.13B | $12.29B | $9.06B | Strong liquidity |\n| **Net Debt** | **$5.21B** | $2.10B | $5.43B | Manageable |\n| Debt/Equity | ~60% | — | — | Moderate |\n| Current Ratio | 1.075 | — | — | Adequate (thin but fine) |\n| Total Assets | $58.45B | $61.02B | $55.60B | |\n| Total Equity | $30.15B | $31.13B | $26.62B | |\n| Goodwill + Intangibles | **$33.84B** | $33.38B | $32.78B | **>58% of assets** |\n| Tangible Book Value | **-$3.69B** | -$2.25B | -$6.16B | Negative (intangible-heavy) |\n| Retained Earnings | $50.97B | $47.56B | $42.28B | Compounding earnings |\n| Treasury Stock | $28.39B | $23.68B | $22.37B | Heavy buyback accumulation |\n\n**Key takeaways:**\n- **Net debt is modest (~$5.2B) against ~$9B cash and strong FCF** — no solvency risk. Debt is being slowly paid down.\n- **The balance sheet is intangible-heavy** ($33.8B goodwill/intangibles = content library + acquisitions), which makes **tangible book value negative**. This is *normal* for a content company and is why P/B (8.7x) is not a useful metric here — **use P/E and FCF yield instead.**\n- **Current ratio of ~1.08 is thin** but acceptable given the scale of cash generation and no near-term debt maturities of concern.\n\n## 6. Cash Flow & Capital Allocation\n\n| Metric | Q3'25 | Q4'25 | Q1'26 | Q2'26 | 4-Qtr Sum |\n|---|---|---|---|---|---|\n| Operating CF | $2.83B | $2.11B | $5.29B | $1.74B | $11.97B |\n| Capex | $0.16B | $0.24B | $0.20B | $0.22B | $0.82B |\n| **Free Cash Flow** | $2.66B | $1.87B | $5.09B | $1.53B | **~$11.15B** |\n| **Share Buybacks** | $1.86B | $2.08B | $1.27B | $4.71B | **~$9.92B** |\n\n**Key takeaways:**\n- **Asset-light model confirmed**: capex is trivial (~$0.2B/qtr, <2% of revenue). FCF conversion is excellent.\n- **Aggressive capital returns**: ~$9.9B in buybacks over four quarters (Q2'26 alone was $4.7B). Treasury shares rose from ~312M to ~360M; share count is shrinking ~1–2%/quarter, providing **structural EPS accretion** even if flat earnings.\n- **⚠️ Data caveat on FCF:** The fundamentals report lists TTM FCF of **$25.48B**, but the internally-consistent quarterly FCF (OCF − capex) sums to only **~$11.15B**. The quarterly figures are transparent and reconcile exactly, so I treat **~$11B TTM FCF** as the reliable number. On that basis, **FCF yield ≈ 4.3%** (vs. ~10% if the $25.5B figure were used). Plan around the conservative ~4–5% FCF yield.\n\n## 7. Key Trends & Momentum\n\n- **Fundamentals: Improving.** Gross margin +600bp, operating margin expanding to ~33%, revenue growing steadily, FCF strong, buybacks accelerating.\n- **Price action: Deteriorating.** Stock at 52-week low (~$61), ~47% below the high, below both the 50-day (-11%) and 200-day (-24%) averages. This is a **downtrend**, not a base.\n- **The divergence is the story:** improving trailing fundamentals + falling multiple = either (a) a **contrarian value opportunity** if the de-rating is overdone, or (b) a **value trap** if the market is correctly pricing in slower future growth/competition.\n\n## 8. Risks & Watch Items\n\n1. **Momentum / trend risk** — price at 52-week low and below key MAs; catching a falling knife risk. High beta (1.61) amplifies both directions.\n2. **Forward growth deceleration** — the low multiple may reflect expectations of slowing subscriber/revenue growth; confirm at the next earnings print.\n3. **One-time item distortion** — Q1'26 EPS ($1.23) was inflated by $2.85B interest income; use normalized ~$0.56–0.80 EPS for modeling.\n4. **Intangible-heavy balance sheet** — negative tangible book; P/B is not meaningful; content cost (cost of revenue ~$6B/qtr) is the key margin variable.\n5. **No dividend** — all return is via buybacks; in a drawdown, buybacks are the only cushion.\n6. **FCF data discrepancy** — reconcile the $25.5B (fundamentals) vs. ~$11B (quarterly) FCF before sizing a position on FCF yield.\n\n## 9. Actionable Insights for Traders\n\n- **Bull case (contrarian long):** PEG ~0.99, forward P/E ~16.5x, gross margin inflecting to ~52%, operating margin ~33%, ~$10B/yr buybacks shrinking the share count, net debt only ~$5B. At the 52-week low, the risk/reward on a fundamental basis is favorable *if* the de-rating is sentiment-driven.\n- **Bear case (wait):** Downtrend intact, price below both MAs, at the 52-week low. The cheap multiple may be justified by forward growth concerns. High beta means further downside is possible.\n- **Practical triggers to watch:**\n  - **Confirmation long:** reclaim of the 50-day (~$69) or a flat/up quarter with gross margin holding ≥52% and no guidance cut.\n  - **Invalidation / avoid:** a break below the 52-week low (~$61.4) on a revenue or margin miss, or a guidance cut — that would confirm the value-trap thesis.\n  - **Position sizing:** given beta 1.61 and the FCF data discrepancy, size conservatively and use the ~$61.4 low as a hard risk line.\n- **Net fundamental stance:** Fundamentals are **constructive/improving**; the *price* is the issue. This is a **monitor-with-confirmation** setup rather than an unconditional buy — the cheap valuation is real, but the trend has not turned.\n\n## 10. Summary Table\n\n| Category | Key Metric | Value | Signal |\n|---|---|---|---|\n| **Valuation** | P/E (TTM) | 17.96x | Cheap |\n| | Forward P/E | 16.48x | Cheap |\n| | PEG | 0.99 | **Growth-undervalued** |\n| | P/B | 8.71x | Not meaningful (intangibles) |\n| **Growth** | Revenue (TTM) | $49.7B | Steady |\n| | Revenue QoQ (Q2'26) | +2.5% | Positive |\n| | Fwd EPS growth | ~9% ($3.46→$3.77) | Positive |\n| **Profitability** | Gross Margin (Q2'26) | **51.9%** | **Inflecting up (+600bp)** |\n| | Operating Margin (Q2'26) | **33.4%** | Expanding |\n| | Net Margin (TTM) | ~29.7% | Strong |\n| | ROE | 53.5% | Very high (buyback-boosted) |\n| **Balance Sheet** | Net Debt | $5.21B | Manageable |\n| | Cash + ST Inv. | $9.13B | Strong |\n| | Debt/Equity | ~60% | Moderate |\n| | Current Ratio | 1.075 | Adequate |\n| | Goodwill/Intangibles | $33.84B | Intangible-heavy |\n| **Cash Flow** | FCF (4-qtr, reliable) | ~$11.15B | Strong |\n| | FCF Yield (conservative) | ~4.3% | Healthy |\n| | Capex (Q2'26) | $0.22B | Asset-light |\n| | Buybacks (4-qtr) | ~$9.92B | Aggressive return |\n| **Momentum** | Price vs 52-wk high | -47% | Downtrend |\n| | Price vs 50-day | -11% | Below |\n| | Price vs 200-day | -24% | Below |\n| | Beta | 1.61 | High volatility |\n| **Watch** | Q1'26 one-time interest income | $2.85B | Distorts EPS |\n| | FCF data discrepancy | $25.5B vs ~$11B | Reconcile before sizing |\n\n**Bottom line:** NFLX's fundamentals are strong and improving (margin inflection, FCF, buybacks) and the valuation is cheap (PEG ~1, fwd P/E ~16.5x), but the stock is in a downtrend at its 52-week low. Fundamentally **constructive**; tactically a **monitor-with-confirmation** — the cheap multiple is the opportunity, the broken trend is the risk. Use the ~$61.4 low as the risk line and the 50-day (~$69) as the confirmation trigger.",
+      "meta": {
+        "extractor_version": "w1.5_llm"
+      }
+    }
+  },
+  "master_signals": {
+    "warren_buffett_agent": {
+      "NFLX": {
+        "signal": "bullish",
+        "confidence": 85,
+        "reasoning": "Strong moat, high ROE/margins, growth, buybacks; 53% margin of safety, though liquidity weak."
+      }
+    },
+    "charlie_munger_agent": {
+      "NFLX": {
+        "signal": "neutral",
+        "confidence": 50,
+        "reasoning": "Strong moat and predictability, but poor cash conversion and 71% premium to fair value; no margin of safety."
+      }
+    },
+    "ben_graham_agent": {
+      "NFLX": {
+        "signal": "bearish",
+        "confidence": 78.0,
+        "reasoning": "From a Graham perspective, NFLX fails the essential margin-of-safety test. The calculated Graham Number is $19.13, while the reported margin of safety is -68.98%, indicating the stock is trading well above intrinsic value as measured by conservative Graham criteria. This is the most important factor and alone would discourage purchase. Financial strength is also inadequate: the current ratio of 1.19 is below Graham’s preferred threshold of at least 2.0 and even below the weaker 1.5 liquidity benchmark, suggesting limited short-term cushion. The debt ratio of 0.52 is somewhat high and adds balance-sheet risk, particularly for a company without a demonstrated dividend record to provide additional defensive support. Earnings are positive and have grown, which is a favorable point, but Graham would not accept speculative growth or positive earnings as a substitute for a deep margin of safety, strong liquidity, and conservative valuation. Therefore, the appropriate signal is bearish, with high confidence that the stock does not meet Graham-style defensive investment standards."
+      }
+    }
+  },
+  "risk_profile": {
+    "ticker": "NFLX",
+    "end_date": "2026-09-03",
+    "trend": {
+      "dimension": "trend",
+      "direction": "neutral",
+      "strength": 0.5,
+      "contributing_signals": 3,
+      "source_analysts": [
+        "market_analyst"
+      ],
+      "key_claims": [
+        "cl_d05a65f0",
+        "cl_d91aad5b",
+        "cl_a552e81d",
+        "cl_f8d55bc6",
+        "cl_a9c13f7a"
+      ],
+      "note": ""
+    },
+    "valuation": {
+      "dimension": "valuation",
+      "direction": "bullish",
+      "strength": 0.825,
+      "contributing_signals": 3,
+      "source_analysts": [
+        "fundamentals_analyst"
+      ],
+      "key_claims": [
+        "cl_95da0516",
+        "cl_dea4fabe",
+        "cl_e4b2ecaf",
+        "cl_b37880f9",
+        "cl_3e5ee3bb"
+      ],
+      "note": ""
+    },
+    "tail_risk": {
+      "dimension": "tail_risk",
+      "direction": "neutral",
+      "strength": 0.0,
+      "contributing_signals": 0,
+      "source_analysts": [
+        "tail_risk_framework"
+      ],
+      "key_claims": [],
+      "note": "no tail_risk framework view available"
+    },
+    "catalyst": {
+      "dimension": "catalyst",
+      "direction": "neutral",
+      "strength": 0.5,
+      "contributing_signals": 3,
+      "source_analysts": [
+        "news_analyst"
+      ],
+      "key_claims": [
+        "cl_3ed5bbc6",
+        "cl_cfcebb1d",
+        "cl_84c08823",
+        "cl_d0885b45",
+        "cl_97497c0a"
+      ],
+      "note": ""
+    },
+    "sentiment": {
+      "dimension": "sentiment",
+      "direction": "bullish",
+      "strength": 0.725,
+      "contributing_signals": 3,
+      "source_analysts": [
+        "sentiment_analyst"
+      ],
+      "key_claims": [
+        "cl_043b3f08",
+        "cl_b089d45a",
+        "cl_f95105a2",
+        "cl_5b2402a1",
+        "cl_611bdd40"
+      ],
+      "note": ""
+    },
+    "framework_views": {
+      "intrinsic_value": {
+        "framework_id": "intrinsic_value",
+        "core_question": "内在价值是否被显著低估，且存在足够的安全边际？",
+        "verdict": "neutral",
+        "confidence": 0.5,
+        "contributing_masters": [
+          "charlie_munger_analyst"
+        ],
+        "total_masters_in_group": 3,
+        "key_uncertainty": "",
+        "applicable_when": "适用于成熟、盈利稳定、有可预测现金流的公司；不适用于早期或亏损公司。",
+        "claims": []
+      }
+    },
+    "scenarios": {},
+    "overall_weights": {},
+    "falsifiers": [],
+    "confidence": 0.35124999999999995,
+    "overall_verdict": "bullish",
+    "overall_score": 0.35124999999999995,
+    "rating": "Overweight",
+    "meta": {
+      "builder": "w3a_rule_only",
+      "total_signals": 12,
+      "dimension_weights": {
+        "trend": 0.2,
+        "valuation": 0.25,
+        "tail_risk": 0.2,
+        "catalyst": 0.15,
+        "sentiment": 0.2
+      }
+    }
+  },
+  "final_rating": "Overweight",
+  "reasoning_mode": "framework",
+  "price_at_decision": 82.7300033569336,
+  "price_at_1m": null,
+  "price_at_3m": null,
+  "price_at_6m": null,
+  "outcome": "pending",
+  "outcome_details": null,
+  "meta": {
+    "agent": "portfolio_manager",
+    "decision_length": 5973,
+    "has_risk_profile": true
+  }
+}
