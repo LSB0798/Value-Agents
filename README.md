@@ -78,7 +78,7 @@ A structured risk portrait injected into Research Manager and Portfolio Manager 
 
 - **5 dimensions**: trend (market) / valuation (fundamentals) / catalyst (news) / sentiment / tail_risk
 - **Scoring**: weighted aggregation → `overall_score` → rating mapping (Buy / Overweight / Hold / Underweight / Sell)
-- **Falsifiers**: explicit conditions under which the decision would be wrong
+- **Falsifiers**: schema field exists for "conditions under which the decision would flip" — **currently unpopulated**, LLM-fill is a Phase 6 item
 - **State-passed**: `risk_profile` field in `AgentState` (Annotated with `merge_dicts`)
 
 ### Learning Loop
@@ -119,7 +119,7 @@ The default LangGraph pipeline is **serial** (analysts run one at a time, not in
    - Selected skills run sequentially inside the researcher's step loop.
    - After the final round, the **Research Manager** synthesizes the debate into `investment_plan`.
 3. **Trader**: converts `investment_plan` into a specific trade plan.
-4. **Risk Team** (`risk_team` meta skill): 3-way risk debate (Aggressive / Conservative / Neutral), 1–5 rounds. History is compressed every 2 rounds to keep the prompt bounded.
+4. **Risk Team** (`risk_team` meta skill): 3-way risk debate (Aggressive / Conservative / Neutral), 1–5 rounds. **History is compressed at the start of every round when it exceeds 15K chars** (Phase 5 W2.5: `_KEEP_TAIL_CHARS=8000`, `_SUMMARY_MAX_WORDS=300`).
 5. **Portfolio Manager**: synthesizes all information → `final_trade_decision` (`BUY`/`SELL`/`HOLD`/`OVERWEIGHT`/`UNDERWEIGHT`).
 
 #### Chat Mode (conversational)
@@ -151,6 +151,7 @@ The default LangGraph pipeline is **serial** (analysts run one at a time, not in
   - **ROIC API** — quarterly fundamentals for TTM (trailing-twelve-month) calculation.
   - **Finnhub** — insider trades.
   - **Alpha Vantage** — news with built-in sentiment.
+  - **GNews** — supplemental English-language news feed for company and global macro headlines
 
 ### Data Caching
 
@@ -161,6 +162,11 @@ The cache directory structure is as follows:
 
 ```text
 dataflows/data_cache/
+├── prices/daily/
+├── fundamentals/
+│   ├── quarterly/
+│   ├── annual/
+│   └── edgar/
 ├── line_items/                 # Detailed line items (JSON per ticker+period)
 │   └── AAPL_ttm_line_items.json
 ├── insider/                    # Insider trades (JSON per ticker)
@@ -305,7 +311,7 @@ agents/skills/
 - `scripts/regression.py` (quick / full / capture / lenient modes)
 - `scripts/keepalive.py` (GPU daemon,降频 during regression)
 - `scripts/rollback.sh` (one-click rollback to any commit)
-- 145 unit tests (pytest)
+- 150 unit tests (pytest)
 
 **Bug Fixes**
 - `agent_states.py`: added `risk_profile: Annotated[Dict, merge_dicts]` (was silently dropped by LangGraph)
@@ -346,7 +352,7 @@ agents/skills/
 
 ### Requirements
 
-- Python 3.13+
+- Python 3.10+
 - Docker (optional but recommended)
 
 ### Clone & Install
